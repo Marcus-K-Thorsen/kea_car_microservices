@@ -15,7 +15,6 @@ class RabbitMQManagement(ABC):
     def __init__(self, queue_name: str = '') -> None:
         host: str = os.getenv('RABBITMQ_HOST', 'localhost')
         connection_params: ConnectionParameters = ConnectionParameters(host=host)
-        # Can you add more connection parameters here, with default values and some descriptive comments?
         
         self.queue_name = queue_name
         self.connection: BlockingConnection = BlockingConnection(connection_params)
@@ -268,4 +267,3 @@ class Consumer(RabbitMQManagement):
         print(f"Received message: {body.decode()}")
         ch.basic_ack(delivery_tag=method.delivery_tag)
         print(f"Acknowledged message: {body}")
-    
