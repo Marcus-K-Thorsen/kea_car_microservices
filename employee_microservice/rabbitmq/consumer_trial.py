@@ -12,7 +12,7 @@ class Trial(BaseModel):
 
 class TrialConsumer(FanoutConsumer):
     def __init__(self):
-        super().__init__('trial_exchange', 'trial_queue_auth')
+        super().__init__('trial_exchange', 'trial_queue_employee')
 
     def on_message(self, channel: BlockingChannel, method: BasicDeliver, properties: BasicProperties, body: bytes):
         trial_message: str = body.decode('utf-8')

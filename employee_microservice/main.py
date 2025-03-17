@@ -1,7 +1,6 @@
 # External Library imports
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from rabbitmq.consumer import Consumer
 
 app = FastAPI()
 

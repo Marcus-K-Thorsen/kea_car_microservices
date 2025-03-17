@@ -4,24 +4,28 @@ import pika
 from pika import BlockingConnection, ConnectionParameters
 from pika.frame import Method
 from pika.exceptions import ChannelClosed
-from pika.spec import Basic, BasicProperties
 from pika.adapters.blocking_connection import BlockingChannel
 from typing import Callable, Union, Literal, Optional, Dict, List, Any
 from abc import ABC, abstractmethod
 
 load_dotenv()
 
-class RabbitMQManagement(ABC):
-    def __init__(self, queue_name: str = '') -> None:
+class RabbitMQManagement():
+    def __init__(self) -> None:
         host: str = os.getenv('RABBITMQ_HOST', 'localhost')
         connection_params: ConnectionParameters = ConnectionParameters(host=host)
         # Can you add more connection parameters here, with default values and some descriptive comments?
         
-        self.queue_name = queue_name
+        self.queue_name: Optional[str] = None
+        self.exchange_name: Optional[str] = None
+        self.routing_keys: List[str] = []
+        self.routing_key: str = ''
         self.connection: BlockingConnection = BlockingConnection(connection_params)
         self.channel: BlockingChannel = self.connection.channel()
     
     def does_queue_exist(self, queue_name: str) -> bool:
+        if not isinstance(queue_name, str):
+            raise TypeError('Queue name must be a string')
         try:
             self.channel.queue_declare(queue=queue_name, passive=True)
             return True
@@ -32,6 +36,8 @@ class RabbitMQManagement(ABC):
                 raise e
             
     def does_exchange_exist(self, exchange_name: str) -> bool:
+        if not isinstance(exchange_name, str):
+            raise TypeError('Exchange name must be a string')
         try:
             self.channel.exchange_declare(exchange=exchange_name, passive=True)
             return True
@@ -54,8 +60,7 @@ class RabbitMQManagement(ABC):
         This method creates an exchange if it does not already exist, and if the exchange exists,
         verifies that it is of the correct and expected class.
         
-        :param str exchange_name: The name of the exchange. Must be a non-empty string containing only letters, digits, hyphen, underscore, period, or colon.
-                                  The exchange name is used to route messages to the appropriate queues.
+        :param str exchange_name: The name of the exchange. The exchange name is used to route messages to the appropriate queues.
         :param str exchange_type: The type of the exchange. Defaults to 'direct' because it provides simple and predictable routing behavior. Must be one of 'direct', 'fanout', 'topic', or 'headers'.
         
                                   - 'direct': Routes messages to queues based on the exact match between the routing key and the queue binding key.
@@ -72,15 +77,12 @@ class RabbitMQManagement(ABC):
                                  Auto-delete exchanges are useful for temporary exchanges that should be removed when no longer needed.
         :returns: Method frame from the Exchange.Declare-ok response. This can be used to get information about the declared exchange.
         :rtype: pika.frame.Method
-        :raises ValueError: If the exchange name contains invalid characters.
         """
         # Validate exchange name
         if not exchange_name:
             raise ValueError('Exchange name must be provided')
         if not isinstance(exchange_name, str):
             raise TypeError('Exchange name must be a string')
-        if not all(char.isalnum() or char in '-_.:' for char in exchange_name):
-            raise ValueError('Exchange name must contain only letters, digits, hyphen, underscore, period, or colon')
 
         # Validate exchange type
         if not isinstance(exchange_type, str):
@@ -96,6 +98,8 @@ class RabbitMQManagement(ABC):
         
 
         # Declare the exchange
+        self.exchange_name: str = exchange_name
+        
         return self.channel.exchange_declare(
             exchange_name, 
             exchange_type,
@@ -127,13 +131,10 @@ class RabbitMQManagement(ABC):
                                  Auto-delete queues are useful for temporary queues that should be removed when no longer needed.
         :returns: Method frame from the Queue.Declare-ok response. This can be used to get information about the declared queue.
         :rtype: pika.frame.Method
-        :raises ValueError: If the queue name contains invalid characters.
         """
         # Validate queue name
         if not isinstance(queue_name, str):
             raise TypeError('Queue name must be a string')
-        #if not all(char.isalnum() or char in '-_.:' for char in queue_name):
-        #    raise ValueError('Queue name must contain only letters, digits, hyphen, underscore, period, or colon')
 
         # Validate boolean parameters
         if not isinstance(durable, bool):
@@ -152,120 +153,80 @@ class RabbitMQManagement(ABC):
             auto_delete
         )
         
-        self.queue_name = result.method.queue
+        self.queue_name: str = result.method.queue
         return result
 
 
-    def bind_queue(self, 
-                   queue_name: str, 
-                   exchange_name: str, 
-                   routing_key: Union[str, List[str]]
+    def bind_queue_to_exchange(self,
+                   routing_key: Union[str, List[str], None] = None
                    ) -> Method:
         """
-        Bind a queue to an exchange with a routing key on the RabbitMQ server.
+        Bind a queue to an exchange with a routing key on the RabbitMQ server. The queue and exchange must have been declared before calling this function.
 
         This method binds a queue to an exchange so that messages sent to the exchange with a matching routing key
         are routed to the queue.
-
-        :param str queue_name: The name of the queue. Must be a non-empty string containing only letters, digits, hyphen, underscore, period, or colon.
-                               The queue name must refer to a queue that has been declared.
-        :param str exchange_name: The name of the exchange. Must be a non-empty string containing only letters, digits, hyphen, underscore, period, or colon.
-                                  The exchange name must refer to an exchange that has been declared.
-        :param str | list[str] routing_key: The routing key or a list of routing keys. Must be a non-empty string or a list of non-empty strings containing only valid characters.
+        
+        :param str | list[str] routing_key: The routing key or a list of routing keys. Must be a non-empty string, a list of non-empty strings containing only valid characters or None.
+                                            The routing key is used to route messages to the appropriate queues.
+                                            If None, the queue will be bound to the exchange with an empty routing key.
         :returns: Method frame from the Queue.Bind-ok response.
         :rtype: pika.frame.Method
-        :raises ValueError: If the queue name, exchange name, or routing key contains invalid characters or is not declared.
-        :raises TypeError: If the queue name, exchange name, or routing key is not of the correct type.
         """
-        # Validate queue name
-        if not isinstance(queue_name, str):
-            raise TypeError('Queue name must be a string')
-        #if not all(char.isalpha() or char in '-_.:' for char in queue_name):
-        #    raise ValueError('Queue name must contain only letters, hyphen, underscore, period, or colon')
         
         # Check if the queue exists
-        if not self.does_queue_exist(queue_name):
-            raise ValueError(f'Queue with name: {queue_name} does not exist.')
-
-        # Validate exchange name
-        if not isinstance(exchange_name, str):
-            raise TypeError('Exchange name must be a string')
-        if not all(char.isalpha() or char in '-_.:' for char in exchange_name):
-            raise ValueError(f'Exchange name: {exchange_name} must contain only letters, hyphen, underscore, period, or colon')
+        if self.queue_name is None or not self.does_queue_exist(self.queue_name):
+            raise ValueError('Queue does not exist. Please declare the queue before binding it.')
         
         # Check if the exchange exists
-        if not self.does_exchange_exist(exchange_name):
-            raise ValueError(f'Exchange with name: {exchange_name} does not exist.')
+        if self.exchange_name is None or not self.does_exchange_exist(self.exchange_name):
+            raise ValueError('Exchange does not exist. Please declare the exchange before binding the queue.')
 
-        # Validate routing key
-        if isinstance(routing_key, str):
-            routing_keys = [routing_key]
-        elif isinstance(routing_key, list) and routing_key.count > 0 and all(isinstance(key, str) for key in routing_key):
-            routing_keys = routing_key
-        else:
-            raise TypeError('Routing key must be a string or a list of strings')
+        # Check if routing key is provided
+        if routing_key is not None:
+            # Validate routing key
+            if isinstance(routing_key, str):
+                self.routing_key = routing_key
+                routing_keys = [routing_key]
+            elif isinstance(routing_key, list) and routing_key.count > 0 and all(isinstance(key, str) for key in routing_key):
+                self.routing_keys = routing_key
+                routing_keys = routing_key
+            else:
+                raise TypeError('Routing key must be a string or a list of strings')
 
-        if not all(key and all(char.isalpha() or char in '*.#' for char in key) for key in routing_keys):
-            raise ValueError('Routing key must contain only letters, stars, or hash symbols')
+            if not all(key and all(char.isalpha() or char in '*.#' for char in key) for key in routing_keys):
+                raise ValueError('Routing key must contain only letters, stars, or hash symbols')
 
-        # Bind the queue to the exchange with the routing key(s)
-        the_first_routing_key = routing_keys.pop(0)
-        result = self.channel.queue_bind(queue_name, exchange_name, the_first_routing_key)
-        for key in routing_keys:
-            result = self.channel.queue_bind(queue_name, exchange_name, key)
+            # Bind the queue to the exchange with the routing key(s)
+            the_first_routing_key = routing_keys.pop(0)
+            result: Method = self.channel.queue_bind(self.queue_name, self.exchange_name, the_first_routing_key)
+            for key in routing_keys:
+                result: Method = self.channel.queue_bind(self.queue_name, self.exchange_name, key)
 
-        return result
-
-
-    @abstractmethod
-    def on_message(self, 
-                   ch: BlockingChannel, 
-                   method: Basic.Deliver, 
-                   properties: BasicProperties, 
-                   body: bytes
-                   ) -> None:
+            return result
+        
+        # Bind the queue to the exchange without a routing key
+        return self.channel.queue_bind(self.queue_name, self.exchange_name)
+    
+    def publish_message(self, message: Union[str, bytes]) -> None:
         """
-        Abstract method to handle incoming messages. Must be implemented by subclasses.
+        Publish a message to the exchange on the RabbitMQ server. The exchange must have been declared before calling this function.
+
+        This method sends a message to the exchange, which will route it to the appropriate queues based on the routing key.
+        
+        :param str | bytes message: The message to be published. Must be a non-empty string or bytes.
         """
-        pass
-
-    def start(self, auto_acknowledge: bool = False) -> None:
-        self.channel.basic_consume(self.queue_name, on_message_callback=self.on_message, auto_ack=auto_acknowledge)
-        print(f"Starting to consume from queue: {self.queue_name}")
-        self.channel.start_consuming()
+        # Check if the exchange exists
+        if self.exchange_name is None or not self.does_exchange_exist(self.exchange_name):
+            raise ValueError('Exchange does not exist. Please declare the exchange before publishing a message.')
         
-    def consume_message(self, auto_acknowledge: bool = False) -> Any:
-        return self.channel.basic_consume(self.queue_name, on_message_callback=self.on_message, auto_ack=auto_acknowledge)
+        # Validate message
+        if not isinstance(message, (str, bytes)):
+            raise TypeError('Message must be a string or bytes')
         
-
-    def close_connection(self) -> None:
-        self.connection.close()
+        # Publish the message to the exchange
+        self.channel.basic_publish(
+            exchange=self.exchange_name,
+            routing_key=self.routing_key,
+            body=message
+        )
         
-        
-        
-
-class Consumer(RabbitMQManagement):
-    
-    def __init__(self, queue_name = ''):
-        super().__init__(queue_name)
-        self.exchange_name = 'admin_exchange'
-        self.exchange_type = 'fanout'
-        self.routing_key = 'employee.message'
-        self.setup()
-        
-    def setup(self) -> None:
-        self.declare_exchange(self.exchange_name, self.exchange_type)
-        self.declare_queue(self.queue_name)
-        self.bind_queue(self.queue_name, self.exchange_name, self.routing_key)
-    
-            
-    def on_message(self, 
-                   ch: BlockingChannel, 
-                   method: Basic.Deliver, 
-                   properties: BasicProperties, 
-                   body: bytes
-                   ) -> None:
-        print(f"Received message: {body.decode()}")
-        ch.basic_ack(delivery_tag=method.delivery_tag)
-        print(f"Acknowledged message: {body}")
-    
