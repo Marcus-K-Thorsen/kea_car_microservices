@@ -1,4 +1,4 @@
-from admin_microservice.rabbitmq.trial_publisher import TrialPublisher
+from .rabbitmq.publisher import TrialPublisher
 from pydantic import BaseModel
 
 class TrialItem(BaseModel):
@@ -9,8 +9,8 @@ class Trial(BaseModel):
     age: int
     trial_item: TrialItem
 
-def main():
-    trial_item = TrialItem(item_name="item1")
+def main(item_name: str = "item"):
+    trial_item = TrialItem(item_name=item_name)
     trial = Trial(name="admin", age=20, trial_item=trial_item)
     
     trial_publisher = TrialPublisher()
@@ -21,7 +21,7 @@ def main():
     print("Publisher is closed")
 
 
-# To start the publisher, run this script while in the root of the project directory:
+# To start the admin publisher to publish one message, run this script while in the root of the project directory:
 # poetry run python -m admin_microservice.main_publisher
 if __name__ == '__main__':
     main()

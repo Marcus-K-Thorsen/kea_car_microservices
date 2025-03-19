@@ -1,9 +1,8 @@
 import sys
 import os
-from employee_microservice.rabbitmq.consumer_trial import TrialConsumer
+from employee_microservice.rabbitmq.consumer import TrialConsumer
 
-# To start the consumer, run this script while in the root of the project directory:
-# poetry run python -m employee_microservice.main_consumer
+
 def main():
     print(' [*] Waiting for consumer. To exit press CTRL+C')
     trial_consumer = TrialConsumer()
@@ -20,6 +19,8 @@ def main():
             os._exit(0)
 
 
+# To start the employee microservice consumer, run this script while in the root of the project directory:
+# poetry run python -m employee_microservice.main_consumer
 if __name__ == '__main__':
     main()
     

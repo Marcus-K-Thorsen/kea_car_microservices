@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import threading
  
 app = FastAPI()
  
@@ -18,7 +17,8 @@ app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 def read_root():
     return {"Hello": "Auth Service"}
 
- 
+# To run the authentication microservice endpoints, run this script while in the root of the project directory:
+# poetry run python -m auth_microservice.main
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8002)
+    uvicorn.run(app, host="127.0.0.1", port=8001)

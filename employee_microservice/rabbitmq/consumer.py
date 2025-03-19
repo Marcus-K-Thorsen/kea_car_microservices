@@ -12,7 +12,7 @@ class Trial(BaseModel):
 
 class TrialConsumer(FanoutConsumer):
     def __init__(self):
-        super().__init__('trial_admin_exchange', 'trial_queue_auth')
+        super().__init__('trial_admin_exchange', 'trial_queue_employee')
 
     def on_message(self, channel: BlockingChannel, method: BasicDeliver, properties: BasicProperties, body: bytes):
         trial_message: str = body.decode('utf-8')
@@ -21,6 +21,8 @@ class TrialConsumer(FanoutConsumer):
         
         # Parse the JSON string into a dictionary
         trial_dict: dict = json.loads(trial_message)
+        print(f"tiral_dict type: {type(trial_dict)}")
+        print(f"tiral_dict: {trial_dict}")
         
         # Create the TrialItem and Trial objects from the dictionary
         trial_item = TrialItem(**trial_dict.get('trial_item'))

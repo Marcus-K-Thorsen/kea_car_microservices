@@ -1,7 +1,7 @@
 # External Library imports
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from .rabbitmq.publisher import MessagePublisher as Publisher
+from main_publisher import main as send_trial_message
 
 app = FastAPI()
 
@@ -16,16 +16,14 @@ app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "Admin Service"}
 
 @app.get("/send_message/{message}")
 def send_message(message: str):
-    message_publisher = Publisher()
-    message_publisher.publish(message)
-    message_publisher.close_connection()
+    send_trial_message(message)
     return {"message": "Message sent successfully"}
 
-# To run the microservice, run this script while in the root of the project directory:
+# To run the admin microservice endpoints, run this script while in the root of the project directory:
 # poetry run python -m admin_microservice.main
 if __name__ == "__main__":
     import uvicorn

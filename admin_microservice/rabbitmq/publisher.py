@@ -1,5 +1,6 @@
 from modules import FanoutPublisher
 
-class MessagePublisher(FanoutPublisher):
+
+class TrialPublisher(FanoutPublisher):
     def __init__(self):
-        super().__init__('message_exchange')
+        super().__init__('trial_admin_exchange')
