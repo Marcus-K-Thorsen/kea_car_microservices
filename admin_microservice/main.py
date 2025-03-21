@@ -16,7 +16,7 @@ app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Admin Service something EXTRA"}
+    return {"Hello": "Admin Service something EXTRA!!!!"}
 
 @app.get("/send_message/{message}")
 def send_message(message: str):

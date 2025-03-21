@@ -19,6 +19,6 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      RABBITMQ_HOST: rabbitmq
+      - RABBITMQ_HOST=rabbitmq
     volumes:
       - ./admin_microservice:/app

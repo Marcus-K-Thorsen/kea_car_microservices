@@ -15,8 +15,8 @@ import json
 
 class RabbitMQManagement():
     def __init__(self) -> None:
-        # host: str = os.getenv('RABBITMQ_HOST', 'localhost')
-        host: str = 'localhost'
+        # host: str = os.getenv('RABBITMQ_HOST', 'rabbitmq')
+        host: str = 'rabbitmq'
         connection_params: ConnectionParameters = ConnectionParameters(host=host)
         # Can you add more connection parameters here, with default values and some descriptive comments?
         
