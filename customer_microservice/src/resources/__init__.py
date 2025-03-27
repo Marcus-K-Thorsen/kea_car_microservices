@@ -1,0 +1,5 @@
+from .accessory_resource import AccessoryReturnResource
+from .brand_resource import BrandReturnResource
+from .color_resource import ColorReturnResource
+from .insurance_resource import InsuranceReturnResource
+from .model_resource import ModelReturnResource
