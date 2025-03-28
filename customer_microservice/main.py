@@ -50,4 +50,4 @@ if __name__ == "__main__":
     except ValueError:
         raise ValueError("API_PORT must be an integer.")
     
-    uvicorn.run(app, host=API_HOST, port=API_PORT)
+    uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)

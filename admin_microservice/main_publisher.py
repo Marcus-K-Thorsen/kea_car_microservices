@@ -1,6 +1,5 @@
-# import os
-# from dotenv import load_dotenv
-# import pika
+import os
+from dotenv import load_dotenv
 from pika import BlockingConnection, ConnectionParameters
 from pika.frame import Method
 from pika.exceptions import ChannelClosed
@@ -11,14 +10,12 @@ from abc import ABC, abstractmethod
 
 import json
 
-# load_dotenv()
+load_dotenv()
 
 class RabbitMQManagement():
     def __init__(self) -> None:
-        # host: str = os.getenv('RABBITMQ_HOST', 'rabbitmq')
-        host: str = 'rabbitmq'
+        host: str = os.getenv('RABBITMQ_HOST', 'rabbitmq')
         connection_params: ConnectionParameters = ConnectionParameters(host=host)
-        # Can you add more connection parameters here, with default values and some descriptive comments?
         
         self.queue_name: Optional[str] = None
         self.exchange_name: Optional[str] = None
