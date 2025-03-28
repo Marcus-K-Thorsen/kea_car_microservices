@@ -1,8 +1,9 @@
 # External Library imports
 from typing import Optional
-from pymongo.database import Database
 from pymongo.collection import Collection
 
+# Internal library imports
+from src.database_management import Database
 
 
 class BaseRepository():

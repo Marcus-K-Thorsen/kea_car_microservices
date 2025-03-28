@@ -6,9 +6,8 @@ from fastapi import APIRouter, Depends, Path, Query
 # Internal library imports
 from src.exceptions import handle_http_exception
 from src.resources import InsuranceReturnResource
-from mongodb_connection import Database, get_mongodb
 from src.services import insurances_service as service
-
+from src.database_management import Database, get_mongodb
 
 
 router: APIRouter = APIRouter()

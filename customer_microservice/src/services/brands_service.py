@@ -1,8 +1,8 @@
 # External Library imports
 from typing import List, Optional
-from pymongo.database import Database
 
 # Internal library imports
+from src.database_management import Database
 from src.repositories import BrandRepository
 from src.resources import BrandReturnResource
 from src.exceptions import UnableToFindIdError

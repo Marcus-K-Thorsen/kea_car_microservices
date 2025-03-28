@@ -1,6 +1,10 @@
 # External Library imports
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Internal library imports
 from src.routers import (
@@ -39,4 +43,11 @@ app.include_router(models_router, prefix="/api", tags=["Models"])
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8002)
+    
+    API_HOST = os.getenv("API_HOST", "127.0.0.1")
+    try:
+        API_PORT = int(os.getenv("API_PORT", 8002))
+    except ValueError:
+        raise ValueError("API_PORT must be an integer.")
+    
+    uvicorn.run(app, host=API_HOST, port=API_PORT)

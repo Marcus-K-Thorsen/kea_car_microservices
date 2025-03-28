@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Path, Query
 from src.resources import BrandReturnResource
 from src.exceptions import handle_http_exception
 from src.services import brands_service as service
-from mongodb_connection import Database, get_mongodb
+from src.database_management import Database, get_mongodb
 
 
 router: APIRouter = APIRouter()

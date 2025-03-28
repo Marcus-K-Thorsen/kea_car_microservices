@@ -1,8 +1,8 @@
 # External Library imports
 from typing import List, Optional
-from pymongo.database import Database
 
 # Internal library imports
+from src.database_management import Database
 from src.exceptions import UnableToFindIdError
 from src.repositories import AccessoryRepository
 from src.resources import AccessoryReturnResource
