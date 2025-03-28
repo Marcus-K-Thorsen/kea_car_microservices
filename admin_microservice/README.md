@@ -1,0 +1,1 @@
+*fill this README file with the needed things to use this code_documenation project to make code documentation of some other microservice like the customer_microservice. Also just assume that the person already has poetry installed*

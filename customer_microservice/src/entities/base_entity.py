@@ -27,9 +27,21 @@ class BaseEntity(BaseModel):
     @field_validator("created_at", mode="before")
     @classmethod
     def validate_created_at(cls, value: Union[str, datetime]) -> datetime:
+        """
+        Validates the `created_at` field.
+
+        :param value: The value to validate, either a string or a datetime object.
+        :return: A valid datetime object.
+        """
         return cls.validate_iso_datetime(value, "created_at")
 
     @field_validator("updated_at", mode="before")
     @classmethod
     def validate_updated_at(cls, value: Union[str, datetime]) -> datetime:
+        """
+        Validates the `updated_at` field.
+
+        :param value: The value to validate, either a string or a datetime object.
+        :return: A valid datetime object.
+        """
         return cls.validate_iso_datetime(value, "updated_at")

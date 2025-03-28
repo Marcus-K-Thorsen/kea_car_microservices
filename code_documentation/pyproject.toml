@@ -1,0 +1,18 @@
+[project]
+name = "code-documentation"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Marcus",email = "marc303i@stud.kea.dk"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "sphinx (>=8.2.3,<9.0.0)",
+    "sphinx-rtd-theme (>=3.0.2,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
