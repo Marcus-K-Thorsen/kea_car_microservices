@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.entities package &mdash; KEA Car Microservices 0.0.1 documentation</title>
+  <title>entities package &mdash; KEA Car Microservices 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="src.exceptions package" href="src.exceptions.html" />
-    <link rel="prev" title="src.database_management package" href="src.database_management.html" /> 
+    <link rel="next" title="exceptions package" href="src.exceptions.html" />
+    <link rel="prev" title="database_management package" href="src.database_management.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,17 +47,21 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="src.database_management.html">src.database_management package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">src.entities package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.exceptions.html">src.exceptions package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.repositories.html">src.repositories package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.resources.html">src.resources package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.routers.html">src.routers package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.services.html">src.services package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.database_management.html">database_management package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">entities package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.entities.base_entity">base_entity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.entities.accessory">accessory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.entities.brand">brand module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.entities.color">color module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.entities.insurance">insurance module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.entities.model">model module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.exceptions.html">exceptions package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.repositories.html">repositories package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.resources.html">resources package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.routers.html">routers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.services.html">services package</a></li>
 </ul>
 </li>
 </ul>
@@ -80,7 +84,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">customer_microservice</a></li>
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
-      <li class="breadcrumb-item active">src.entities package</li>
+      <li class="breadcrumb-item active">entities package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/src.entities.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,244 +94,537 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src-entities-package">
-<h1>src.entities package<a class="headerlink" href="#src-entities-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-src.entities.accessory">
-<span id="src-entities-accessory-module"></span><h2>src.entities.accessory module<a class="headerlink" href="#module-src.entities.accessory" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.accessory.</span></span><span class="sig-name descname"><span class="pre">AccessoryEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.entities.base_entity.BaseEntity" title="src.entities.base_entity.BaseEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEntity</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.as_resource">
-<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.as_resource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.price">
-<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.price" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.validate_iso_datetime">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
-<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.
-Ensures that if the value is a string, it is in ISO 8601 format.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
+  <section id="entities-package">
+<h1>entities package<a class="headerlink" href="#entities-package" title="Link to this heading"></a></h1>
 <section id="module-src.entities.base_entity">
-<span id="src-entities-base-entity-module"></span><h2>src.entities.base_entity module<a class="headerlink" href="#module-src.entities.base_entity" title="Link to this heading"></a></h2>
+<span id="base-entity-module"></span><h2>base_entity module<a class="headerlink" href="#module-src.entities.base_entity" title="Link to this heading"></a></h2>
+<p><strong>Base Entity Module</strong></p>
+<p>This module defines the <cite>BaseEntity</cite> class, which serves as the foundation for all MongoDB entities
+in the system. It provides common fields (<cite>id</cite>, <cite>created_at</cite>, <cite>updated_at</cite>) and validation logic
+for datetime fields.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.entities.base_entity.BaseEntity">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.base_entity.</span></span><span class="sig-name descname"><span class="pre">BaseEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.base_entity.BaseEntity" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.base_entity.BaseEntity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.base_entity.BaseEntity.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<p>Base class for MongoDB entities.</p>
+<p>This class provides common fields and validation logic for entities stored in MongoDB.
+All other entity classes inherit from this base class.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.base_entity.BaseEntity.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#src.entities.base_entity.BaseEntity.id" title="Link to this definition"></a></dt>
+<dd><p>The unique identifier for the entity, mapped to MongoDB’s <cite>_id</cite> field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.base_entity.BaseEntity.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#src.entities.base_entity.BaseEntity.created_at" title="Link to this definition"></a></dt>
+<dd><p>The timestamp when the entity was created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.base_entity.BaseEntity.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#src.entities.base_entity.BaseEntity.updated_at" title="Link to this definition"></a></dt>
+<dd><p>The timestamp when the entity was last updated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.entities.base_entity.BaseEntity.validate_iso_datetime">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.base_entity.BaseEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
-<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.
-Ensures that if the value is a string, it is in ISO 8601 format.</p>
+<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.</p>
+<p>Ensures that if the value is a string, it is in ISO 8601 format. Raises a <cite>ValueError</cite>
+if the string is not a valid ISO 8601 datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to validate, either a string or a <cite>datetime</cite> object.</p></li>
+<li><p><strong>field_name</strong> – The name of the field being validated (used in error messages).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid <cite>datetime</cite> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.entities.accessory">
+<span id="accessory-module"></span><h2>accessory module<a class="headerlink" href="#module-src.entities.accessory" title="Link to this heading"></a></h2>
+<p><strong>Accessory Entity Module</strong></p>
+<p>This module defines the <cite>AccessoryEntity</cite> class, which represents an accessory in the system.
+It extends the <cite>BaseEntity</cite> class and includes additional fields specific to accessories,
+such as <cite>name</cite> and <cite>price</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of an accessory entity.</p></li>
+<li><p>Provide a method to convert the entity into a resource representation (<cite>AccessoryReturnResource</cite>).</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.accessory.</span></span><span class="sig-name descname"><span class="pre">AccessoryEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.entities.base_entity.BaseEntity" title="src.entities.base_entity.BaseEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEntity</span></code></a></p>
+<p>Represents an accessory entity in the Customer MongoDB system.</p>
+<p>This class extends the <cite>BaseEntity</cite> class and adds fields specific to accessories,
+such as <cite>name</cite> and <cite>price</cite>. It also provides a method to convert the entity into
+a resource representation for API responses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the accessory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.price">
+<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.price" title="Link to this definition"></a></dt>
+<dd><p>The price of the accessory in dollars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.as_resource">
+<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.as_resource" title="Link to this definition"></a></dt>
+<dd><p>Converts the <cite>AccessoryEntity</cite> into an <cite>AccessoryReturnResource</cite>.</p>
+<p>This method is used to transform the internal representation of an accessory
+into a format suitable for API responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A resource representation of the accessory.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="src.resources.html#src.resources.accessory_resource.AccessoryReturnResource" title="src.resources.accessory_resource.AccessoryReturnResource">AccessoryReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.entities.accessory.AccessoryEntity.validate_iso_datetime">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.accessory.AccessoryEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
+<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.</p>
+<p>Ensures that if the value is a string, it is in ISO 8601 format. Raises a <cite>ValueError</cite>
+if the string is not a valid ISO 8601 datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to validate, either a string or a <cite>datetime</cite> object.</p></li>
+<li><p><strong>field_name</strong> – The name of the field being validated (used in error messages).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid <cite>datetime</cite> object.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.entities.brand">
-<span id="src-entities-brand-module"></span><h2>src.entities.brand module<a class="headerlink" href="#module-src.entities.brand" title="Link to this heading"></a></h2>
+<span id="brand-module"></span><h2>brand module<a class="headerlink" href="#module-src.entities.brand" title="Link to this heading"></a></h2>
+<p><strong>Brand Entity Module</strong></p>
+<p>This module defines the <cite>BrandEntity</cite> class, which represents a car brand in the system.
+It extends the <cite>BaseEntity</cite> class and includes additional fields specific to brands,
+such as <cite>name</cite> and <cite>logo_url</cite>.</p>
+<p>Key Responsibilities:
+- Define the structure of a brand entity.
+- Provide a method to convert the entity into a resource representation (<cite>BrandReturnResource</cite>).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.entities.brand.BrandEntity">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.brand.</span></span><span class="sig-name descname"><span class="pre">BrandEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.brand.BrandEntity" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.entities.base_entity.BaseEntity" title="src.entities.base_entity.BaseEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEntity</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.brand.BrandEntity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.brand.BrandEntity.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.brand.BrandEntity.as_resource">
-<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.brand.BrandEntity.as_resource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<p>Represents a car brand entity in the Customer MongoDB system.</p>
+<p>This class extends the <cite>BaseEntity</cite> class and adds fields specific to car brands,
+such as <cite>name</cite> and <cite>logo_url</cite>. It also provides a method to convert the entity
+into a resource representation for API responses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.brand.BrandEntity.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.brand.BrandEntity.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the brand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.brand.BrandEntity.logo_url">
 <span class="sig-name descname"><span class="pre">logo_url</span></span><a class="headerlink" href="#src.entities.brand.BrandEntity.logo_url" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The URL of the brand’s logo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.brand.BrandEntity.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.brand.BrandEntity.name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.entities.brand.BrandEntity.as_resource">
+<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.brand.BrandEntity.as_resource" title="Link to this definition"></a></dt>
+<dd><p>Converts the <cite>BrandEntity</cite> into a <cite>BrandReturnResource</cite>.</p>
+<p>This method is used to transform the internal representation of a car brand
+into a format suitable for API responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A resource representation of the car brand.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="src.resources.html#src.resources.brand_resource.BrandReturnResource" title="src.resources.brand_resource.BrandReturnResource">BrandReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.entities.brand.BrandEntity.validate_iso_datetime">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.brand.BrandEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
-<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.
-Ensures that if the value is a string, it is in ISO 8601 format.</p>
+<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.</p>
+<p>Ensures that if the value is a string, it is in ISO 8601 format. Raises a <cite>ValueError</cite>
+if the string is not a valid ISO 8601 datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to validate, either a string or a <cite>datetime</cite> object.</p></li>
+<li><p><strong>field_name</strong> – The name of the field being validated (used in error messages).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid <cite>datetime</cite> object.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.entities.color">
-<span id="src-entities-color-module"></span><h2>src.entities.color module<a class="headerlink" href="#module-src.entities.color" title="Link to this heading"></a></h2>
+<span id="color-module"></span><h2>color module<a class="headerlink" href="#module-src.entities.color" title="Link to this heading"></a></h2>
+<p><strong>Color Entity Module</strong></p>
+<p>This module defines the <cite>ColorEntity</cite> class, which represents a color entity in the system.
+It extends the <cite>BaseEntity</cite> class and includes additional fields specific to colors, such as
+<cite>name</cite>, <cite>price</cite>, and RGB values (<cite>red_value</cite>, <cite>green_value</cite>, <cite>blue_value</cite>).</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of a color entity.</p></li>
+<li><p>Provide a method to convert the entity into a resource representation (<cite>ColorReturnResource</cite>).</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.entities.color.ColorEntity">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.color.</span></span><span class="sig-name descname"><span class="pre">ColorEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.color.ColorEntity" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.entities.base_entity.BaseEntity" title="src.entities.base_entity.BaseEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEntity</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.color.ColorEntity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.color.ColorEntity.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.color.ColorEntity.as_resource">
-<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.color.ColorEntity.as_resource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.color.ColorEntity.blue_value">
-<span class="sig-name descname"><span class="pre">blue_value</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.blue_value" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.color.ColorEntity.green_value">
-<span class="sig-name descname"><span class="pre">green_value</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.green_value" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Represents a color entity in the Customer MongoDB system.</p>
+<p>This class extends the <cite>BaseEntity</cite> class and adds fields specific to colors,
+such as <cite>name</cite>, <cite>price</cite>, and RGB values (<cite>red_value</cite>, <cite>green_value</cite>, <cite>blue_value</cite>).
+It also provides a method to convert the entity into a resource representation
+for API responses.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.color.ColorEntity.name">
 <span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The name of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.color.ColorEntity.price">
 <span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.price" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The price of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.color.ColorEntity.red_value">
 <span class="sig-name descname"><span class="pre">red_value</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.red_value" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The red component of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.color.ColorEntity.green_value">
+<span class="sig-name descname"><span class="pre">green_value</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.green_value" title="Link to this definition"></a></dt>
+<dd><p>The green component of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.color.ColorEntity.blue_value">
+<span class="sig-name descname"><span class="pre">blue_value</span></span><a class="headerlink" href="#src.entities.color.ColorEntity.blue_value" title="Link to this definition"></a></dt>
+<dd><p>The blue component of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.entities.color.ColorEntity.as_resource">
+<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.color.ColorEntity.as_resource" title="Link to this definition"></a></dt>
+<dd><p>Converts the <cite>ColorEntity</cite> into a <cite>ColorReturnResource</cite>.</p>
+<p>This method is used to transform the internal representation of a color
+into a format suitable for API responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A resource representation of the color.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="src.resources.html#src.resources.color_resource.ColorReturnResource" title="src.resources.color_resource.ColorReturnResource">ColorReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.entities.color.ColorEntity.validate_iso_datetime">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.color.ColorEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
-<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.
-Ensures that if the value is a string, it is in ISO 8601 format.</p>
+<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.</p>
+<p>Ensures that if the value is a string, it is in ISO 8601 format. Raises a <cite>ValueError</cite>
+if the string is not a valid ISO 8601 datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to validate, either a string or a <cite>datetime</cite> object.</p></li>
+<li><p><strong>field_name</strong> – The name of the field being validated (used in error messages).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid <cite>datetime</cite> object.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.entities.insurance">
-<span id="src-entities-insurance-module"></span><h2>src.entities.insurance module<a class="headerlink" href="#module-src.entities.insurance" title="Link to this heading"></a></h2>
+<span id="insurance-module"></span><h2>insurance module<a class="headerlink" href="#module-src.entities.insurance" title="Link to this heading"></a></h2>
+<p><strong>Insurance Entity Module</strong></p>
+<p>This module defines the <cite>InsuranceEntity</cite> class, which represents an insurance entity in the system.
+It extends the <cite>BaseEntity</cite> class and includes additional fields specific to insurances, such as
+<cite>name</cite> and <cite>price</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of an insurance entity.</p></li>
+<li><p>Provide a method to convert the entity into a resource representation (<cite>InsuranceReturnResource</cite>).</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.insurance.</span></span><span class="sig-name descname"><span class="pre">InsuranceEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.entities.base_entity.BaseEntity" title="src.entities.base_entity.BaseEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEntity</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity.as_resource">
-<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity.as_resource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Represents an insurance entity in the Customer MongoDB system.</p>
+<p>This class extends the <cite>BaseEntity</cite> class and adds fields specific to insurances,
+such as <cite>name</cite> and <cite>price</cite>. It also provides a method to convert the entity into
+a resource representation for API responses.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity.name">
 <span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity.name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The name of the insurance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity.price">
 <span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity.price" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The price of the insurance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity.as_resource">
+<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity.as_resource" title="Link to this definition"></a></dt>
+<dd><p>Converts the <cite>InsuranceEntity</cite> into an <cite>InsuranceReturnResource</cite>.</p>
+<p>This method is used to transform the internal representation of an insurance
+into a format suitable for API responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A resource representation of the insurance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="src.resources.html#src.resources.insurance_resource.InsuranceReturnResource" title="src.resources.insurance_resource.InsuranceReturnResource">InsuranceReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.entities.insurance.InsuranceEntity.validate_iso_datetime">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.insurance.InsuranceEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
-<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.
-Ensures that if the value is a string, it is in ISO 8601 format.</p>
+<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.</p>
+<p>Ensures that if the value is a string, it is in ISO 8601 format. Raises a <cite>ValueError</cite>
+if the string is not a valid ISO 8601 datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to validate, either a string or a <cite>datetime</cite> object.</p></li>
+<li><p><strong>field_name</strong> – The name of the field being validated (used in error messages).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid <cite>datetime</cite> object.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.entities.model">
-<span id="src-entities-model-module"></span><h2>src.entities.model module<a class="headerlink" href="#module-src.entities.model" title="Link to this heading"></a></h2>
+<span id="model-module"></span><h2>model module<a class="headerlink" href="#module-src.entities.model" title="Link to this heading"></a></h2>
+<p><strong>Model Entity Module</strong></p>
+<p>This module defines the <cite>ModelEntity</cite> class, which represents a car model in the system.
+It extends the <cite>BaseEntity</cite> class and includes additional fields specific to car models,
+such as <cite>name</cite>, <cite>price</cite>, <cite>image_url</cite>, and relationships to <cite>BrandEntity</cite> and <cite>ColorEntity</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of a car model entity.</p></li>
+<li><p>Provide a method to convert the entity into a resource representation (<cite>ModelReturnResource</cite>).</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.entities.model.ModelEntity">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.entities.model.</span></span><span class="sig-name descname"><span class="pre">ModelEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.model.ModelEntity" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.entities.base_entity.BaseEntity" title="src.entities.base_entity.BaseEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEntity</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.model.ModelEntity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.model.ModelEntity.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.entities.model.ModelEntity.as_resource">
-<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.model.ModelEntity.as_resource" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.model.ModelEntity.brand">
-<span class="sig-name descname"><span class="pre">brand</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.brand" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.model.ModelEntity.colors">
-<span class="sig-name descname"><span class="pre">colors</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.colors" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.entities.model.ModelEntity.image_url">
-<span class="sig-name descname"><span class="pre">image_url</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.image_url" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Represents a car model entity in the Customer MongoDB system.</p>
+<p>This class extends the <cite>BaseEntity</cite> class and adds fields specific to car models,
+such as <cite>name</cite>, <cite>price</cite>, <cite>image_url</cite>, and relationships to <cite>BrandEntity</cite> and <cite>ColorEntity</cite>.
+It also provides a method to convert the entity into a resource representation
+for API responses.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.model.ModelEntity.name">
 <span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The name of the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.entities.model.ModelEntity.price">
 <span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.price" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>The price of the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.model.ModelEntity.image_url">
+<span class="sig-name descname"><span class="pre">image_url</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.image_url" title="Link to this definition"></a></dt>
+<dd><p>The URL of the car model’s image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.model.ModelEntity.brand">
+<span class="sig-name descname"><span class="pre">brand</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.brand" title="Link to this definition"></a></dt>
+<dd><p>The brand associated with the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.entities.brand.BrandEntity" title="src.entities.brand.BrandEntity">BrandEntity</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.entities.model.ModelEntity.colors">
+<span class="sig-name descname"><span class="pre">colors</span></span><a class="headerlink" href="#src.entities.model.ModelEntity.colors" title="Link to this definition"></a></dt>
+<dd><p>The available colors for the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#src.entities.color.ColorEntity" title="src.entities.color.ColorEntity">ColorEntity</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.entities.model.ModelEntity.as_resource">
+<span class="sig-name descname"><span class="pre">as_resource</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.model.ModelEntity.as_resource" title="Link to this definition"></a></dt>
+<dd><p>Converts the <cite>ModelEntity</cite> into a <cite>ModelReturnResource</cite>.</p>
+<p>This method is used to transform the internal representation of a car model
+into a format suitable for API responses. It includes the brand and colors
+as nested resources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A resource representation of the car model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="src.resources.html#src.resources.model_resource.ModelReturnResource" title="src.resources.model_resource.ModelReturnResource">ModelReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.entities.model.ModelEntity.validate_iso_datetime">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_iso_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.entities.model.ModelEntity.validate_iso_datetime" title="Link to this definition"></a></dt>
-<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.
-Ensures that if the value is a string, it is in ISO 8601 format.</p>
+<dd><p>Validates and converts a datetime field to a <cite>datetime</cite> object.</p>
+<p>Ensures that if the value is a string, it is in ISO 8601 format. Raises a <cite>ValueError</cite>
+if the string is not a valid ISO 8601 datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to validate, either a string or a <cite>datetime</cite> object.</p></li>
+<li><p><strong>field_name</strong> – The name of the field being validated (used in error messages).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid <cite>datetime</cite> object.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</section>
-<section id="module-src.entities">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.entities" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -335,8 +632,8 @@ Ensures that if the value is a string, it is in ISO 8601 format.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.database_management.html" class="btn btn-neutral float-left" title="src.database_management package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="src.exceptions.html" class="btn btn-neutral float-right" title="src.exceptions package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.database_management.html" class="btn btn-neutral float-left" title="database_management package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.exceptions.html" class="btn btn-neutral float-right" title="exceptions package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

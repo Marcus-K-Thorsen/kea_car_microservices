@@ -1,3 +1,15 @@
+"""
+**Colors Controller Module**
+
+This module defines the FastAPI routes for color-related operations.
+It provides endpoints to retrieve all colors or a specific color by its ID.
+
+Key Responsibilities:
+
+- Define routes for color-related API operations.
+- Handle exceptions and return appropriate HTTP responses.
+"""
+
 # External Library imports
 from uuid import UUID
 from typing import List, Optional
@@ -16,7 +28,6 @@ router: APIRouter = APIRouter()
 def get_db():
     with get_mongodb() as database:
         yield database
-
 
 
 @router.get(
@@ -41,6 +52,16 @@ async def get_colors(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a list of colors from the database.
+
+    :param limit: The maximum number of colors to retrieve (optional).
+    :type limit: int | None
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: A list of colors as `ColorReturnResource`.
+    :rtype: List[ColorReturnResource]
+    """
     return handle_http_exception(
         error_message="Failed to get colors from the Customer database",
         callback=lambda: service.get_all(
@@ -72,6 +93,16 @@ async def get_color(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a specific color by its UUID.
+
+    :param color_id: The UUID of the color to retrieve.
+    :type color_id: UUID
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: The color as a `ColorReturnResource`.
+    :rtype: ColorReturnResource
+    """
     return handle_http_exception(
         error_message="Failed to get color from the Customer database",
         callback=lambda: service.get_by_id(

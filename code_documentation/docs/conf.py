@@ -39,10 +39,9 @@ autodoc_default_options = {
     'members': True,
     'undoc-members': True,
     'private-members': True,
-    'special-members': '__init__',
     'inherited-members': True,
     'show-inheritance': True,
-    'exclude-members': 'validate_created_at, validate_updated_at',
+    'exclude-members': 'validate_created_at, validate_updated_at, name, price, logo_url, red_value, green_value, blue_value, brand, colors, image_url, accessories, insurance, models',
 }
 
 # Automatically mock external dependencies

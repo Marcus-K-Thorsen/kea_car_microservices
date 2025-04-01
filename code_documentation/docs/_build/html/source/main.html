@@ -46,7 +46,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">main module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#main.read_root"><code class="docutils literal notranslate"><span class="pre">read_root()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#main.start_application"><code class="docutils literal notranslate"><span class="pre">start_application()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="src.html">src package</a></li>
@@ -81,10 +81,28 @@
              
   <section id="module-main">
 <span id="main-module"></span><h1>main module<a class="headerlink" href="#module-main" title="Link to this heading"></a></h1>
+<p>Main entry point for the Customer Microservice.</p>
+<p>This module initializes the FastAPI application, configures middleware, and includes routers
+that define the API endpoints for the microservice.</p>
+<p>Key Responsibilities:
+- Load environment variables from a <cite>.env</cite> file.
+- Configure Cross-Origin Resource Sharing (CORS) settings.
+- Include routers for various resources (e.g., models, brands, colors, etc.).
+- Start the FastAPI application using Uvicorn when executed directly.</p>
+<p>Note:
+The actual endpoints are defined in the routers located in the <cite>src.routers</cite> package.
+This file simply connects those routers to the FastAPI application.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="main.read_root">
-<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">read_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.read_root" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="main.start_application">
+<span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">start_application</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.start_application" title="Link to this definition"></a></dt>
+<dd><p>Start the Customer Microservice.</p>
+<p>This function runs the FastAPI application using Uvicorn as the ASGI server.
+The host and port are configurable via environment variables:
+- <cite>API_HOST</cite>: Host address (default: 127.0.0.1).
+- <cite>API_PORT</cite>: Port number (default: 8002).</p>
+<p class="rubric">Example</p>
+<p>poetry run python main.py</p>
+</dd></dl>
 
 </section>
 

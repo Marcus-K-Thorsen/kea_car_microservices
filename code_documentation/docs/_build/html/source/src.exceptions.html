@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.exceptions package &mdash; KEA Car Microservices 0.0.1 documentation</title>
+  <title>exceptions package &mdash; KEA Car Microservices 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="src.repositories package" href="src.repositories.html" />
-    <link rel="prev" title="src.entities package" href="src.entities.html" /> 
+    <link rel="next" title="repositories package" href="src.repositories.html" />
+    <link rel="prev" title="entities package" href="src.entities.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,17 +47,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="src.database_management.html">src.database_management package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.entities.html">src.entities package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">src.exceptions package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.repositories.html">src.repositories package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.resources.html">src.resources package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.routers.html">src.routers package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.services.html">src.services package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.database_management.html">database_management package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.entities.html">entities package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">exceptions package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.exceptions.database_exceptions">database_exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.exceptions.error_handler">error_handler module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.repositories.html">repositories package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.resources.html">resources package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.routers.html">routers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.services.html">services package</a></li>
 </ul>
 </li>
 </ul>
@@ -80,7 +80,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">customer_microservice</a></li>
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
-      <li class="breadcrumb-item active">src.exceptions package</li>
+      <li class="breadcrumb-item active">exceptions package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/src.exceptions.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,22 +90,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src-exceptions-package">
-<h1>src.exceptions package<a class="headerlink" href="#src-exceptions-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
+  <section id="exceptions-package">
+<h1>exceptions package<a class="headerlink" href="#exceptions-package" title="Link to this heading"></a></h1>
 <section id="module-src.exceptions.database_exceptions">
-<span id="src-exceptions-database-exceptions-module"></span><h2>src.exceptions.database_exceptions module<a class="headerlink" href="#module-src.exceptions.database_exceptions" title="Link to this heading"></a></h2>
+<span id="database-exceptions-module"></span><h2>database_exceptions module<a class="headerlink" href="#module-src.exceptions.database_exceptions" title="Link to this heading"></a></h2>
+<p><strong>Database Exceptions Module</strong></p>
+<p>This module defines custom exceptions related to database operations. These exceptions
+are used to handle errors when interacting with the database, such as when an entity
+with a specific ID cannot be found.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Provide a base exception class for database-related errors (<cite>DatabaseError</cite>).</p></li>
+<li><p>Define a specific exception for missing entities (<cite>UnableToFindIdError</cite>).</p></li>
+</ul>
 <dl class="py exception">
 <dt class="sig sig-object py" id="src.exceptions.database_exceptions.DatabaseError">
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.exceptions.database_exceptions.</span></span><span class="sig-name descname"><span class="pre">DatabaseError</span></span><a class="headerlink" href="#src.exceptions.database_exceptions.DatabaseError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.exceptions.database_exceptions.DatabaseError.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.exceptions.database_exceptions.DatabaseError.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Base exception class for database-related errors.</p>
+<p>This class serves as the foundation for all custom exceptions related to database
+operations in the system.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.exceptions.database_exceptions.DatabaseError.add_note">
 <span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.exceptions.database_exceptions.DatabaseError.add_note" title="Link to this definition"></a></dt>
@@ -131,10 +135,41 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="src.exceptions.database_exceptions.UnableToFindIdError">
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.exceptions.database_exceptions.</span></span><span class="sig-name descname"><span class="pre">UnableToFindIdError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.exceptions.database_exceptions.UnableToFindIdError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.exceptions.database_exceptions.DatabaseError" title="src.exceptions.database_exceptions.DatabaseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseError</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.exceptions.database_exceptions.UnableToFindIdError.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.exceptions.database_exceptions.UnableToFindIdError.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<p>Exception raised when an entity with a specific ID cannot be found in the database.</p>
+<p>This exception is used to indicate that a requested entity does not exist in the
+database. It provides a detailed error message that includes the entity name and ID.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.exceptions.database_exceptions.UnableToFindIdError.entity_name">
+<span class="sig-name descname"><span class="pre">entity_name</span></span><a class="headerlink" href="#src.exceptions.database_exceptions.UnableToFindIdError.entity_name" title="Link to this definition"></a></dt>
+<dd><p>The name of the entity that could not be found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.exceptions.database_exceptions.UnableToFindIdError.entity_id">
+<span class="sig-name descname"><span class="pre">entity_id</span></span><a class="headerlink" href="#src.exceptions.database_exceptions.UnableToFindIdError.entity_id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the entity that could not be found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[str, UUID]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.exceptions.database_exceptions.UnableToFindIdError.message">
+<span class="sig-name descname"><span class="pre">message</span></span><a class="headerlink" href="#src.exceptions.database_exceptions.UnableToFindIdError.message" title="Link to this definition"></a></dt>
+<dd><p>A detailed error message describing the issue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.exceptions.database_exceptions.UnableToFindIdError.add_note">
@@ -159,20 +194,56 @@ set self.__traceback__ to tb and return self.</p>
 
 </section>
 <section id="module-src.exceptions.error_handler">
-<span id="src-exceptions-error-handler-module"></span><h2>src.exceptions.error_handler module<a class="headerlink" href="#module-src.exceptions.error_handler" title="Link to this heading"></a></h2>
+<span id="error-handler-module"></span><h2>error_handler module<a class="headerlink" href="#module-src.exceptions.error_handler" title="Link to this heading"></a></h2>
+<p><strong>Error Handler Module</strong></p>
+<p>This module provides utility functions to handle exceptions raised during service operations
+and convert them into appropriate HTTP responses for FastAPI endpoints.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Catch and handle exceptions raised by service functions.</p></li>
+<li><p>Log errors for debugging purposes.</p></li>
+<li><p>Raise HTTP exceptions with appropriate status codes and error messages.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.exceptions.error_handler.handle_http_exception">
 <span class="sig-prename descclassname"><span class="pre">src.exceptions.error_handler.</span></span><span class="sig-name descname"><span class="pre">handle_http_exception</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.exceptions.error_handler.handle_http_exception" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Handles exceptions raised by a service function and converts them into HTTP exceptions.</p>
+<p>This function executes a callback function (typically a service operation) and catches
+any exceptions raised during its execution. It logs the error and raises an appropriate
+HTTP exception for the client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_message</strong> (<em>str</em>) – A descriptive error message to include in the HTTP exception.</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em>) – A callable function (e.g., a service operation) to execute.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the callback function if no exceptions are raised.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> – If an exception is caught, an HTTP exception is raised with the
+appropriate status code and error message.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.exceptions.error_handler.log_error">
 <span class="sig-prename descclassname"><span class="pre">src.exceptions.error_handler.</span></span><span class="sig-name descname"><span class="pre">log_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.exceptions.error_handler.log_error" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Logs an error message and exception details for debugging purposes.</p>
+<p>This function logs the error class, message, and stack trace to help with debugging
+internal server errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_message</strong> (<em>str</em>) – A descriptive error message to log.</p></li>
+<li><p><strong>error</strong> (<em>Exception</em>) – The exception object to log.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-</section>
-<section id="module-src.exceptions">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.exceptions" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -180,8 +251,8 @@ set self.__traceback__ to tb and return self.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.entities.html" class="btn btn-neutral float-left" title="src.entities package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="src.repositories.html" class="btn btn-neutral float-right" title="src.repositories package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.entities.html" class="btn btn-neutral float-left" title="entities package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.repositories.html" class="btn btn-neutral float-right" title="repositories package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

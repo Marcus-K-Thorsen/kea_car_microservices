@@ -1,61 +1,50 @@
-src.entities package
-====================
+entities package
+================
 
-Submodules
-----------
-
-src.entities.accessory module
------------------------------
-
-.. automodule:: src.entities.accessory
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-src.entities.base\_entity module
---------------------------------
+base\_entity module
+-------------------
 
 .. automodule:: src.entities.base_entity
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.entities.brand module
--------------------------
+accessory module
+----------------
+
+.. automodule:: src.entities.accessory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+brand module
+------------
 
 .. automodule:: src.entities.brand
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.entities.color module
--------------------------
+color module
+------------
 
 .. automodule:: src.entities.color
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.entities.insurance module
------------------------------
+insurance module
+----------------
 
 .. automodule:: src.entities.insurance
    :members:
    :show-inheritance:
    :undoc-members:
 
-src.entities.model module
--------------------------
+model module
+------------
 
 .. automodule:: src.entities.model
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: src.entities
    :members:
    :show-inheritance:
    :undoc-members:

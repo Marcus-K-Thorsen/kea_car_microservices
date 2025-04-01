@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.resources package &mdash; KEA Car Microservices 0.0.1 documentation</title>
+  <title>resources package &mdash; KEA Car Microservices 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="src.routers package" href="src.routers.html" />
-    <link rel="prev" title="src.repositories package" href="src.repositories.html" /> 
+    <link rel="next" title="routers package" href="src.routers.html" />
+    <link rel="prev" title="repositories package" href="src.repositories.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,17 +47,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="src.database_management.html">src.database_management package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.entities.html">src.entities package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.exceptions.html">src.exceptions package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.repositories.html">src.repositories package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">src.resources package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.routers.html">src.routers package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.services.html">src.services package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.database_management.html">database_management package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.entities.html">entities package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.exceptions.html">exceptions package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.repositories.html">repositories package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">resources package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.resources.accessory_resource">accessory_resource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.resources.brand_resource">brand_resource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.resources.color_resource">color_resource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.resources.insurance_resource">insurance_resource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.resources.model_resource">model_resource module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.routers.html">routers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.services.html">services package</a></li>
 </ul>
 </li>
 </ul>
@@ -80,7 +83,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">customer_microservice</a></li>
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
-      <li class="breadcrumb-item active">src.resources package</li>
+      <li class="breadcrumb-item active">resources package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/src.resources.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,138 +93,339 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src-resources-package">
-<h1>src.resources package<a class="headerlink" href="#src-resources-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
+  <section id="resources-package">
+<h1>resources package<a class="headerlink" href="#resources-package" title="Link to this heading"></a></h1>
 <section id="module-src.resources.accessory_resource">
-<span id="src-resources-accessory-resource-module"></span><h2>src.resources.accessory_resource module<a class="headerlink" href="#module-src.resources.accessory_resource" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryBaseResource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.accessory_resource.</span></span><span class="sig-name descname"><span class="pre">AccessoryBaseResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryBaseResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryBaseResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryBaseResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<span id="accessory-resource-module"></span><h2>accessory_resource module<a class="headerlink" href="#module-src.resources.accessory_resource" title="Link to this heading"></a></h2>
+<p><strong>Accessory Resource Module</strong></p>
+<p>This module defines the <cite>AccessoryReturnResource</cite> class, which represents the structure
+of accessory-related API responses. It includes fields such as <cite>id</cite>, <cite>name</cite>, and <cite>price</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of accessory-related API responses.</p></li>
+<li><p>Provide validation and documentation for accessory fields.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryReturnResource">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.accessory_resource.</span></span><span class="sig-name descname"><span class="pre">AccessoryReturnResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryReturnResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.resources.accessory_resource.AccessoryBaseResource" title="src.resources.accessory_resource.AccessoryBaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccessoryBaseResource</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryReturnResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryReturnResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents an accessory in API responses.</p>
+<p>This class defines the fields for an accessory, including its unique identifier (<cite>id</cite>),
+name, and price.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryReturnResource.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryReturnResource.id" title="Link to this definition"></a></dt>
+<dd><p>The UUID of the accessory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryReturnResource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryReturnResource.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the accessory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.accessory_resource.AccessoryReturnResource.price">
+<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.resources.accessory_resource.AccessoryReturnResource.price" title="Link to this definition"></a></dt>
+<dd><p>The price of the accessory in dollars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.resources.brand_resource">
-<span id="src-resources-brand-resource-module"></span><h2>src.resources.brand_resource module<a class="headerlink" href="#module-src.resources.brand_resource" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.resources.brand_resource.BrandBaseResource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.brand_resource.</span></span><span class="sig-name descname"><span class="pre">BrandBaseResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.brand_resource.BrandBaseResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.brand_resource.BrandBaseResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.brand_resource.BrandBaseResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<span id="brand-resource-module"></span><h2>brand_resource module<a class="headerlink" href="#module-src.resources.brand_resource" title="Link to this heading"></a></h2>
+<p><strong>Brand Resource Module</strong></p>
+<p>This module defines the <cite>BrandReturnResource</cite> class, which represents the structure
+of car brand-related API responses. It includes fields such as <cite>id</cite>, <cite>name</cite>, and <cite>logo_url</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of brand-related API responses.</p></li>
+<li><p>Provide validation and documentation for brand fields.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.resources.brand_resource.BrandReturnResource">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.brand_resource.</span></span><span class="sig-name descname"><span class="pre">BrandReturnResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.brand_resource.BrandReturnResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.resources.brand_resource.BrandBaseResource" title="src.resources.brand_resource.BrandBaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BrandBaseResource</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.brand_resource.BrandReturnResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.brand_resource.BrandReturnResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents a brand in API responses.</p>
+<p>This class defines the fields for a car brand, including its unique identifier (<cite>id</cite>),
+name, and logo URL.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.brand_resource.BrandReturnResource.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#src.resources.brand_resource.BrandReturnResource.id" title="Link to this definition"></a></dt>
+<dd><p>The UUID of the brand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.brand_resource.BrandReturnResource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.resources.brand_resource.BrandReturnResource.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the brand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.brand_resource.BrandReturnResource.logo_url">
+<span class="sig-name descname"><span class="pre">logo_url</span></span><a class="headerlink" href="#src.resources.brand_resource.BrandReturnResource.logo_url" title="Link to this definition"></a></dt>
+<dd><p>The URL of the brand’s logo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.resources.color_resource">
-<span id="src-resources-color-resource-module"></span><h2>src.resources.color_resource module<a class="headerlink" href="#module-src.resources.color_resource" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.resources.color_resource.ColorBaseResource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.color_resource.</span></span><span class="sig-name descname"><span class="pre">ColorBaseResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.color_resource.ColorBaseResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.color_resource.ColorBaseResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.color_resource.ColorBaseResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<span id="color-resource-module"></span><h2>color_resource module<a class="headerlink" href="#module-src.resources.color_resource" title="Link to this heading"></a></h2>
+<p><strong>Color Resource Module</strong></p>
+<p>This module defines the <cite>ColorReturnResource</cite> class, which represents the structure
+of color-related API responses. It includes fields such as <cite>id</cite>, <cite>name</cite>, <cite>price</cite>, and RGB values.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of color-related API responses.</p></li>
+<li><p>Provide validation and documentation for color fields.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.color_resource.</span></span><span class="sig-name descname"><span class="pre">ColorReturnResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.resources.color_resource.ColorBaseResource" title="src.resources.color_resource.ColorBaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColorBaseResource</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents a color in API responses.</p>
+<p>This class defines the fields for a color, including its unique identifier (<cite>id</cite>),
+name, price, and RGB values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.id" title="Link to this definition"></a></dt>
+<dd><p>The UUID of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.price">
+<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.price" title="Link to this definition"></a></dt>
+<dd><p>The price of the color in dollars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.red_value">
+<span class="sig-name descname"><span class="pre">red_value</span></span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.red_value" title="Link to this definition"></a></dt>
+<dd><p>The red RGB value for the color (0-255).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.green_value">
+<span class="sig-name descname"><span class="pre">green_value</span></span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.green_value" title="Link to this definition"></a></dt>
+<dd><p>The green RGB value for the color (0-255).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.color_resource.ColorReturnResource.blue_value">
+<span class="sig-name descname"><span class="pre">blue_value</span></span><a class="headerlink" href="#src.resources.color_resource.ColorReturnResource.blue_value" title="Link to this definition"></a></dt>
+<dd><p>The blue RGB value for the color (0-255).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.resources.insurance_resource">
-<span id="src-resources-insurance-resource-module"></span><h2>src.resources.insurance_resource module<a class="headerlink" href="#module-src.resources.insurance_resource" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceBaseResource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.insurance_resource.</span></span><span class="sig-name descname"><span class="pre">InsuranceBaseResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceBaseResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceBaseResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceBaseResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<span id="insurance-resource-module"></span><h2>insurance_resource module<a class="headerlink" href="#module-src.resources.insurance_resource" title="Link to this heading"></a></h2>
+<p><strong>Insurance Resource Module</strong></p>
+<p>This module defines the <cite>InsuranceReturnResource</cite> class, which represents the structure
+of insurance-related API responses. It includes fields such as <cite>id</cite>, <cite>name</cite>, and <cite>price</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of insurance-related API responses.</p></li>
+<li><p>Provide validation and documentation for insurance fields.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceReturnResource">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.insurance_resource.</span></span><span class="sig-name descname"><span class="pre">InsuranceReturnResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceReturnResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.resources.insurance_resource.InsuranceBaseResource" title="src.resources.insurance_resource.InsuranceBaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">InsuranceBaseResource</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceReturnResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceReturnResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents an insurance in API responses.</p>
+<p>This class defines the fields for an insurance, including its unique identifier (<cite>id</cite>),
+name, and price.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceReturnResource.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceReturnResource.id" title="Link to this definition"></a></dt>
+<dd><p>The UUID of the insurance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceReturnResource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceReturnResource.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the insurance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.insurance_resource.InsuranceReturnResource.price">
+<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.resources.insurance_resource.InsuranceReturnResource.price" title="Link to this definition"></a></dt>
+<dd><p>The price of the insurance in dollars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.resources.model_resource">
-<span id="src-resources-model-resource-module"></span><h2>src.resources.model_resource module<a class="headerlink" href="#module-src.resources.model_resource" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.resources.model_resource.ModelBaseResource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.model_resource.</span></span><span class="sig-name descname"><span class="pre">ModelBaseResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.model_resource.ModelBaseResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.model_resource.ModelBaseResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.model_resource.ModelBaseResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<span id="model-resource-module"></span><h2>model_resource module<a class="headerlink" href="#module-src.resources.model_resource" title="Link to this heading"></a></h2>
+<p><strong>Model Resource Module</strong></p>
+<p>This module defines the <cite>ModelReturnResource</cite> class, which represents the structure
+of car model-related API responses. It includes fields such as <cite>id</cite>, <cite>name</cite>, <cite>price</cite>, <cite>image_url</cite>,
+<cite>brand</cite>, and <cite>colors</cite>.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define the structure of car model-related API responses.</p></li>
+<li><p>Provide validation and documentation for car model fields.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.resources.model_resource.</span></span><span class="sig-name descname"><span class="pre">ModelReturnResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.resources.model_resource.ModelBaseResource" title="src.resources.model_resource.ModelBaseResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelBaseResource</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Represents a car model in API responses.</p>
+<p>This class defines the fields for a car model, including its unique identifier (<cite>id</cite>),
+name, price, image URL, associated brand, and available colors.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.id" title="Link to this definition"></a></dt>
+<dd><p>The UUID of the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.price">
+<span class="sig-name descname"><span class="pre">price</span></span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.price" title="Link to this definition"></a></dt>
+<dd><p>The price of the car model in dollars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.image_url">
+<span class="sig-name descname"><span class="pre">image_url</span></span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.image_url" title="Link to this definition"></a></dt>
+<dd><p>The URL of the car model’s image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.brand">
+<span class="sig-name descname"><span class="pre">brand</span></span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.brand" title="Link to this definition"></a></dt>
+<dd><p>The brand associated with the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.resources.brand_resource.BrandReturnResource" title="src.resources.brand_resource.BrandReturnResource">BrandReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.resources.model_resource.ModelReturnResource.colors">
+<span class="sig-name descname"><span class="pre">colors</span></span><a class="headerlink" href="#src.resources.model_resource.ModelReturnResource.colors" title="Link to this definition"></a></dt>
+<dd><p>The available colors for the car model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#src.resources.color_resource.ColorReturnResource" title="src.resources.color_resource.ColorReturnResource">ColorReturnResource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-</section>
-<section id="module-src.resources">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.resources" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -229,8 +433,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.repositories.html" class="btn btn-neutral float-left" title="src.repositories package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="src.routers.html" class="btn btn-neutral float-right" title="src.routers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.repositories.html" class="btn btn-neutral float-left" title="repositories package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.routers.html" class="btn btn-neutral float-right" title="routers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

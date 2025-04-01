@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.services package &mdash; KEA Car Microservices 0.0.1 documentation</title>
+  <title>services package &mdash; KEA Car Microservices 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="src.routers package" href="src.routers.html" /> 
+    <link rel="prev" title="routers package" href="src.routers.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,17 +46,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="src.database_management.html">src.database_management package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.entities.html">src.entities package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.exceptions.html">src.exceptions package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.repositories.html">src.repositories package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.resources.html">src.resources package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.routers.html">src.routers package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">src.services package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.database_management.html">database_management package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.entities.html">entities package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.exceptions.html">exceptions package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.repositories.html">repositories package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.resources.html">resources package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.routers.html">routers package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">services package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.services.accessories_service">accessories_service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.services.brands_service">brands_service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.services.colors_service">colors_service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.services.insurances_service">insurances_service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.services.models_service">models_service module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -79,7 +82,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">customer_microservice</a></li>
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
-      <li class="breadcrumb-item active">src.services package</li>
+      <li class="breadcrumb-item active">services package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/src.services.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -89,78 +92,339 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src-services-package">
-<h1>src.services package<a class="headerlink" href="#src-services-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
+  <section id="services-package">
+<h1>services package<a class="headerlink" href="#services-package" title="Link to this heading"></a></h1>
 <section id="module-src.services.accessories_service">
-<span id="src-services-accessories-service-module"></span><h2>src.services.accessories_service module<a class="headerlink" href="#module-src.services.accessories_service" title="Link to this heading"></a></h2>
+<span id="accessories-service-module"></span><h2>accessories_service module<a class="headerlink" href="#module-src.services.accessories_service" title="Link to this heading"></a></h2>
+<p><strong>Accessories Service Module</strong></p>
+<p>This module provides business logic for accessory-related operations.
+It interacts with the <cite>AccessoryRepository</cite> to retrieve data from the database
+and transforms it into resource representations for API responses.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all accessories with optional limits.</p></li>
+<li><p>Retrieve a specific accessory by its ID.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.accessories_service.get_all">
 <span class="sig-prename descclassname"><span class="pre">src.services.accessories_service.</span></span><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accessory_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.accessories_service.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all accessories from the database, with an optional limit.</p>
+<p>This function interacts with the <cite>AccessoryRepository</cite> to fetch accessory data
+and converts it into a list of <cite>AccessoryReturnResource</cite> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>accessory_limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of accessories to retrieve (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of accessories as <cite>AccessoryReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.accessory_resource.AccessoryReturnResource" title="src.resources.accessory_resource.AccessoryReturnResource">AccessoryReturnResource</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>accessory_limit</cite> is not of type <cite>int</cite> or <cite>None</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.accessories_service.get_by_id">
 <span class="sig-prename descclassname"><span class="pre">src.services.accessories_service.</span></span><span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accessory_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.accessories_service.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific accessory by its ID.</p>
+<p>This function interacts with the <cite>AccessoryRepository</cite> to fetch a single accessory
+and converts it into an <cite>AccessoryReturnResource</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>accessory_id</strong> (<em>str</em>) – The ID of the accessory to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The accessory as an <cite>AccessoryReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.accessory_resource.AccessoryReturnResource" title="src.resources.accessory_resource.AccessoryReturnResource">AccessoryReturnResource</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>accessory_id</cite> is not of type <cite>str</cite>.</p></li>
+<li><p><a class="reference internal" href="src.exceptions.html#src.exceptions.database_exceptions.UnableToFindIdError" title="src.exceptions.database_exceptions.UnableToFindIdError"><strong>UnableToFindIdError</strong></a> – If no accessory is found with the given ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.services.brands_service">
-<span id="src-services-brands-service-module"></span><h2>src.services.brands_service module<a class="headerlink" href="#module-src.services.brands_service" title="Link to this heading"></a></h2>
+<span id="brands-service-module"></span><h2>brands_service module<a class="headerlink" href="#module-src.services.brands_service" title="Link to this heading"></a></h2>
+<p><strong>Brands Service Module</strong></p>
+<p>This module provides business logic for brand-related operations.
+It interacts with the <cite>BrandRepository</cite> to retrieve data from the database
+and transforms it into resource representations for API responses.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all car brands with optional limits.</p></li>
+<li><p>Retrieve a specific car brand by its ID.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.brands_service.get_all">
 <span class="sig-prename descclassname"><span class="pre">src.services.brands_service.</span></span><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brands_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.brands_service.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all car brands from the database, with an optional limit.</p>
+<p>This function interacts with the <cite>BrandRepository</cite> to fetch brand data
+and converts it into a list of <cite>BrandReturnResource</cite> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>brands_limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of brands to retrieve (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of brands as <cite>BrandReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.brand_resource.BrandReturnResource" title="src.resources.brand_resource.BrandReturnResource">BrandReturnResource</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>brands_limit</cite> is not of type <cite>int</cite> or <cite>None</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.brands_service.get_by_id">
 <span class="sig-prename descclassname"><span class="pre">src.services.brands_service.</span></span><span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.brands_service.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific car brand by its ID.</p>
+<p>This function interacts with the <cite>BrandRepository</cite> to fetch a single brand
+and converts it into a <cite>BrandReturnResource</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>brand_id</strong> (<em>str</em>) – The ID of the brand to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The brand as a <cite>BrandReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.brand_resource.BrandReturnResource" title="src.resources.brand_resource.BrandReturnResource">BrandReturnResource</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>brand_id</cite> is not of type <cite>str</cite>.</p></li>
+<li><p><a class="reference internal" href="src.exceptions.html#src.exceptions.database_exceptions.UnableToFindIdError" title="src.exceptions.database_exceptions.UnableToFindIdError"><strong>UnableToFindIdError</strong></a> – If no brand is found with the given ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.services.colors_service">
-<span id="src-services-colors-service-module"></span><h2>src.services.colors_service module<a class="headerlink" href="#module-src.services.colors_service" title="Link to this heading"></a></h2>
+<span id="colors-service-module"></span><h2>colors_service module<a class="headerlink" href="#module-src.services.colors_service" title="Link to this heading"></a></h2>
+<p><strong>Colors Service Module</strong></p>
+<p>This module provides business logic for color-related operations.
+It interacts with the <cite>ColorRepository</cite> to retrieve data from the database
+and transforms it into resource representations for API responses.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all colors with optional limits.</p></li>
+<li><p>Retrieve a specific color by its ID.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.colors_service.get_all">
 <span class="sig-prename descclassname"><span class="pre">src.services.colors_service.</span></span><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.colors_service.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all colors from the database, with an optional limit.</p>
+<p>This function interacts with the <cite>ColorRepository</cite> to fetch color data
+and converts it into a list of <cite>ColorReturnResource</cite> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>colors_limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of colors to retrieve (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of colors as <cite>ColorReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.color_resource.ColorReturnResource" title="src.resources.color_resource.ColorReturnResource">ColorReturnResource</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>colors_limit</cite> is not of type <cite>int</cite> or <cite>None</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.colors_service.get_by_id">
 <span class="sig-prename descclassname"><span class="pre">src.services.colors_service.</span></span><span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.colors_service.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific color by its ID.</p>
+<p>This function interacts with the <cite>ColorRepository</cite> to fetch a single color
+and converts it into a <cite>ColorReturnResource</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>color_id</strong> (<em>str</em>) – The ID of the color to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The color as a <cite>ColorReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.color_resource.ColorReturnResource" title="src.resources.color_resource.ColorReturnResource">ColorReturnResource</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>color_id</cite> is not of type <cite>str</cite>.</p></li>
+<li><p><a class="reference internal" href="src.exceptions.html#src.exceptions.database_exceptions.UnableToFindIdError" title="src.exceptions.database_exceptions.UnableToFindIdError"><strong>UnableToFindIdError</strong></a> – If no color is found with the given ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.services.insurances_service">
-<span id="src-services-insurances-service-module"></span><h2>src.services.insurances_service module<a class="headerlink" href="#module-src.services.insurances_service" title="Link to this heading"></a></h2>
+<span id="insurances-service-module"></span><h2>insurances_service module<a class="headerlink" href="#module-src.services.insurances_service" title="Link to this heading"></a></h2>
+<p><strong>Insurances Service Module</strong></p>
+<p>This module provides business logic for insurance-related operations.
+It interacts with the <cite>InsuranceRepository</cite> to retrieve data from the database
+and transforms it into resource representations for API responses.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all insurances with optional limits.</p></li>
+<li><p>Retrieve a specific insurance by its ID.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.insurances_service.get_all">
 <span class="sig-prename descclassname"><span class="pre">src.services.insurances_service.</span></span><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insurances_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.insurances_service.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all insurances from the database, with an optional limit.</p>
+<p>This function interacts with the <cite>InsuranceRepository</cite> to fetch insurance data
+and converts it into a list of <cite>InsuranceReturnResource</cite> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>insurances_limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of insurances to retrieve (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of insurances as <cite>InsuranceReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.insurance_resource.InsuranceReturnResource" title="src.resources.insurance_resource.InsuranceReturnResource">InsuranceReturnResource</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>insurances_limit</cite> is not of type <cite>int</cite> or <cite>None</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.insurances_service.get_by_id">
 <span class="sig-prename descclassname"><span class="pre">src.services.insurances_service.</span></span><span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insurance_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.insurances_service.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific insurance by its ID.</p>
+<p>This function interacts with the <cite>InsuranceRepository</cite> to fetch a single insurance
+and converts it into an <cite>InsuranceReturnResource</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>insurance_id</strong> (<em>str</em>) – The ID of the insurance to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The insurance as an <cite>InsuranceReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.insurance_resource.InsuranceReturnResource" title="src.resources.insurance_resource.InsuranceReturnResource">InsuranceReturnResource</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>insurance_id</cite> is not of type <cite>str</cite>.</p></li>
+<li><p><a class="reference internal" href="src.exceptions.html#src.exceptions.database_exceptions.UnableToFindIdError" title="src.exceptions.database_exceptions.UnableToFindIdError"><strong>UnableToFindIdError</strong></a> – If no insurance is found with the given ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.services.models_service">
-<span id="src-services-models-service-module"></span><h2>src.services.models_service module<a class="headerlink" href="#module-src.services.models_service" title="Link to this heading"></a></h2>
+<span id="models-service-module"></span><h2>models_service module<a class="headerlink" href="#module-src.services.models_service" title="Link to this heading"></a></h2>
+<p><strong>Models Service Module</strong></p>
+<p>This module provides business logic for car model-related operations.
+It interacts with the <cite>ModelRepository</cite> and <cite>BrandRepository</cite> to retrieve data from the database
+and transforms it into resource representations for API responses.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all car models with optional filters and limits.</p></li>
+<li><p>Retrieve a specific car model by its ID.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.models_service.get_all">
 <span class="sig-prename descclassname"><span class="pre">src.services.models_service.</span></span><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brand_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.models_service.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all car models from the database, with optional filters and limits.</p>
+<p>This function interacts with the <cite>ModelRepository</cite> to fetch car model data
+and converts it into a list of <cite>ModelReturnResource</cite> objects. If a <cite>brand_id</cite>
+is provided, the results are filtered to include only models associated with
+that brand. If a limit is provided, the number of results is restricted to
+the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>brand_id</strong> (<em>str</em><em> | </em><em>None</em>) – The ID of the brand to filter models by (optional).</p></li>
+<li><p><strong>models_limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of models to retrieve (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of models as <cite>ModelReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.model_resource.ModelReturnResource" title="src.resources.model_resource.ModelReturnResource">ModelReturnResource</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>brand_id</cite> is not of type <cite>str</cite> or <cite>None</cite>, or if <cite>models_limit</cite> is not of type <cite>int</cite> or <cite>None</cite>.</p></li>
+<li><p><a class="reference internal" href="src.exceptions.html#src.exceptions.database_exceptions.UnableToFindIdError" title="src.exceptions.database_exceptions.UnableToFindIdError"><strong>UnableToFindIdError</strong></a> – If the specified brand ID does not exist.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.services.models_service.get_by_id">
 <span class="sig-prename descclassname"><span class="pre">src.services.models_service.</span></span><span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.services.models_service.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific car model by its ID.</p>
+<p>This function interacts with the <cite>ModelRepository</cite> to fetch a single car model
+and converts it into a <cite>ModelReturnResource</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> (<em>Database</em>) – The database connection instance.</p></li>
+<li><p><strong>model_id</strong> (<em>str</em>) – The ID of the model to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model as a <cite>ModelReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.model_resource.ModelReturnResource" title="src.resources.model_resource.ModelReturnResource">ModelReturnResource</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>model_id</cite> is not of type <cite>str</cite>.</p></li>
+<li><p><a class="reference internal" href="src.exceptions.html#src.exceptions.database_exceptions.UnableToFindIdError" title="src.exceptions.database_exceptions.UnableToFindIdError"><strong>UnableToFindIdError</strong></a> – If no model is found with the given ID.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-</section>
-<section id="module-src.services">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.services" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -168,7 +432,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.routers.html" class="btn btn-neutral float-left" title="src.routers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.routers.html" class="btn btn-neutral float-left" title="routers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

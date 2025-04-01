@@ -1,3 +1,15 @@
+"""
+**Accessories Controller Module**
+
+This module defines the FastAPI routes for accessory-related operations.
+It provides endpoints to retrieve all accessories or a specific accessory by its ID.
+
+Key Responsibilities:
+
+- Define routes for accessory-related API operations.
+- Handle exceptions and return appropriate HTTP responses.
+"""
+
 # External Library imports
 from uuid import UUID
 from typing import List, Optional
@@ -16,7 +28,6 @@ router: APIRouter = APIRouter()
 def get_db():
     with get_mongodb() as database:
         yield database
-
 
 
 @router.get(
@@ -41,6 +52,16 @@ async def get_accessories(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a list of accessories from the database.
+
+    :param limit: The maximum number of accessories to retrieve (optional).
+    :type limit: int | None
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: A list of accessories as `AccessoryReturnResource`.
+    :rtype: List[AccessoryReturnResource]
+    """
     return handle_http_exception(
         error_message="Failed to get accessories from the Customer database",
         callback=lambda: service.get_all(
@@ -73,6 +94,16 @@ async def get_accessory(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a specific accessory by its UUID.
+
+    :param accessory_id: The UUID of the accessory to retrieve.
+    :type accessory_id: UUID
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: The accessory as an `AccessoryReturnResource`.
+    :rtype: AccessoryReturnResource
+    """
     return handle_http_exception(
         error_message="Failed to get accessory from the Customer database",
         callback=lambda: service.get_by_id(

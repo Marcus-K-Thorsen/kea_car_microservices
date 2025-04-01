@@ -1,3 +1,15 @@
+"""
+**Models Controller Module**
+
+This module defines the FastAPI routes for model-related operations.
+It provides endpoints to retrieve all car models or a specific car model by its ID.
+
+Key Responsibilities:
+
+- Define routes for car model-related API operations.
+- Handle exceptions and return appropriate HTTP responses.
+"""
+
 # External Library imports
 from uuid import UUID
 from typing import List, Optional
@@ -45,6 +57,18 @@ async def get_models(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a list of car models from the database.
+
+    :param brand_id: The UUID of the brand to filter models by (optional).
+    :type brand_id: UUID | None
+    :param limit: The maximum number of car models to retrieve (optional).
+    :type limit: int | None
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: A list of models as `ModelReturnResource`.
+    :rtype: List[ModelReturnResource]
+    """
     return handle_http_exception(
         error_message="Failed to get models from the Customer database",
         callback=lambda: service.get_all(
@@ -66,7 +90,7 @@ async def get_models(
     summary="Retrieve a Model by ID.",
     description=
     """
-    Retrieves a Model by ID from the Customer database 
+    Retrieves a car Model by ID from the Customer database 
     by giving a UUID in the path for the model 
     and returns it as a 'ModelReturnResource'.
     """
@@ -78,6 +102,16 @@ async def get_model(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a specific car model by its UUID.
+
+    :param model_id: The UUID of the car model to retrieve.
+    :type model_id: UUID
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: The model as a `ModelReturnResource`.
+    :rtype: ModelReturnResource
+    """
     return handle_http_exception(
         error_message="Failed to get model from the Customer database",
         callback=lambda: service.get_by_id(

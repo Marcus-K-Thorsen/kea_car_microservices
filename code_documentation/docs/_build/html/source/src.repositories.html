@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.repositories package &mdash; KEA Car Microservices 0.0.1 documentation</title>
+  <title>repositories package &mdash; KEA Car Microservices 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="src.resources package" href="src.resources.html" />
-    <link rel="prev" title="src.exceptions package" href="src.exceptions.html" /> 
+    <link rel="next" title="resources package" href="src.resources.html" />
+    <link rel="prev" title="exceptions package" href="src.exceptions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,17 +47,21 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="src.database_management.html">src.database_management package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.entities.html">src.entities package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.exceptions.html">src.exceptions package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">src.repositories package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.resources.html">src.resources package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.routers.html">src.routers package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.services.html">src.services package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.database_management.html">database_management package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.entities.html">entities package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.exceptions.html">exceptions package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">repositories package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.repositories.base_repository">base_repository module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.repositories.accessory_repository">accessory_repository module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.repositories.brand_repository">brand_repository module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.repositories.color_repository">color_repository module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.repositories.insurance_repository">insurance_repository module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.repositories.model_repository">model_repository module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.resources.html">resources package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.routers.html">routers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.services.html">services package</a></li>
 </ul>
 </li>
 </ul>
@@ -80,7 +84,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">customer_microservice</a></li>
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
-      <li class="breadcrumb-item active">src.repositories package</li>
+      <li class="breadcrumb-item active">repositories package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/src.repositories.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,327 +94,868 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src-repositories-package">
-<h1>src.repositories package<a class="headerlink" href="#src-repositories-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-src.repositories.accessory_repository">
-<span id="src-repositories-accessory-repository-module"></span><h2>src.repositories.accessory_repository module<a class="headerlink" href="#module-src.repositories.accessory_repository" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.accessory_repository.</span></span><span class="sig-name descname"><span class="pre">AccessoryRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.repositories.base_repository.BaseRepository" title="src.repositories.base_repository.BaseRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRepository</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_accessories_collection">
-<span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_accessories_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_all">
-<span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_brands_collection">
-<span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_brands_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_by_id">
-<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accessory_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_colors_collection">
-<span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_colors_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_insurances_collection">
-<span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_insurances_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_models_collection">
-<span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_models_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.limit_is_valid">
-<span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.limit_is_valid" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
+  <section id="repositories-package">
+<h1>repositories package<a class="headerlink" href="#repositories-package" title="Link to this heading"></a></h1>
 <section id="module-src.repositories.base_repository">
-<span id="src-repositories-base-repository-module"></span><h2>src.repositories.base_repository module<a class="headerlink" href="#module-src.repositories.base_repository" title="Link to this heading"></a></h2>
+<span id="base-repository-module"></span><h2>base_repository module<a class="headerlink" href="#module-src.repositories.base_repository" title="Link to this heading"></a></h2>
+<p><strong>Base Repository Module</strong></p>
+<p>This module defines the <cite>BaseRepository</cite> class, which serves as the foundation for all
+repository classes in the system. It provides common functionality for interacting with
+MongoDB collections and validating query parameters.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Provide access to MongoDB collections for various entities.</p></li>
+<li><p>Validate query parameters such as limits.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.base_repository.</span></span><span class="sig-name descname"><span class="pre">BaseRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<p>Base class for all repository classes.</p>
+<p>This class provides shared functionality for interacting with the database, such as
+retrieving MongoDB collections and validating query parameters. All other repository
+classes inherit from this base class.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.database">
+<span class="sig-name descname"><span class="pre">database</span></span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.database" title="Link to this definition"></a></dt>
+<dd><p>The database instance used for interacting with MongoDB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Database</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.get_accessories_collection">
 <span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.get_accessories_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for accessories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for accessories.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.get_brands_collection">
 <span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.get_brands_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car brands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car brands.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.get_colors_collection">
 <span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.get_colors_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for colors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.get_insurances_collection">
 <span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.get_insurances_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for insurances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for insurances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.get_models_collection">
 <span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.get_models_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car models.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.base_repository.BaseRepository.limit_is_valid">
 <span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.base_repository.BaseRepository.limit_is_valid" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Validates whether a given limit is a positive integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The limit value to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the limit is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.repositories.accessory_repository">
+<span id="accessory-repository-module"></span><h2>accessory_repository module<a class="headerlink" href="#module-src.repositories.accessory_repository" title="Link to this heading"></a></h2>
+<p><strong>Accessory Repository Module</strong></p>
+<p>This module defines the <cite>AccessoryRepository</cite> class, which provides methods for interacting
+with the MongoDB collection for accessories. It extends the <cite>BaseRepository</cite> class and
+implements accessory-specific database operations.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all accessories with optional limits.</p></li>
+<li><p>Retrieve a specific accessory by its ID.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.accessory_repository.</span></span><span class="sig-name descname"><span class="pre">AccessoryRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.repositories.base_repository.BaseRepository" title="src.repositories.base_repository.BaseRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRepository</span></code></a></p>
+<p>Repository for managing accessory-related database operations.</p>
+<p>This class provides methods to interact with the MongoDB collection for accessories,
+including retrieving all accessories or a specific accessory by its ID.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_accessories_collection">
+<span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_accessories_collection" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the MongoDB collection for accessories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for accessories.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_all">
+<span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_all" title="Link to this definition"></a></dt>
+<dd><p>Retrieves all accessories from the database, with an optional limit.</p>
+<p>This method queries the MongoDB collection for accessories and returns a list
+of <cite>AccessoryEntity</cite> objects. If a limit is provided, the number of results
+is restricted to the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of accessories to retrieve (optional).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of <cite>AccessoryEntity</cite> objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.entities.html#src.entities.accessory.AccessoryEntity" title="src.entities.accessory.AccessoryEntity">AccessoryEntity</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_brands_collection">
+<span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_brands_collection" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the MongoDB collection for car brands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car brands.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accessory_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieves a specific accessory by its ID.</p>
+<p>This method queries the MongoDB collection for an accessory with the given ID
+and returns it as an <cite>AccessoryEntity</cite> object. If no accessory is found, it
+returns <cite>None</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>accessory_id</strong> (<em>str</em>) – The ID of the accessory to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <cite>AccessoryEntity</cite> object if found, otherwise <cite>None</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.entities.html#src.entities.accessory.AccessoryEntity" title="src.entities.accessory.AccessoryEntity">AccessoryEntity</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_colors_collection">
+<span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_colors_collection" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the MongoDB collection for colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for colors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_insurances_collection">
+<span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_insurances_collection" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the MongoDB collection for insurances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for insurances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.get_models_collection">
+<span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.get_models_collection" title="Link to this definition"></a></dt>
+<dd><p>Retrieves the MongoDB collection for car models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car models.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.accessory_repository.AccessoryRepository.limit_is_valid">
+<span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.accessory_repository.AccessoryRepository.limit_is_valid" title="Link to this definition"></a></dt>
+<dd><p>Validates whether a given limit is a positive integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The limit value to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the limit is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.repositories.brand_repository">
-<span id="src-repositories-brand-repository-module"></span><h2>src.repositories.brand_repository module<a class="headerlink" href="#module-src.repositories.brand_repository" title="Link to this heading"></a></h2>
+<span id="brand-repository-module"></span><h2>brand_repository module<a class="headerlink" href="#module-src.repositories.brand_repository" title="Link to this heading"></a></h2>
+<p><strong>Brand Repository Module</strong></p>
+<p>This module defines the <cite>BrandRepository</cite> class, which provides methods for interacting
+with the MongoDB collection for car brands. It extends the <cite>BaseRepository</cite> class and
+implements brand-specific database operations.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all car brands with optional limits.</p></li>
+<li><p>Retrieve a specific car brand by its ID.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.brand_repository.</span></span><span class="sig-name descname"><span class="pre">BrandRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.repositories.base_repository.BaseRepository" title="src.repositories.base_repository.BaseRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRepository</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Repository for managing brand-related database operations.</p>
+<p>This class provides methods to interact with the MongoDB collection for car brands,
+including retrieving all brands or a specific car brand by its ID.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_accessories_collection">
 <span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_accessories_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for accessories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for accessories.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_all">
 <span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all car brands from the database, with an optional limit.</p>
+<p>This method queries the MongoDB collection for car brands and returns a list
+of <cite>BrandEntity</cite> objects. If a limit is provided, the number of results
+is restricted to the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of car brands to retrieve (optional).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of <cite>BrandEntity</cite> objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.entities.html#src.entities.brand.BrandEntity" title="src.entities.brand.BrandEntity">BrandEntity</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_brands_collection">
 <span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_brands_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car brands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car brands.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_by_id">
 <span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brand_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific car brand by its ID.</p>
+<p>This method queries the MongoDB collection for a car brand with the given ID
+and returns it as a <cite>BrandEntity</cite> object. If no car brand is found, it returns <cite>None</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>brand_id</strong> (<em>str</em>) – The ID of the car brand to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <cite>BrandEntity</cite> object if found, otherwise <cite>None</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.entities.html#src.entities.brand.BrandEntity" title="src.entities.brand.BrandEntity">BrandEntity</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_colors_collection">
 <span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_colors_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for colors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_insurances_collection">
 <span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_insurances_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for insurances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for insurances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.get_models_collection">
 <span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.get_models_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car models.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.brand_repository.BrandRepository.limit_is_valid">
 <span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.brand_repository.BrandRepository.limit_is_valid" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Validates whether a given limit is a positive integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The limit value to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the limit is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.repositories.color_repository">
-<span id="src-repositories-color-repository-module"></span><h2>src.repositories.color_repository module<a class="headerlink" href="#module-src.repositories.color_repository" title="Link to this heading"></a></h2>
+<span id="color-repository-module"></span><h2>color_repository module<a class="headerlink" href="#module-src.repositories.color_repository" title="Link to this heading"></a></h2>
+<p><strong>Color Repository Module</strong></p>
+<p>This module defines the <cite>ColorRepository</cite> class, which provides methods for interacting
+with the MongoDB collection for colors. It extends the <cite>BaseRepository</cite> class and
+implements color-specific database operations.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all colors with optional limits.</p></li>
+<li><p>Retrieve a specific color by its ID.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.color_repository.</span></span><span class="sig-name descname"><span class="pre">ColorRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.repositories.base_repository.BaseRepository" title="src.repositories.base_repository.BaseRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRepository</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Repository for managing color-related database operations.</p>
+<p>This class provides methods to interact with the MongoDB collection for colors,
+including retrieving all colors or a specific color by its ID.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_accessories_collection">
 <span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_accessories_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for accessories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for accessories.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_all">
 <span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all colors from the database, with an optional limit.</p>
+<p>This method queries the MongoDB collection for colors and returns a list
+of <cite>ColorEntity</cite> objects. If a limit is provided, the number of results
+is restricted to the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of colors to retrieve (optional).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of <cite>ColorEntity</cite> objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.entities.html#src.entities.color.ColorEntity" title="src.entities.color.ColorEntity">ColorEntity</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_brands_collection">
 <span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_brands_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car brands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car brands.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_by_id">
 <span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific color by its ID.</p>
+<p>This method queries the MongoDB collection for a color with the given ID
+and returns it as a <cite>ColorEntity</cite> object. If no color is found, it returns <cite>None</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color_id</strong> (<em>str</em>) – The ID of the color to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <cite>ColorEntity</cite> object if found, otherwise <cite>None</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.entities.html#src.entities.color.ColorEntity" title="src.entities.color.ColorEntity">ColorEntity</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_colors_collection">
 <span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_colors_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for colors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_insurances_collection">
 <span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_insurances_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for insurances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for insurances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.get_models_collection">
 <span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.get_models_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car models.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.color_repository.ColorRepository.limit_is_valid">
 <span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.color_repository.ColorRepository.limit_is_valid" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Validates whether a given limit is a positive integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The limit value to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the limit is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.repositories.insurance_repository">
-<span id="src-repositories-insurance-repository-module"></span><h2>src.repositories.insurance_repository module<a class="headerlink" href="#module-src.repositories.insurance_repository" title="Link to this heading"></a></h2>
+<span id="insurance-repository-module"></span><h2>insurance_repository module<a class="headerlink" href="#module-src.repositories.insurance_repository" title="Link to this heading"></a></h2>
+<p><strong>Insurance Repository Module</strong></p>
+<p>This module defines the <cite>InsuranceRepository</cite> class, which provides methods for interacting
+with the MongoDB collection for insurances. It extends the <cite>BaseRepository</cite> class and
+implements insurance-specific database operations.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all insurances with optional limits.</p></li>
+<li><p>Retrieve a specific insurance by its ID.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.insurance_repository.</span></span><span class="sig-name descname"><span class="pre">InsuranceRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.repositories.base_repository.BaseRepository" title="src.repositories.base_repository.BaseRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRepository</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Repository for managing insurance-related database operations.</p>
+<p>This class provides methods to interact with the MongoDB collection for insurances,
+including retrieving all insurances or a specific insurance by its ID.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_accessories_collection">
 <span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_accessories_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for accessories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for accessories.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_all">
 <span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all insurances from the database, with an optional limit.</p>
+<p>This method queries the MongoDB collection for insurances and returns a list
+of <cite>InsuranceEntity</cite> objects. If a limit is provided, the number of results
+is restricted to the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of insurances to retrieve (optional).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of <cite>InsuranceEntity</cite> objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.entities.html#src.entities.insurance.InsuranceEntity" title="src.entities.insurance.InsuranceEntity">InsuranceEntity</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_brands_collection">
 <span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_brands_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car brands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car brands.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_by_id">
 <span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insurance_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific insurance by its ID.</p>
+<p>This method queries the MongoDB collection for an insurance with the given ID
+and returns it as an <cite>InsuranceEntity</cite> object. If no insurance is found, it
+returns <cite>None</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>insurance_id</strong> (<em>str</em>) – The ID of the insurance to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <cite>InsuranceEntity</cite> object if found, otherwise <cite>None</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.entities.html#src.entities.insurance.InsuranceEntity" title="src.entities.insurance.InsuranceEntity">InsuranceEntity</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_colors_collection">
 <span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_colors_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for colors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_insurances_collection">
 <span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_insurances_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for insurances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for insurances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.get_models_collection">
 <span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.get_models_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car models.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.insurance_repository.InsuranceRepository.limit_is_valid">
 <span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.insurance_repository.InsuranceRepository.limit_is_valid" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Validates whether a given limit is a positive integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The limit value to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the limit is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-src.repositories.model_repository">
-<span id="src-repositories-model-repository-module"></span><h2>src.repositories.model_repository module<a class="headerlink" href="#module-src.repositories.model_repository" title="Link to this heading"></a></h2>
+<span id="model-repository-module"></span><h2>model_repository module<a class="headerlink" href="#module-src.repositories.model_repository" title="Link to this heading"></a></h2>
+<p><strong>Model Repository Module</strong></p>
+<p>This module defines the <cite>ModelRepository</cite> class, which provides methods for interacting
+with the MongoDB collection for car models. It extends the <cite>BaseRepository</cite> class and
+implements model-specific database operations.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Retrieve all car models with optional filters and limits.</p></li>
+<li><p>Retrieve a specific car model by its ID.</p></li>
+</ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.repositories.model_repository.</span></span><span class="sig-name descname"><span class="pre">ModelRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#src.repositories.base_repository.BaseRepository" title="src.repositories.base_repository.BaseRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRepository</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p>Repository for managing car model-related database operations.</p>
+<p>This class provides methods to interact with the MongoDB collection for car models,
+including retrieving all models or a specific model by its ID.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_accessories_collection">
 <span class="sig-name descname"><span class="pre">get_accessories_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_accessories_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for accessories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for accessories.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_all">
 <span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brand_entity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all car models from the database, with optional filters and limits.</p>
+<p>This method queries the MongoDB collection for car models and returns a list
+of <cite>ModelEntity</cite> objects. If a <cite>brand_entity</cite> is provided, the results are
+filtered to include only models associated with that brand. If a limit is
+provided, the number of results is restricted to the specified value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brand_entity</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="src.entities.html#src.entities.brand.BrandEntity" title="src.entities.brand.BrandEntity"><em>BrandEntity</em></a><em>]</em>) – The brand to filter models by (optional).</p></li>
+<li><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of models to retrieve (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of <cite>ModelEntity</cite> objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.entities.html#src.entities.model.ModelEntity" title="src.entities.model.ModelEntity">ModelEntity</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_brands_collection">
 <span class="sig-name descname"><span class="pre">get_brands_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_brands_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car brands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car brands.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_by_id">
 <span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific car model by its ID.</p>
+<p>This method queries the MongoDB collection for a car model with the given ID
+and returns it as a <cite>ModelEntity</cite> object. If no model is found, it returns <cite>None</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_id</strong> (<em>str</em>) – The ID of the car model to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The <cite>ModelEntity</cite> object if found, otherwise <cite>None</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.entities.html#src.entities.model.ModelEntity" title="src.entities.model.ModelEntity">ModelEntity</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_colors_collection">
 <span class="sig-name descname"><span class="pre">get_colors_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_colors_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for colors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_insurances_collection">
 <span class="sig-name descname"><span class="pre">get_insurances_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_insurances_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for insurances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for insurances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.get_models_collection">
 <span class="sig-name descname"><span class="pre">get_models_collection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.get_models_collection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the MongoDB collection for car models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MongoDB collection for car models.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.repositories.model_repository.ModelRepository.limit_is_valid">
 <span class="sig-name descname"><span class="pre">limit_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.repositories.model_repository.ModelRepository.limit_is_valid" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Validates whether a given limit is a positive integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The limit value to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the limit is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-</section>
-<section id="module-src.repositories">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.repositories" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -418,8 +963,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.exceptions.html" class="btn btn-neutral float-left" title="src.exceptions package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="src.resources.html" class="btn btn-neutral float-right" title="src.resources package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.exceptions.html" class="btn btn-neutral float-left" title="exceptions package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.resources.html" class="btn btn-neutral float-right" title="resources package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

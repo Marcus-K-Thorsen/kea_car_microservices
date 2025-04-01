@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src.routers package &mdash; KEA Car Microservices 0.0.1 documentation</title>
+  <title>routers package &mdash; KEA Car Microservices 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="src.services package" href="src.services.html" />
-    <link rel="prev" title="src.resources package" href="src.resources.html" /> 
+    <link rel="next" title="services package" href="src.services.html" />
+    <link rel="prev" title="resources package" href="src.resources.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,17 +47,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">customer_microservice</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="src.database_management.html">src.database_management package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.entities.html">src.entities package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.exceptions.html">src.exceptions package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.repositories.html">src.repositories package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.resources.html">src.resources package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">src.routers package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.services.html">src.services package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.database_management.html">database_management package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.entities.html">entities package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.exceptions.html">exceptions package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.repositories.html">repositories package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.resources.html">resources package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">routers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.routers.accessories_controller">accessories_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.routers.brands_controller">brands_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.routers.colors_controller">colors_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.routers.insurances_controller">insurances_controller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.routers.models_controller">models_controller module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.services.html">services package</a></li>
 </ul>
 </li>
 </ul>
@@ -80,7 +83,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="modules.html">customer_microservice</a></li>
           <li class="breadcrumb-item"><a href="src.html">src package</a></li>
-      <li class="breadcrumb-item active">src.routers package</li>
+      <li class="breadcrumb-item active">routers package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/src.routers.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,22 +93,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src-routers-package">
-<h1>src.routers package<a class="headerlink" href="#src-routers-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
+  <section id="routers-package">
+<h1>routers package<a class="headerlink" href="#routers-package" title="Link to this heading"></a></h1>
 <section id="module-src.routers.accessories_controller">
-<span id="src-routers-accessories-controller-module"></span><h2>src.routers.accessories_controller module<a class="headerlink" href="#module-src.routers.accessories_controller" title="Link to this heading"></a></h2>
+<span id="accessories-controller-module"></span><h2>accessories_controller module<a class="headerlink" href="#module-src.routers.accessories_controller" title="Link to this heading"></a></h2>
+<p><strong>Accessories Controller Module</strong></p>
+<p>This module defines the FastAPI routes for accessory-related operations.
+It provides endpoints to retrieve all accessories or a specific accessory by its ID.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define routes for accessory-related API operations.</p></li>
+<li><p>Handle exceptions and return appropriate HTTP responses.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.accessories_controller.get_accessories">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.accessories_controller.</span></span><span class="sig-name descname"><span class="pre">get_accessories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.accessories_controller.get_accessories" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a list of accessories from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of accessories to retrieve (optional).</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of accessories as <cite>AccessoryReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.accessory_resource.AccessoryReturnResource" title="src.resources.accessory_resource.AccessoryReturnResource">AccessoryReturnResource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.accessories_controller.get_accessory">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.accessories_controller.</span></span><span class="sig-name descname"><span class="pre">get_accessory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accessory_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.accessories_controller.get_accessory" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific accessory by its UUID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>accessory_id</strong> (<em>UUID</em>) – The UUID of the accessory to retrieve.</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The accessory as an <cite>AccessoryReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.accessory_resource.AccessoryReturnResource" title="src.resources.accessory_resource.AccessoryReturnResource">AccessoryReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.accessories_controller.get_db">
@@ -114,16 +152,54 @@
 
 </section>
 <section id="module-src.routers.brands_controller">
-<span id="src-routers-brands-controller-module"></span><h2>src.routers.brands_controller module<a class="headerlink" href="#module-src.routers.brands_controller" title="Link to this heading"></a></h2>
+<span id="brands-controller-module"></span><h2>brands_controller module<a class="headerlink" href="#module-src.routers.brands_controller" title="Link to this heading"></a></h2>
+<p><strong>Brands Controller Module</strong></p>
+<p>This module defines the FastAPI routes for brand-related operations.
+It provides endpoints to retrieve all brands or a specific brand by its ID.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define routes for brand-related API operations.</p></li>
+<li><p>Handle exceptions and return appropriate HTTP responses.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.brands_controller.get_brand">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.brands_controller.</span></span><span class="sig-name descname"><span class="pre">get_brand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brand_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.brands_controller.get_brand" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific car brand by its UUID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brand_id</strong> (<em>UUID</em>) – The UUID of the brand to retrieve.</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The brand as a <cite>BrandReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.brand_resource.BrandReturnResource" title="src.resources.brand_resource.BrandReturnResource">BrandReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.brands_controller.get_brands">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.brands_controller.</span></span><span class="sig-name descname"><span class="pre">get_brands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.brands_controller.get_brands" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a list of car brands from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of brands to retrieve (optional).</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of brands as <cite>BrandReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.brand_resource.BrandReturnResource" title="src.resources.brand_resource.BrandReturnResource">BrandReturnResource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.brands_controller.get_db">
@@ -132,16 +208,54 @@
 
 </section>
 <section id="module-src.routers.colors_controller">
-<span id="src-routers-colors-controller-module"></span><h2>src.routers.colors_controller module<a class="headerlink" href="#module-src.routers.colors_controller" title="Link to this heading"></a></h2>
+<span id="colors-controller-module"></span><h2>colors_controller module<a class="headerlink" href="#module-src.routers.colors_controller" title="Link to this heading"></a></h2>
+<p><strong>Colors Controller Module</strong></p>
+<p>This module defines the FastAPI routes for color-related operations.
+It provides endpoints to retrieve all colors or a specific color by its ID.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define routes for color-related API operations.</p></li>
+<li><p>Handle exceptions and return appropriate HTTP responses.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.colors_controller.get_color">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.colors_controller.</span></span><span class="sig-name descname"><span class="pre">get_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.colors_controller.get_color" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific color by its UUID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color_id</strong> (<em>UUID</em>) – The UUID of the color to retrieve.</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The color as a <cite>ColorReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.color_resource.ColorReturnResource" title="src.resources.color_resource.ColorReturnResource">ColorReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.colors_controller.get_colors">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.colors_controller.</span></span><span class="sig-name descname"><span class="pre">get_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.colors_controller.get_colors" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a list of colors from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of colors to retrieve (optional).</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of colors as <cite>ColorReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.color_resource.ColorReturnResource" title="src.resources.color_resource.ColorReturnResource">ColorReturnResource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.colors_controller.get_db">
@@ -150,7 +264,15 @@
 
 </section>
 <section id="module-src.routers.insurances_controller">
-<span id="src-routers-insurances-controller-module"></span><h2>src.routers.insurances_controller module<a class="headerlink" href="#module-src.routers.insurances_controller" title="Link to this heading"></a></h2>
+<span id="insurances-controller-module"></span><h2>insurances_controller module<a class="headerlink" href="#module-src.routers.insurances_controller" title="Link to this heading"></a></h2>
+<p><strong>Insurances Controller Module</strong></p>
+<p>This module defines the FastAPI routes for insurance-related operations.
+It provides endpoints to retrieve all insurances or a specific insurance by its ID.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define routes for insurance-related API operations.</p></li>
+<li><p>Handle exceptions and return appropriate HTTP responses.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.insurances_controller.get_db">
 <span class="sig-prename descclassname"><span class="pre">src.routers.insurances_controller.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.insurances_controller.get_db" title="Link to this definition"></a></dt>
@@ -159,16 +281,54 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.insurances_controller.get_insurance">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.insurances_controller.</span></span><span class="sig-name descname"><span class="pre">get_insurance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insurance_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.insurances_controller.get_insurance" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific insurance by its UUID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>insurance_id</strong> (<em>UUID</em>) – The UUID of the insurance to retrieve.</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The insurance as an <cite>InsuranceReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.insurance_resource.InsuranceReturnResource" title="src.resources.insurance_resource.InsuranceReturnResource">InsuranceReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.insurances_controller.get_insurances">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.insurances_controller.</span></span><span class="sig-name descname"><span class="pre">get_insurances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.insurances_controller.get_insurances" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a list of insurances from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of insurances to retrieve (optional).</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of insurances as <cite>InsuranceReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.insurance_resource.InsuranceReturnResource" title="src.resources.insurance_resource.InsuranceReturnResource">InsuranceReturnResource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-src.routers.models_controller">
-<span id="src-routers-models-controller-module"></span><h2>src.routers.models_controller module<a class="headerlink" href="#module-src.routers.models_controller" title="Link to this heading"></a></h2>
+<span id="models-controller-module"></span><h2>models_controller module<a class="headerlink" href="#module-src.routers.models_controller" title="Link to this heading"></a></h2>
+<p><strong>Models Controller Module</strong></p>
+<p>This module defines the FastAPI routes for model-related operations.
+It provides endpoints to retrieve all car models or a specific car model by its ID.</p>
+<p>Key Responsibilities:</p>
+<ul class="simple">
+<li><p>Define routes for car model-related API operations.</p></li>
+<li><p>Handle exceptions and return appropriate HTTP responses.</p></li>
+</ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.models_controller.get_db">
 <span class="sig-prename descclassname"><span class="pre">src.routers.models_controller.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.models_controller.get_db" title="Link to this definition"></a></dt>
@@ -177,16 +337,44 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.models_controller.get_model">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.models_controller.</span></span><span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.models_controller.get_model" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a specific car model by its UUID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_id</strong> (<em>UUID</em>) – The UUID of the car model to retrieve.</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model as a <cite>ModelReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.resources.html#src.resources.model_resource.ModelReturnResource" title="src.resources.model_resource.ModelReturnResource">ModelReturnResource</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.routers.models_controller.get_models">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.routers.models_controller.</span></span><span class="sig-name descname"><span class="pre">get_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brand_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customer_database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">fastapi.Depends</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.routers.models_controller.get_models" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a list of car models from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brand_id</strong> (<em>UUID</em><em> | </em><em>None</em>) – The UUID of the brand to filter models by (optional).</p></li>
+<li><p><strong>limit</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of car models to retrieve (optional).</p></li>
+<li><p><strong>customer_database</strong> (<em>Database</em>) – The database connection dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of models as <cite>ModelReturnResource</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="src.resources.html#src.resources.model_resource.ModelReturnResource" title="src.resources.model_resource.ModelReturnResource">ModelReturnResource</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
-</section>
-<section id="module-src.routers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.routers" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -194,8 +382,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="src.resources.html" class="btn btn-neutral float-left" title="src.resources package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="src.services.html" class="btn btn-neutral float-right" title="src.services package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.resources.html" class="btn btn-neutral float-left" title="resources package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.services.html" class="btn btn-neutral float-right" title="services package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

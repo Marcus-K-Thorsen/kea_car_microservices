@@ -1,3 +1,15 @@
+"""
+**Brands Controller Module**
+
+This module defines the FastAPI routes for brand-related operations.
+It provides endpoints to retrieve all brands or a specific brand by its ID.
+
+Key Responsibilities:
+
+- Define routes for brand-related API operations.
+- Handle exceptions and return appropriate HTTP responses.
+"""
+
 # External Library imports
 from uuid import UUID
 from typing import List, Optional
@@ -16,7 +28,6 @@ router: APIRouter = APIRouter()
 def get_db():
     with get_mongodb() as database:
         yield database
-
 
 
 @router.get(
@@ -41,6 +52,16 @@ async def get_brands(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a list of car brands from the database.
+
+    :param limit: The maximum number of brands to retrieve (optional).
+    :type limit: int | None
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: A list of brands as `BrandReturnResource`.
+    :rtype: List[BrandReturnResource]
+    """
     return handle_http_exception(
         error_message="Failed to get brands from the Customer database",
         callback=lambda: service.get_all(
@@ -72,6 +93,16 @@ async def get_brand(
         ),
         customer_database: Database = Depends(get_db)
 ):
+    """
+    Retrieves a specific car brand by its UUID.
+
+    :param brand_id: The UUID of the brand to retrieve.
+    :type brand_id: UUID
+    :param customer_database: The database connection dependency.
+    :type customer_database: Database
+    :return: The brand as a `BrandReturnResource`.
+    :rtype: BrandReturnResource
+    """
     return handle_http_exception(
         error_message="Failed to get brand from the Customer database",
         callback=lambda: service.get_by_id(
@@ -79,4 +110,3 @@ async def get_brand(
             brand_id=str(brand_id)
         )
     )
-

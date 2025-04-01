@@ -1,8 +1,6 @@
 src package
 ===========
 
-Subpackages
------------
 
 .. toctree::
    :maxdepth: 4
@@ -15,10 +13,3 @@ Subpackages
    src.routers
    src.services
 
-Module contents
----------------
-
-.. automodule:: src
-   :members:
-   :show-inheritance:
-   :undoc-members:
