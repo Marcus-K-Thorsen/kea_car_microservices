@@ -1,9 +1,15 @@
 # External Library imports
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from main_publisher import main as send_trial_message
 from dotenv import load_dotenv
 import os
+
+# Trial stuff, delete later
+from pydantic import BaseModel
+from src.message_broker_management import TrialPublisher
+
+class TrialMessage(BaseModel):
+    message: str
 
 load_dotenv()
 
@@ -24,8 +30,12 @@ def read_root():
 
 @app.get("/send_message/{message}")
 def send_message(message: str):
-    send_trial_message(message)
+    trial_publisher = TrialPublisher()
+    trial_message = TrialMessage(message=message)
+    trial_publisher.publish(trial_message)
     return {"message": "Message sent successfully"}
+
+
 
 if __name__ == "__main__":
     import uvicorn
