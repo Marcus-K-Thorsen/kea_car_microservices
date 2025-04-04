@@ -1,0 +1,19 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+.venv/
+env/
+venv/
+.env
+.env.example
+
+# Ignore node_modules
+node_modules/
+
+# Ignore other unnecessary files
+*.log
+*.tmp
+.DS_Store

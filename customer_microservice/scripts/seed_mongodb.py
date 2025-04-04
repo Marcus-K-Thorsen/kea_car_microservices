@@ -49,9 +49,9 @@ if __name__ == '__main__':
         client = MongoClient(
             host=MONGO_DB_HOST, 
             port=int(MONGO_DB_PORT),
-            username=MONGO_DB_ADMIN_USER,
-            password=MONGO_DB_ADMIN_PASSWORD,
-            authSource='admin'
+            #username=MONGO_DB_ADMIN_USER,
+            #password=MONGO_DB_ADMIN_PASSWORD,
+            #authSource='admin'
             )
         
         db = client.get_database(MONGO_DB_NAME)

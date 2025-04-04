@@ -61,7 +61,7 @@ def start_application():
 
     This function runs the FastAPI application using Uvicorn as the ASGI server.
     The host and port are configurable via environment variables:
-    - `API_HOST`: Host address (default: 127.0.0.1).
+    - `API_HOST`: Host address (default: 0.0.0.0).
     - `API_PORT`: Port number (default: 8002).
 
     Example:
@@ -70,7 +70,7 @@ def start_application():
     import uvicorn
 
     # Load API host and port from environment variables
-    API_HOST = os.getenv("API_HOST", "127.0.0.1")
+    API_HOST = os.getenv("API_HOST", "0.0.0.0")
     try:
         API_PORT = int(os.getenv("API_PORT", 8002))
     except ValueError:

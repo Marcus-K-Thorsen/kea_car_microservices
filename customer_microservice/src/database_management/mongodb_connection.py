@@ -57,6 +57,14 @@ def get_mongodb() -> Generator[Database, None, None]:
     :return: A MongoDB `Database` object for interacting with the specified database.
     :rtype: pymongo.database.Database
     """
+    #connection_string = f"mongodb://{MONGO_DB_READ_USER}:{MONGO_DB_READ_USER_PASSWORD}@{MONGO_DB_HOST}:{MONGO_DB_PORT}/{MONGO_DB_NAME}?authSource=admin"
+
+    #client = MongoClient(
+    #    connection_string,
+    #    connectTimeoutMS=8000,  # 8 seconds timeout for connection establishment
+    #    serverSelectionTimeoutMS=8000  # 8 seconds timeout for server selection
+    #)
+    
     client = MongoClient(
         host=MONGO_DB_HOST, 
         port=MONGO_DB_PORT,
@@ -66,9 +74,17 @@ def get_mongodb() -> Generator[Database, None, None]:
         connectTimeoutMS=8000,  # 8 seconds timeout for connection establishment
         serverSelectionTimeoutMS=8000  # 8 seconds timeout for server selection
     )
-    db = client.get_database(MONGO_DB_NAME)
     try:
+        # Attempt to connect to the database
+        db = client.get_database(MONGO_DB_NAME)
+        # Perform a simple operation to verify the connection
+        #client.admin.command('ping')
+        print(f"Successfully connected to MongoDB at {MONGO_DB_HOST}:{MONGO_DB_PORT}")
         yield db
+    except Exception as e:
+        print(f"Failed to connect to MongoDB: {e}")
+        raise
     finally:
         client.close()
+        print("MongoDB connection closed.")
         

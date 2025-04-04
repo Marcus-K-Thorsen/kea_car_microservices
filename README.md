@@ -9,6 +9,7 @@ docker-compose up -d
 
 # If something should go wrong and you need to start over
 docker-compose down --rmi all --volumes --remove-orphans
+docker-compose down --volumes --remove-orphans
 
 # To stop the docker compose regularly
 docker-compose down

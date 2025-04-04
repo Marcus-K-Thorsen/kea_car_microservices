@@ -6,8 +6,35 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+  
+  mongodb_customer:
+    image: mongo:latest
+    container_name: mongodb_customer
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=kea_cars_customer_dev
+      #- MONGO_INITDB_ROOT_USERNAME=root
+      #- MONGO_INITDB_ROOT_PASSWORD=rootpass
+    volumes:
+      - mongodb_customer:/data/db
+
+  seed_mongodb_customer:
+    build:
+      context: ./customer_microservice
+      dockerfile: scripts/Dockerfile
+    container_name: seed_mongodb_customer
+    depends_on:
+      - mongodb_customer
+    environment:
+      - MONGO_DB_HOST=mongodb_customer
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_NAME=kea_cars_customer_dev
+      - MONGO_DB_READ_USER=readOnlyUser
+      - MONGO_DB_READ_USER_PASSWORD=readOnlyPassword
+    
 
   admin_microservice:
     build:
@@ -24,3 +51,27 @@ services:
       - RABBITMQ_HOST=rabbitmq
     volumes:
       - ./admin_microservice:/app
+    
+  customer_microservice:
+    build:
+      context: ./customer_microservice
+      dockerfile: Dockerfile
+    container_name: customer_microservice
+    ports:
+      - "8002:8002"
+    depends_on:
+      - mongodb_customer
+      - seed_mongodb_customer
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8002
+      - MONGO_DB_HOST=mongodb_customer
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_NAME=kea_cars_customer_dev
+      - MONGO_DB_READ_USER=readOnlyUser
+      - MONGO_DB_READ_USER_PASSWORD=readOnlyPassword
+    volumes:
+      - ./customer_microservice:/app
+
+volumes:
+  mongodb_customer:
