@@ -1,43 +1,33 @@
-# External Library imports
-# from fastapi.middleware.cors import CORSMiddleware
-# from fastapi import FastAPI
-# from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
+from dotenv import load_dotenv
+import os
 
-# class TrialItem(BaseModel):
-#     item_name: str
 
-# class Trial(BaseModel):
-#     name: str
-#     age: int
-#     trial_item: TrialItem
+app = FastAPI()
 
-# app = FastAPI()
+CORS_SETTINGS = {
+    "allow_origins": ["*"],
+    "allow_credentials": True,
+    "allow_methods": ["*"],
+    "allow_headers": ["*"]
+}
 
-# CORS_SETTINGS = {
-#     "allow_origins": ["*"],
-#     "allow_credentials": True,
-#     "allow_methods": ["*"],
-#     "allow_headers": ["*"]
-# }
+load_dotenv()
 
-# app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
+app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "Employee Service"}
+@app.get("/")
+def read_root():
+    return {"Hello": "Employee Service"}
 
-# @app.get("/send_message/{message}")
-# def send_message(message: str):
-#     trial_item = TrialItem(item_name=message)
-#     trial = Trial(name="employee", age=20, trial_item=trial_item)
+if __name__ == "__main__":
+    import uvicorn
     
-#     message_publisher = Publisher()
-#     message_publisher.publish(trial)
-#     message_publisher.close_connection()
-#     return {"message": "Message sent successfully"}
-
-# # To run the employee microservice endpoints, run this script while in the root of the project directory:
-# # poetry run python -m employee_microservice.main
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="127.0.0.1", port=8003)
+    API_HOST = os.getenv("API_HOST", "0.0.0.0")
+    try:
+        API_PORT = int(os.getenv("API_PORT", 8003))
+    except ValueError:
+        raise ValueError("API_PORT must be an integer.")
+    
+    uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
