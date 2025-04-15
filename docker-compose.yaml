@@ -8,6 +8,12 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_ALLOW_GUEST_LOGIN=true
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mongodb_customer:
     image: mongo:latest
@@ -59,11 +65,15 @@ services:
     ports:
       - "8001:8001"
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
     environment:
       - API_HOST=0.0.0.0
       - API_PORT=8001
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     volumes:
       - ./auth_microservice:/app
 

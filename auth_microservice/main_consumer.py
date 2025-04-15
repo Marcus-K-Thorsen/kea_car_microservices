@@ -1,7 +1,6 @@
 import sys
 import os
-from .rabbitmq.consumer import TrialConsumer as Consumer
-
+from rabbitmq.consumer import TrialConsumer as Consumer
 
 def main():
     print(' [*] Waiting for consumer. To exit press CTRL+C')
@@ -17,9 +16,3 @@ def main():
             sys.exit(0)
         except SystemExit:
             os._exit(0)
-
-# To start the authentication service consumer, run this script while in the root of the project directory:
-# poetry run python -m auth_microservice.main_consumer
-if __name__ == '__main__':
-    main()
-    
