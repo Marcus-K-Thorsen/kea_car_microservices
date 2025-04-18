@@ -1,62 +1,81 @@
-from pika import BlockingConnection, ConnectionParameters, PlainCredentials
-from pika.adapters.blocking_connection import BlockingChannel
-from pika.spec import Basic, BasicProperties
+from aio_pika import ExchangeType, IncomingMessage, connect_robust
+import asyncio
 import logging
-import time
-from pika.exceptions import AMQPConnectionError
+import os
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
+
 class TrialConsumer:
-    def __init__(self, exchange_name: str = "admin_exchange", queue_name: str = "trial_queue_auth", host: str = "rabbitmq", port: int = 5672):
+    def __init__(
+        self,
+        exchange_name: str = "admin_exchange",
+        queue_name: str = "trial_queue_auth",
+        host: str = "rabbitmq",
+        port: int = 5672,
+    ):
         self.exchange_name = exchange_name
         self.queue_name = queue_name
         self.host = host
         self.port = port
-        self.credentials = PlainCredentials("guest", "guest")
         self.connection = None
         self.channel = None
 
-        # Retry mechanism for RabbitMQ connection
+    async def connect(self):
+        """Establish a connection to RabbitMQ."""
         for attempt in range(5):  # Retry up to 5 times
             try:
                 logger.info(f"Attempting to connect to RabbitMQ (attempt {attempt + 1})...")
-                self.connection = BlockingConnection(ConnectionParameters(host=self.host, port=self.port, credentials=self.credentials))
-                self.channel: BlockingChannel = self.connection.channel()
+                self.connection = await connect_robust(
+                    host=self.host,
+                    port=self.port,
+                    login=os.getenv("RABBITMQ_USERNAME", "guest"),
+                    password=os.getenv("RABBITMQ_PASSWORD", "guest"),
+                )
+                self.channel = await self.connection.channel()
                 break
-            except AMQPConnectionError as e:
+            except Exception as e:
                 logger.error(f"Connection failed: {e}. Retrying in 5 seconds...")
-                time.sleep(5)
+                await asyncio.sleep(5)
         else:
-            raise AMQPConnectionError("Failed to connect to RabbitMQ after 5 attempts.")
+            raise ConnectionError("Failed to connect to RabbitMQ after 5 attempts.")
 
         # Declare exchange and queue
-        self.channel.exchange_declare(exchange=self.exchange_name, exchange_type="fanout")
-        self.channel.queue_declare(queue=self.queue_name)
-        self.channel.queue_bind(exchange=self.exchange_name, queue=self.queue_name)
-        logger.info(f"Connected to RabbitMQ. Declared exchange: {self.exchange_name}, queue: {self.queue_name}")
+        await self.channel.declare_exchange(self.exchange_name, ExchangeType.FANOUT)
+        queue = await self.channel.declare_queue(self.queue_name, durable=True)
+        await queue.bind(self.exchange_name)
+        logger.info(
+            f"Connected to RabbitMQ. Declared exchange: {self.exchange_name}, queue: {self.queue_name}"
+        )
 
-    def on_message(self, channel: BlockingChannel, method: Basic.Deliver, properties: BasicProperties, body: bytes):
-        try:
-            # Decode the message and log it
-            message: str = body.decode('utf-8')
-            logger.info(f"The queue: {self.queue_name} received message: {message}")
-            channel.basic_ack(delivery_tag=method.delivery_tag)
-        except Exception as e:
-            logger.error(f"Unexpected error while processing message: {e}")
-            channel.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+    async def on_message(self, message: IncomingMessage):
+        """Handle incoming messages."""
+        async with message.process():
+            try:
+                logger.info(f"This is The Routing Key: {message.routing_key}")
+                # Decode the message and log it
+                message_body: str = message.body.decode("utf-8")
+                logger.info(f"This is The queue: {self.queue_name} received message: {message_body}")
+            except Exception as e:
+                logger.error(f"Unexpected error while processing message: {e}")
 
-    def start(self):
+    async def start(self):
+        """Start consuming messages."""
+        if not self.connection or not self.channel:
+            await self.connect()
+
+        queue = await self.channel.declare_queue(self.queue_name, durable=True)
         logger.info(f"Starting consumer on queue: {self.queue_name}")
-        self.channel.basic_consume(queue=self.queue_name, on_message_callback=self.on_message)
-        self.channel.start_consuming()
+        await queue.consume(self.on_message)
 
-    def stop(self):
+    async def stop(self):
+        """Close the connection."""
         logger.info("Stopping consumer...")
-        if self.channel.is_open:
-            self.channel.stop_consuming()
-        if self.connection.is_open:
-            self.connection.close()
+        if self.connection:
+            await self.connection.close()
+            self.connection = None
         logger.info("Consumer stopped and connection closed.")
