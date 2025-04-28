@@ -15,17 +15,67 @@ services:
       timeout: 5s
       retries: 5
 
+  mysqldb_admin:
+    image: mysql:latest
+    container_name: mysqldb_admin
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+      - mysqldb_admin:/var/lib/mysql
+      - ./init_db/init_admin_db.sql:/docker-entrypoint-initdb.d/init_admin_db.sql
+
+  mongodb_auth:
+    image: mongo:latest
+    container_name: mongodb_auth
+    ports:
+      - "27019:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+      - MONGO_INITDB_DATABASE=kea_cars_auth_dev
+    volumes:
+      - mongodb_auth:/data/db
+
   mongodb_customer:
     image: mongo:latest
     container_name: mongodb_customer
     ports:
       - "27018:27017"
     environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
       - MONGO_INITDB_DATABASE=kea_cars_customer_dev
-      #- MONGO_INITDB_ROOT_USERNAME=root
-      #- MONGO_INITDB_ROOT_PASSWORD=rootpass
     volumes:
       - mongodb_customer:/data/db
+
+  mysqldb_employee:
+    image: mysql:latest
+    container_name: mysqldb_employee
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+      - mysqldb_employee:/var/lib/mysql
+      - ./init_db/init_employee_db.sql:/docker-entrypoint-initdb.d/init_employee_db.sql
+
+  seed_mongodb_auth:
+    build:
+      context: ./auth_microservice
+      dockerfile: scripts/Dockerfile
+    container_name: seed_mongodb_auth
+    depends_on:
+      - mongodb_auth
+    environment:
+      - MONGO_DB_HOST=mongodb_auth
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_ROOT_USERNAME=root
+      - MONGO_DB_ROOT_PASSWORD=rootpassword
+      - MONGO_DB_NAME=kea_cars_auth_dev
+      - MONGO_DB_APPLICATION_USERNAME=application_user
+      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
 
   seed_mongodb_customer:
     build:
@@ -37,9 +87,11 @@ services:
     environment:
       - MONGO_DB_HOST=mongodb_customer
       - MONGO_DB_PORT=27017
+      - MONGO_DB_ROOT_USERNAME=root
+      - MONGO_DB_ROOT_PASSWORD=rootpassword
       - MONGO_DB_NAME=kea_cars_customer_dev
-      - MONGO_DB_READ_USER=readOnlyUser
-      - MONGO_DB_READ_USER_PASSWORD=readOnlyPassword
+      - MONGO_DB_APPLICATION_USERNAME=application_user
+      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
 
   admin_microservice:
     build:
@@ -50,10 +102,21 @@ services:
       - "8000:8000"
     depends_on:
       - rabbitmq
+      - mysqldb_admin
     environment:
       - API_HOST=0.0.0.0
       - API_PORT=8000
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - MYSQL_DB_HOST=mysqldb_admin
+      - MYSQL_DB_PORT=3306
+      - MYSQL_DB_ROOT_USERNAME=root
+      - MYSQL_DB_ROOT_PASSWORD=rootpassword
+      - MYSQ_DB_NAME=kea_cars_admin_dev
+      - MYSQL_DB_APPLICATION_USERNAME=application_user
+      - MYSQL_DB_APPLICATION_PASSWORD=supersecretpassword
     volumes:
       - ./admin_microservice:/app
 
@@ -74,6 +137,13 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
+      - MONGO_DB_HOST=mongodb_auth
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_ROOT_USERNAME=root
+      - MONGO_DB_ROOT_PASSWORD=rootpassword
+      - MONGO_DB_NAME=kea_cars_auth_dev
+      - MONGO_DB_APPLICATION_USERNAME=application_user
+      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
     volumes:
       - ./auth_microservice:/app
 
@@ -93,10 +163,13 @@ services:
       - MONGO_DB_HOST=mongodb_customer
       - MONGO_DB_PORT=27017
       - MONGO_DB_NAME=kea_cars_customer_dev
-      - MONGO_DB_READ_USER=readOnlyUser
-      - MONGO_DB_READ_USER_PASSWORD=readOnlyPassword
+      - MONGO_DB_APPLICATION_USERNAME=application_user
+      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
     volumes:
       - ./customer_microservice:/app
 
 volumes:
+  mysqldb_admin:
+  mongodb_auth:
   mongodb_customer:
+  mysqldb_employee:

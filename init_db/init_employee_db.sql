@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS `kea_cars_microservice_employee_dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `kea_cars_microservice_employee_dev`;
+CREATE DATABASE IF NOT EXISTS `kea_cars_employee_dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `kea_cars_employee_dev`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: kea-cars.mysql.database.azure.com    Database: kea_cars_microservice_employee_dev
+-- Host: kea-cars.mysql.database.azure.com    Database: kea_cars_employee_dev
 -- ------------------------------------------------------
 -- Server version	8.0.37-azure
 
@@ -392,10 +392,12 @@ CREATE TABLE `employees` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `role` ENUM('admin', 'manager', 'sales_person') DEFAULT 'sales_person' NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `is_deleted` BOOLEAN NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `employee_email_UNIQUE` (`email`),
+  KEY `idx_is_deleted` (`is_deleted`),
   CONSTRAINT `check_role` CHECK (`role` IN ('admin', 'manager', 'sales_person'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -406,7 +408,10 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES ('d096d2e1-f06a-4555-9cd1-afa9f930f10c','james@gmail.com','$2b$10$sB6/ocJJK9HodVv7qEozKO826Ik5gmZH/1GU/xReM1ijIjlA7hvTa','James','Jamesen','sales_person','2025-03-26 03:53:58','2025-03-26 03:53:58'),('f9097a97-eca4-49b6-85a0-08423789c320','hans@gmail.com','$2b$12$BKrnHSqhmb8NsKnUhhSGWeOj0Pnyx0so0xeXlUrDrNLplk2VnjDyK','Hans','Hansen','manager','2025-03-26 03:53:58','2025-03-26 03:53:58'),('24bd8a11-2310-46bc-aebf-0887325ebdbd','tom@gmail.com','$2b$12$O8wDPpEJYPorIgSR5F/QTO2l277gsYPOcvxc/nKUHyggBh374mcyW','Tom','Tomsen','admin','2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `employees` VALUES 
+('d096d2e1-f06a-4555-9cd1-afa9f930f10c','james@gmail.com','$2b$10$sB6/ocJJK9HodVv7qEozKO826Ik5gmZH/1GU/xReM1ijIjlA7hvTa','James','Jamesen','sales_person',FALSE,'2025-03-26 03:53:58','2025-03-26 03:53:58'),
+('f9097a97-eca4-49b6-85a0-08423789c320','hans@gmail.com','$2b$12$BKrnHSqhmb8NsKnUhhSGWeOj0Pnyx0so0xeXlUrDrNLplk2VnjDyK','Hans','Hansen','manager',FALSE,'2025-03-26 03:53:58','2025-03-26 03:53:58'),
+('24bd8a11-2310-46bc-aebf-0887325ebdbd','tom@gmail.com','$2b$12$O8wDPpEJYPorIgSR5F/QTO2l277gsYPOcvxc/nKUHyggBh374mcyW','Tom','Tomsen','admin',FALSE,'2025-03-26 03:53:58','2025-03-26 03:53:58');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,9 +422,21 @@ DROP USER IF EXISTS 'application_user'@'%';
 -- Create the application user
 CREATE USER 'application_user'@'%' IDENTIFIED BY 'supersecretpassword';
 
--- Grant the required privileges for the application user
+-- Grant SELECT, INSERT, UPDATE, DELETE on all tables except `employees`
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`accessories` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`brands` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`cars` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`cars_has_accessories` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`cars_has_insurances` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`colors` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`customers` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`insurances` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`models` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`models_has_colors` TO 'application_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `kea_cars_employee_dev`.`purchases` TO 'application_user'@'%';
 
+-- Grant only SELECT on the `employees` table
+GRANT SELECT ON `kea_cars_employee_dev`.`employees` TO 'application_user'@'%';
 
-GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON * TO 'application_user'@'%';
--- Apply the changes
+-- Apply the granted privileges
 FLUSH PRIVILEGES;

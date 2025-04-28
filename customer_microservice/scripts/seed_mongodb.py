@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 from pymongo import MongoClient, UpdateOne, IndexModel
+from typing import Optional
 
 
 def read_json():
@@ -23,10 +24,10 @@ if __name__ == '__main__':
     except ValueError:
         raise ValueError("MONGO_DB_PORT must be an integer.")
     MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
-    MONGO_DB_ADMIN_USER = os.getenv("MONGO_DB_ADMIN_USER")
-    MONGO_DB_ADMIN_PASSWORD = os.getenv("MONGO_DB_ADMIN_PASSWORD")
-    MONGO_DB_READ_USER = os.getenv("MONGO_DB_READ_USER")
-    MONGO_DB_READ_USER_PASSWORD = os.getenv("MONGO_DB_READ_USER_PASSWORD")
+    MONGO_DB_ROOT_USERNAME = os.getenv("MONGO_DB_ROOT_USERNAME")
+    MONGO_DB_ROOT_PASSWORD = os.getenv("MONGO_DB_ROOT_PASSWORD")
+    MONGO_DB_APPLICATION_USERNAME = os.getenv("MONGO_DB_APPLICATION_USERNAME")
+    MONGO_DB_APPLICATION_PASSWORD = os.getenv("MONGO_DB_APPLICATION_PASSWORD")
 
     collections = [
         'accessories',
@@ -42,16 +43,18 @@ if __name__ == '__main__':
           f"MongoDB host: {MONGO_DB_HOST}\n"
           f"MongoDB port: {MONGO_DB_PORT}\n"
           f"MongoDB name: {MONGO_DB_NAME}")
+    
+    client: Optional[MongoClient] = None
 
     try:
         data = read_json()
 
         client = MongoClient(
             host=MONGO_DB_HOST, 
-            port=int(MONGO_DB_PORT),
-            #username=MONGO_DB_ADMIN_USER,
-            #password=MONGO_DB_ADMIN_PASSWORD,
-            #authSource='admin'
+            port=MONGO_DB_PORT,
+            username=MONGO_DB_ROOT_USERNAME,
+            password=MONGO_DB_ROOT_PASSWORD,
+            authSource='admin'
             )
         
         db = client.get_database(MONGO_DB_NAME)
@@ -77,15 +80,15 @@ if __name__ == '__main__':
             db.get_collection(collection_name).bulk_write(bulk_operations)
             
         # Check if the read-only user already exists
-        existing_users = client['admin'].command("usersInfo", {"db": MONGO_DB_NAME, "user": MONGO_DB_READ_USER})
+        existing_users = client['admin'].command("usersInfo", {"db": MONGO_DB_NAME, "user": MONGO_DB_APPLICATION_USERNAME})
         if existing_users.get("users"):
-            print(f"User '{MONGO_DB_READ_USER}' already exists in the database '{MONGO_DB_NAME}'.")
+            print(f"User '{MONGO_DB_APPLICATION_USERNAME}' already exists in the database '{MONGO_DB_NAME}'.")
         else:
             # Create a read-only user for the database
-            db.command("createUser", MONGO_DB_READ_USER, 
-                       pwd=MONGO_DB_READ_USER_PASSWORD, 
+            db.command("createUser", MONGO_DB_APPLICATION_USERNAME, 
+                       pwd=MONGO_DB_APPLICATION_PASSWORD, 
                        roles=[{"role": "read", "db": MONGO_DB_NAME}])
-            print(f"Successfully created read-only user '{MONGO_DB_READ_USER}' for database '{MONGO_DB_NAME}'.")
+            print(f"Successfully created read-only user '{MONGO_DB_APPLICATION_USERNAME}' for database '{MONGO_DB_NAME}'.")
 
         client.close()
         end_time = datetime.now()
@@ -94,3 +97,9 @@ if __name__ == '__main__':
     except Exception as error:
         print(f"Error {error.__class__.__name__} caught during Mongo Database restore:\n"
               f"{error}")
+    finally:
+        
+        if client is not None and isinstance(client, MongoClient):
+            client.close()
+            print("MongoDB connection closed.")
+

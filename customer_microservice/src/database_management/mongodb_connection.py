@@ -9,8 +9,8 @@ Environment Variables:
 - `MONGO_DB_HOST`: The hostname of the MongoDB server (default: `127.0.0.1`).
 - `MONGO_DB_PORT`: The port number of the MongoDB server (default: `27017`).
 - `MONGO_DB_NAME`: The name of the MongoDB database to connect to.
-- `MONGO_DB_READ_USER`: The username for read-only access to the database.
-- `MONGO_DB_READ_USER_PASSWORD`: The password for the read-only user.
+- `MONGO_DB_APPLICATION_USERNAME`: The username for read-only access to the database.
+- `MONGO_DB_APPLICATION_PASSWORD`: The password for the read-only user.
 
 Key Features:
 
@@ -36,8 +36,8 @@ try:
 except ValueError:
     raise ValueError("MONGO_DB_PORT must be an integer.")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
-MONGO_DB_READ_USER = os.getenv("MONGO_DB_READ_USER")
-MONGO_DB_READ_USER_PASSWORD = os.getenv("MONGO_DB_READ_USER_PASSWORD")
+MONGO_DB_APPLICATION_USERNAME = os.getenv("MONGO_DB_APPLICATION_USERNAME")
+MONGO_DB_APPLICATION_PASSWORD = os.getenv("MONGO_DB_APPLICATION_PASSWORD")
 
 
 @contextmanager
@@ -57,7 +57,7 @@ def get_mongodb() -> Generator[Database, None, None]:
     :return: A MongoDB `Database` object for interacting with the specified database.
     :rtype: pymongo.database.Database
     """
-    #connection_string = f"mongodb://{MONGO_DB_READ_USER}:{MONGO_DB_READ_USER_PASSWORD}@{MONGO_DB_HOST}:{MONGO_DB_PORT}/{MONGO_DB_NAME}?authSource=admin"
+    #connection_string = f"mongodb://{MONGO_DB_APPLICATION_USERNAME}:{MONGO_DB_APPLICATION_PASSWORD}@{MONGO_DB_HOST}:{MONGO_DB_PORT}/{MONGO_DB_NAME}?authSource=admin"
 
     #client = MongoClient(
     #    connection_string,
@@ -68,8 +68,8 @@ def get_mongodb() -> Generator[Database, None, None]:
     client = MongoClient(
         host=MONGO_DB_HOST, 
         port=MONGO_DB_PORT,
-        username=MONGO_DB_READ_USER,
-        password=MONGO_DB_READ_USER_PASSWORD,
+        username=MONGO_DB_APPLICATION_USERNAME,
+        password=MONGO_DB_APPLICATION_PASSWORD,
         authSource=MONGO_DB_NAME,
         connectTimeoutMS=8000,  # 8 seconds timeout for connection establishment
         serverSelectionTimeoutMS=8000  # 8 seconds timeout for server selection
