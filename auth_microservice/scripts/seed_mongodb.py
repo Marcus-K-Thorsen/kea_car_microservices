@@ -3,8 +3,22 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 from pymongo import MongoClient, UpdateOne
+from pymongo.database import Database
 from typing import Optional
 
+
+load_dotenv()
+
+MONGO_DB_HOST = os.getenv("MONGO_DB_HOST", "127.0.0.1")
+try:
+    MONGO_DB_PORT = int(os.getenv("MONGO_DB_PORT", 27017))
+except ValueError:
+    raise ValueError("MONGO_DB_PORT must be an integer.")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
+MONGO_DB_ROOT_USERNAME = os.getenv("MONGO_DB_ROOT_USERNAME")
+MONGO_DB_ROOT_PASSWORD = os.getenv("MONGO_DB_ROOT_PASSWORD")
+MONGO_DB_APPLICATION_USERNAME = os.getenv("MONGO_DB_APPLICATION_USERNAME")
+MONGO_DB_APPLICATION_PASSWORD = os.getenv("MONGO_DB_APPLICATION_PASSWORD")
 
 def read_json():
     try:
@@ -14,36 +28,53 @@ def read_json():
         with open('mongodb_insert_data.json', 'r') as file:
             return json.load(file)
 
-
-if __name__ == '__main__':
-    load_dotenv()
-
-    MONGO_DB_HOST = os.getenv("MONGO_DB_HOST", "127.0.0.1")
-    try:
-        MONGO_DB_PORT = int(os.getenv("MONGO_DB_PORT", 27017))
-    except ValueError:
-        raise ValueError("MONGO_DB_PORT must be an integer.")
-    MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
-    MONGO_DB_ROOT_USERNAME = os.getenv("MONGO_DB_ROOT_USERNAME")
-    MONGO_DB_ROOT_PASSWORD = os.getenv("MONGO_DB_ROOT_PASSWORD")
-    MONGO_DB_APPLICATION_USERNAME = os.getenv("MONGO_DB_APPLICATION_USERNAME")
-    MONGO_DB_APPLICATION_PASSWORD = os.getenv("MONGO_DB_APPLICATION_PASSWORD")
-
-    collections = [
-        'employees'
-    ]
-    
-    
+def seed_data(db: Database):
     start_time = datetime.now()
     print(f"SEED_MONGODB: {start_time}: Starting MongoDB restore:\n"
           f"MongoDB host: {MONGO_DB_HOST}\n"
           f"MongoDB port: {MONGO_DB_PORT}\n"
           f"MongoDB name: {MONGO_DB_NAME}")
     
+    collections = [
+        'employees'
+    ]
+    
+    # Drop and recreate collections with indexes
+    db.drop_collection('employees')
+    db.create_collection('employees').create_index('email', unique=True)
+    
+    data = read_json()
+    
+    # Insert data into collections
+    for collection_name in collections:
+        bulk_operations = [
+            UpdateOne({'_id': doc['_id']}, {'$set': doc}, upsert=True)
+            for doc in data[collection_name]
+            ]
+        db.get_collection(collection_name).bulk_write(bulk_operations)
+        
+    # Check if the read-only user already exists
+    existing_users = db.command("usersInfo", MONGO_DB_APPLICATION_USERNAME)
+    if existing_users.get("users"):
+        print(f"User '{MONGO_DB_APPLICATION_USERNAME}' already exists in the database '{MONGO_DB_NAME}'.")
+    else:
+        # Create a read-only user for the database
+        db.command("createUser", MONGO_DB_APPLICATION_USERNAME, 
+                    pwd=MONGO_DB_APPLICATION_PASSWORD, 
+                    roles=[{"role": "read", "db": MONGO_DB_NAME}])
+        print(f"Successfully created read-only user '{MONGO_DB_APPLICATION_USERNAME}' for database '{MONGO_DB_NAME}'.")
+        
+        
+    end_time = datetime.now()
+    duration = (end_time - start_time).total_seconds()
+    print(f"Successfully seeded the MongoDB database: '{MONGO_DB_NAME}', it took {duration} seconds.")
+    
+
+if __name__ == '__main__':
+    
     client: Optional[MongoClient] = None
 
     try:
-        data = read_json()
 
         client = MongoClient(
             host=MONGO_DB_HOST, 
@@ -55,33 +86,17 @@ if __name__ == '__main__':
         
         db = client.get_database(MONGO_DB_NAME)
         
-        # Drop and recreate collections with indexes
-        db.drop_collection('employees')
-        db.create_collection('employees').create_index('email', unique=True)
-        
-        # Insert data into collections
-        for collection_name in collections:
-            bulk_operations = [
-                UpdateOne({'_id': doc['_id']}, {'$set': doc}, upsert=True)
-                for doc in data[collection_name]
-            ]
-            db.get_collection(collection_name).bulk_write(bulk_operations)
-        
-        # Check if the read-only user already exists
-        existing_users = client['admin'].command("usersInfo", {"db": MONGO_DB_NAME, "user": MONGO_DB_APPLICATION_USERNAME})
-        if existing_users.get("users"):
-            print(f"User '{MONGO_DB_APPLICATION_USERNAME}' already exists in the database '{MONGO_DB_NAME}'.")
+        # Check if the database has already been seeded
+        seed_metadata = db.get_collection("seed_metadata")
+        if seed_metadata.find_one({"seeded": True}):
+            print(f"Database: '{MONGO_DB_NAME}' has already been seeded. Skipping seed script.")
         else:
-            # Create a read-only user for the database
-            db.command("createUser", MONGO_DB_APPLICATION_USERNAME, 
-                       pwd=MONGO_DB_APPLICATION_PASSWORD, 
-                       roles=[{"role": "read", "db": MONGO_DB_NAME}])
-            print(f"Successfully created read-only user '{MONGO_DB_APPLICATION_USERNAME}' for database '{MONGO_DB_NAME}'.")
+            seed_data(db)
+            # Mark the database as seeded
+            seed_metadata.insert_one({"seeded": True, "timestamp": datetime.now()})
+            print("Database seeding completed.")
         
-        client.close()
-        end_time = datetime.now()
-        duration = (end_time - start_time).total_seconds()
-        print(f"Successfully restored the MongoDB database, it took {duration} seconds.")
+        
     except Exception as error:
         print(f"Error {error.__class__.__name__} caught during Mongo Database restore:\n"
               f"{error}")

@@ -5,23 +5,29 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    env_file:
+      - .env
     environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
       - RABBITMQ_ALLOW_GUEST_LOGIN=true
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   mysqldb_admin:
     image: mysql:latest
     container_name: mysqldb_admin
     ports:
       - "3307:3306"
+    env_file:
+      - .env
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_ROOT_PASSWORD=${MYSQL_DB_ADMIN_ROOTPASSWORD}
     volumes:
       - mysqldb_admin:/var/lib/mysql
       - ./init_db/init_admin_db.sql:/docker-entrypoint-initdb.d/init_admin_db.sql
@@ -31,9 +37,11 @@ services:
     container_name: mongodb_auth
     ports:
       - "27019:27017"
+    env_file:
+      - .env
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_AUTH_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_AUTH_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=kea_cars_auth_dev
     volumes:
       - mongodb_auth:/data/db
@@ -43,9 +51,11 @@ services:
     container_name: mongodb_customer
     ports:
       - "27018:27017"
+    env_file:
+      - .env
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_CUSTOMER_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_CUSTOMER_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=kea_cars_customer_dev
     volumes:
       - mongodb_customer:/data/db
@@ -55,8 +65,10 @@ services:
     container_name: mysqldb_employee
     ports:
       - "3308:3306"
+    env_file:
+      - .env
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_ROOT_PASSWORD=${MYSQL_DB_EMPLOYEE_ROOT_PASSWORD}
     volumes:
       - mysqldb_employee:/var/lib/mysql
       - ./init_db/init_employee_db.sql:/docker-entrypoint-initdb.d/init_employee_db.sql
@@ -68,14 +80,8 @@ services:
     container_name: seed_mongodb_auth
     depends_on:
       - mongodb_auth
-    environment:
-      - MONGO_DB_HOST=mongodb_auth
-      - MONGO_DB_PORT=27017
-      - MONGO_DB_ROOT_USERNAME=root
-      - MONGO_DB_ROOT_PASSWORD=rootpassword
-      - MONGO_DB_NAME=kea_cars_auth_dev
-      - MONGO_DB_APPLICATION_USERNAME=application_user
-      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
+    env_file:
+      - ./auth_microservice/.env
 
   seed_mongodb_customer:
     build:
@@ -84,14 +90,8 @@ services:
     container_name: seed_mongodb_customer
     depends_on:
       - mongodb_customer
-    environment:
-      - MONGO_DB_HOST=mongodb_customer
-      - MONGO_DB_PORT=27017
-      - MONGO_DB_ROOT_USERNAME=root
-      - MONGO_DB_ROOT_PASSWORD=rootpassword
-      - MONGO_DB_NAME=kea_cars_customer_dev
-      - MONGO_DB_APPLICATION_USERNAME=application_user
-      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
+    env_file:
+      - ./customer_microservice/.env
 
   admin_microservice:
     build:
@@ -103,20 +103,8 @@ services:
     depends_on:
       - rabbitmq
       - mysqldb_admin
-    environment:
-      - API_HOST=0.0.0.0
-      - API_PORT=8000
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
-      - MYSQL_DB_HOST=mysqldb_admin
-      - MYSQL_DB_PORT=3306
-      - MYSQL_DB_ROOT_USERNAME=root
-      - MYSQL_DB_ROOT_PASSWORD=rootpassword
-      - MYSQ_DB_NAME=kea_cars_admin_dev
-      - MYSQL_DB_APPLICATION_USERNAME=application_user
-      - MYSQL_DB_APPLICATION_PASSWORD=supersecretpassword
+    env_file:
+      - ./admin_microservice/.env
     volumes:
       - ./admin_microservice:/app
 
@@ -130,20 +118,8 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-    environment:
-      - API_HOST=0.0.0.0
-      - API_PORT=8001
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
-      - MONGO_DB_HOST=mongodb_auth
-      - MONGO_DB_PORT=27017
-      - MONGO_DB_ROOT_USERNAME=root
-      - MONGO_DB_ROOT_PASSWORD=rootpassword
-      - MONGO_DB_NAME=kea_cars_auth_dev
-      - MONGO_DB_APPLICATION_USERNAME=application_user
-      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
+    env_file:
+      - ./auth_microservice/.env
     volumes:
       - ./auth_microservice:/app
 
@@ -157,18 +133,13 @@ services:
     depends_on:
       - mongodb_customer
       - seed_mongodb_customer
-    environment:
-      - API_HOST=0.0.0.0
-      - API_PORT=8002
-      - MONGO_DB_HOST=mongodb_customer
-      - MONGO_DB_PORT=27017
-      - MONGO_DB_NAME=kea_cars_customer_dev
-      - MONGO_DB_APPLICATION_USERNAME=application_user
-      - MONGO_DB_APPLICATION_PASSWORD=supersecretpassword
+    env_file:
+      - ./customer_microservice/.env
     volumes:
       - ./customer_microservice:/app
 
 volumes:
+  rabbitmq_data:
   mysqldb_admin:
   mongodb_auth:
   mongodb_customer:
