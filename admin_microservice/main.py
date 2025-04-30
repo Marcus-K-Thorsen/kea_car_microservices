@@ -4,12 +4,9 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 import os
 
-# Trial stuff, delete later
-from pydantic import BaseModel
-from src.message_broker_management import TrialPublisher
 
-class TrialMessage(BaseModel):
-    message: str
+from src.message_broker_management import publish_trial_message, close_all_connections
+
 
 load_dotenv()
 
@@ -30,9 +27,7 @@ def read_root():
 
 @app.get("/send_message/{message}")
 def send_message(message: str):
-    trial_publisher = TrialPublisher()
-    trial_message = TrialMessage(message=message)
-    trial_publisher.publish(trial_message)
+    publish_trial_message(message)
     return {"message": "Message sent successfully"}
 
 
@@ -47,3 +42,4 @@ if __name__ == "__main__":
         raise ValueError("API_PORT must be an integer.")
     
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
+    close_all_connections()

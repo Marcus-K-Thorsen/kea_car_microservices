@@ -1,18 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
 from contextlib import asynccontextmanager
-import logging
+from src.logger_tool import logger
 import asyncio
-from rabbitmq.consumer import TrialConsumer
+from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
-logger = logging.getLogger(__name__)
-
-load_dotenv()
 
 @asynccontextmanager
 async def lifespan_of_consumer(app: FastAPI):
@@ -20,26 +12,23 @@ async def lifespan_of_consumer(app: FastAPI):
     # Startup logic
     
     try:
+        consumer = get_admin_exchange_consumer()
+        app.state.consumer = consumer  # Store the consumer in the app state
         logger.info("Starting RabbitMQ consumer...")
-        consumer = TrialConsumer()
-        app.state.consumer = consumer
-        await consumer.connect()
-        asyncio.create_task(consumer.start())
+        asyncio.create_task(start_consumer(consumer))
         logger.info("RabbitMQ consumer started successfully.")
-    except ConnectionError as e:
+    except Exception as e:
         logger.error(f"Failed to start RabbitMQ consumer: {e}")
         raise e
 
     # Yield control to the application
     yield
-
+    
+    consumer = app.state.consumer  # Retrieve the consumer from the app state
     # Shutdown logic
-    if app.state.consumer is not None and isinstance(app.state.consumer, TrialConsumer):
-        logger.info("Stopping RabbitMQ consumer...")
-        await app.state.consumer.stop()
-        logger.info("RabbitMQ consumer stopped successfully.")
-    else:
-        logger.error("Consumer is not initialized or not of the correct type.")
+    if consumer:
+        await stop_consumer(consumer)
+    
 
 app = FastAPI(
     lifespan=lifespan_of_consumer
@@ -56,4 +45,4 @@ app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
 @app.get("/")
 def read_root():
-    return {"message": "Auth Microservice is running!!!"}
+    return {"message": "Auth Microservice is running!!"}

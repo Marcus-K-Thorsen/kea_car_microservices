@@ -2,6 +2,7 @@
 from pydantic import BaseModel
 from typing import Union, Optional
 from .rabbitmq_management import RabbitMQManagement
+from src.logger_tool import logger
 
 import json
 
@@ -33,13 +34,15 @@ class BasePublisher():
         elif isinstance(message, BaseModel):
             message = message.model_dump_json().encode()
         elif not isinstance(message, bytes):
+            logger.error(f"Invalid message type: {type(message).__name__}. Expected str, bytes, dict, list, or Pydantic BaseModel.")
             raise TypeError("Message must be a string, bytes, a JSON-serializable object, or a Pydantic BaseModel instance")
         
+        logger.info(f"Publishing message: {message} to the exchange: {self.get_exchange_name()} with routing key: {self.get_routing_key()}")
         self.rabbitmq_management.publish_message(message)
-        print(f" [x] Sent {message} to the exchange: {self.get_exchange_name()} with routing key: {self.get_routing_key()}")
+        logger.info("Message published successfully.")
     
     
     def close_connection(self) -> None:
-        print(f"Closing connection to the exchange: {self.get_exchange_name()}")
+        logger.info(f"Closing connection to the exchange: {self.get_exchange_name()}")
         self.rabbitmq_management.connection.close()
-        print("Connection closed.")
+        logger.info("Connection closed successfully.")

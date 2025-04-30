@@ -5,6 +5,7 @@ from pika.frame import Method
 from pika.exceptions import ChannelClosed
 from pika.adapters.blocking_connection import BlockingChannel
 from typing import Union, Literal, Optional, List
+from src.logger_tool import logger
 
 
 load_dotenv()
@@ -36,6 +37,7 @@ class RabbitMQManagement():
     
     def does_queue_exist(self, queue_name: str) -> bool:
         if not isinstance(queue_name, str):
+            logger.error(f'Queue name must be a string, not type: {type(queue_name).__name__}')
             raise TypeError('Queue name must be a string')
         try:
             self.channel.queue_declare(queue=queue_name, passive=True)
@@ -44,10 +46,12 @@ class RabbitMQManagement():
             if e.reply_code == 404:
                 return False
             else:
+                logger.error(f'Error checking if queue: {queue_name} exists: {e}')
                 raise e
             
     def does_exchange_exist(self, exchange_name: str) -> bool:
         if not isinstance(exchange_name, str):
+            logger.error(f'Exchange name must be a string, not type: {type(exchange_name).__name__}')
             raise TypeError('Exchange name must be a string')
         try:
             self.channel.exchange_declare(exchange=exchange_name, passive=True)
@@ -56,6 +60,7 @@ class RabbitMQManagement():
             if e.reply_code == 404:
                 return False
             else:
+                logger.error(f'Error checking if exchange: {exchange_name} exists: {e}')
                 raise e
 
 
@@ -89,27 +94,36 @@ class RabbitMQManagement():
         :returns: Method frame from the Exchange.Declare-ok response. This can be used to get information about the declared exchange.
         :rtype: pika.frame.Method
         """
+        logger.info(f'Declaring exchange: {exchange_name} of type: {exchange_type} with durable: {durable} and auto_delete: {auto_delete}')
         # Validate exchange name
         if not exchange_name:
+            logger.error('Exchange name must be provided')
             raise ValueError('Exchange name must be provided')
         if not isinstance(exchange_name, str):
+            logger.error(f'Exchange name must be a string, not type: {type(exchange_name).__name__}')
             raise TypeError('Exchange name must be a string')
 
         # Validate exchange type
         if not isinstance(exchange_type, str):
+            logger.error(f'Exchange type must be a string, not type: {type(exchange_type).__name__}')
             raise TypeError("Exchange type must be a string")
         if exchange_type not in ['direct', 'fanout', 'topic', 'headers']:
+            logger.error(f'Exchange type must be one of "direct", "fanout", "topic", or "headers", not: {exchange_type}')
             raise ValueError("Exchange type must be one of 'direct', 'fanout', 'topic', or 'headers'")
         
         # Validate boolean parameters
         if not isinstance(durable, bool):
+            logger.error(f'Durable must be a boolean, not type: {type(durable).__name__}')
             raise TypeError('Durable must be a boolean')
         if not isinstance(auto_delete, bool):
+            logger.error(f'Auto_delete must be a boolean, not type: {type(auto_delete).__name__}')
             raise TypeError('Auto_delete must be a boolean')
         
 
         # Declare the exchange
         self.exchange_name: str = exchange_name
+        
+        logger.info(f'Successfully declared exchange: {exchange_name}.')
         
         return self.channel.exchange_declare(
             exchange_name, 
@@ -143,16 +157,21 @@ class RabbitMQManagement():
         :returns: Method frame from the Queue.Declare-ok response. This can be used to get information about the declared queue.
         :rtype: pika.frame.Method
         """
+        logger.info(f'Declaring queue: {queue_name} with durable: {durable}, exclusive: {exclusive}, and auto_delete: {auto_delete}')
         # Validate queue name
         if not isinstance(queue_name, str):
+            logger.error(f'Queue name must be a string, not type: {type(queue_name).__name__}')
             raise TypeError('Queue name must be a string')
 
         # Validate boolean parameters
         if not isinstance(durable, bool):
+            logger.error(f'Durable must be a boolean, not type: {type(durable).__name__}')
             raise TypeError('Durable must be a boolean')
         if not isinstance(exclusive, bool):
+            logger.error(f'Exclusive must be a boolean, not type: {type(exclusive).__name__}')
             raise TypeError('Exclusive must be a boolean')
         if not isinstance(auto_delete, bool):
+            logger.error(f'Auto_delete must be a boolean, not type: {type(auto_delete).__name__}')
             raise TypeError('Auto_delete must be a boolean')
 
         # Declare the queue
@@ -165,6 +184,7 @@ class RabbitMQManagement():
         )
         
         self.queue_name: str = result.method.queue
+        logger.info(f'Successfully declared queue: {self.queue_name}.')
         return result
 
 
@@ -183,13 +203,15 @@ class RabbitMQManagement():
         :returns: Method frame from the Queue.Bind-ok response.
         :rtype: pika.frame.Method
         """
-        
+        logger.info(f'Binding queue: {self.queue_name} to exchange: {self.exchange_name} with routing key: {routing_key}')
         # Check if the queue exists
         if self.queue_name is None or not self.does_queue_exist(self.queue_name):
+            logger.error('Queue does not exist. Please declare the queue before binding it.')
             raise ValueError('Queue does not exist. Please declare the queue before binding it.')
         
         # Check if the exchange exists
         if self.exchange_name is None or not self.does_exchange_exist(self.exchange_name):
+            logger.error('Exchange does not exist. Please declare the exchange before binding the queue.')
             raise ValueError('Exchange does not exist. Please declare the exchange before binding the queue.')
 
         # Check if routing key is provided
@@ -202,9 +224,11 @@ class RabbitMQManagement():
                 self.routing_keys = routing_key
                 routing_keys = routing_key
             else:
+                logger.error(f'Routing key must be a string or a list of strings, not type: {type(routing_key).__name__}')
                 raise TypeError('Routing key must be a string or a list of strings')
 
             if not all(key and all(char.isalpha() or char in '*.#' for char in key) for key in routing_keys):
+                logger.error('Routing key must contain only letters, stars, or hash symbols')
                 raise ValueError('Routing key must contain only letters, stars, or hash symbols')
 
             # Bind the queue to the exchange with the routing key(s)
@@ -212,10 +236,11 @@ class RabbitMQManagement():
             result: Method = self.channel.queue_bind(self.queue_name, self.exchange_name, the_first_routing_key)
             for key in routing_keys:
                 result: Method = self.channel.queue_bind(self.queue_name, self.exchange_name, key)
-
+            logger.info(f'Successfully bound queue: {self.queue_name} to exchange: {self.exchange_name} with routing keys: {routing_keys}.')
             return result
         
         # Bind the queue to the exchange without a routing key
+        logger.info(f'Binding queue: {self.queue_name} to exchange: {self.exchange_name} without a routing key.')
         return self.channel.queue_bind(self.queue_name, self.exchange_name)
     
     def publish_message(self, message: Union[str, bytes]) -> None:
@@ -227,11 +252,14 @@ class RabbitMQManagement():
         :param str | bytes message: The message to be published. Must be a non-empty string or bytes.
         """
         # Check if the exchange exists
+        logger.info(f'Publishing message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}')
         if self.exchange_name is None or not self.does_exchange_exist(self.exchange_name):
+            logger.error('Exchange does not exist. Please declare the exchange before publishing a message.')
             raise ValueError('Exchange does not exist. Please declare the exchange before publishing a message.')
         
         # Validate message
         if not isinstance(message, (str, bytes)):
+            logger.error(f'Message must be a string or bytes, not type: {type(message).__name__}')
             raise TypeError('Message must be a string or bytes')
         
         # Publish the message to the exchange
@@ -240,4 +268,5 @@ class RabbitMQManagement():
             routing_key=self.routing_key,
             body=message
         )
+        logger.info(f'Successfully published message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}.')
 

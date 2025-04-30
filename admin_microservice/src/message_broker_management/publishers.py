@@ -19,3 +19,9 @@ class EmployeeDeletedPublisher(BasePublisher):
 class TrialPublisher(BasePublisher):
     def __init__(self):
         super().__init__(routing_key="trial")
+        
+        
+employee_created_publisher = EmployeeCreatedPublisher()
+employee_updated_publisher = EmployeeUpdatedPublisher()
+employee_deleted_publisher = EmployeeDeletedPublisher()
+trial_publisher = TrialPublisher()
