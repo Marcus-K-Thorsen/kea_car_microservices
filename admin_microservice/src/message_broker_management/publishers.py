@@ -1,4 +1,5 @@
-from .base_publisher import BasePublisher
+# Internal library imports
+from src.message_broker_management.base_publisher import BasePublisher
 
 
 class EmployeeCreatedPublisher(BasePublisher):

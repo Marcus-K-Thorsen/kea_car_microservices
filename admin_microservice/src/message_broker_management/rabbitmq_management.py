@@ -1,10 +1,13 @@
+# External Library imports
 import os
-from dotenv import load_dotenv
-from pika import BlockingConnection, ConnectionParameters, PlainCredentials
 from pika.frame import Method
+from dotenv import load_dotenv
 from pika.exceptions import ChannelClosed
-from pika.adapters.blocking_connection import BlockingChannel
 from typing import Union, Literal, Optional, List
+from pika.adapters.blocking_connection import BlockingChannel
+from pika import BlockingConnection, ConnectionParameters, PlainCredentials
+
+# Internal library imports
 from src.logger_tool import logger
 
 

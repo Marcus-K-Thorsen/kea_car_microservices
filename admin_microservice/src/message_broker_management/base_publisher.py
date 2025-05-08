@@ -1,10 +1,11 @@
-
+# External Library imports
+import json
 from pydantic import BaseModel
 from typing import Union, Optional
-from .rabbitmq_management import RabbitMQManagement
-from src.logger_tool import logger
+from src.message_broker_management.rabbitmq_management import RabbitMQManagement
 
-import json
+# Internal library imports
+from src.logger_tool import logger
 
 class BasePublisher():
     def __init__(self,
