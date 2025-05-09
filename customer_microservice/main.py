@@ -17,6 +17,7 @@ This file simply connects those routers to the FastAPI application.
 
 # External Library imports
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from fastapi import FastAPI
 from dotenv import load_dotenv
 import os
@@ -54,6 +55,12 @@ app.include_router(brands_router, tags=["Brands"])
 app.include_router(colors_router, tags=["Colors"])
 app.include_router(insurances_router, tags=["Insurances"])
 app.include_router(models_router, tags=["Models"])
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
+
 
 def start_application():
     """

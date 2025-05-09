@@ -1,11 +1,13 @@
 # External Library imports
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from fastapi import FastAPI
 from dotenv import load_dotenv
 import os
 
-
-from src.message_broker_management import publish_trial_message, close_all_connections
+# Internal library imports
+from src.routers import employees_router
+from src.message_broker_management import close_all_connections
 
 
 load_dotenv()
@@ -21,14 +23,15 @@ CORS_SETTINGS = {
 
 app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
+app.include_router(employees_router, tags=["Employees"])
+
 @app.get("/")
 def read_root():
-    return {"Hello": "Admin Service something EXTRA!!!"}
+    return {"Hello": "Admin Service something EXTRA!!!!"}
 
-@app.get("/send_message/{message}")
-def send_message(message: str):
-    publish_trial_message(message)
-    return {"message": "Message sent successfully"}
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
 
 
 
@@ -42,4 +45,3 @@ if __name__ == "__main__":
         raise ValueError("API_PORT must be an integer.")
     
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
-    close_all_connections()

@@ -3,7 +3,7 @@ FROM python:3.12-slim AS base
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get -y install gcc curl \
+    && apt-get -y install gcc curl pkg-config libmariadb-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # DEVELOPMENT
@@ -41,4 +41,4 @@ COPY . .
 EXPOSE 8003
 
 # Run the application with uvicorn and enable hot-reloading
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8003", "--reload"]
+CMD ["poetry", "run", "python", "main.py"]

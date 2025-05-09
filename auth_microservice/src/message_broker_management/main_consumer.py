@@ -1,3 +1,7 @@
+# External Library imports
+import json
+
+# Internal Library imports
 from src.logger_tool import logger
 from .base_consumer import BaseConsumer, AbstractIncomingMessage
 
@@ -16,6 +20,9 @@ class MainConsumer(BaseConsumer):
                 # Decode the message and log it
                 message_body: str = message.body.decode("utf-8")
                 logger.info(f"This is The queue: {self.queue_name} received message: {message_body}")
+                # Parse the message body as JSON
+                message_data = json.loads(message_body)
+                logger.info(f"Received message data: {message_data}")
             except Exception as e:
                 logger.error(f"Unexpected error while processing message: {e}")
 

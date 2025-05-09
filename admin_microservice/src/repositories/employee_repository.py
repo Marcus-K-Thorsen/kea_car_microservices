@@ -1,11 +1,11 @@
 # External Library imports
+from sqlalchemy import text
 from typing import Optional, List
 
 # Internal library imports
 from src.resources import EmployeeCreateResource, EmployeeUpdateResource
 from src.repositories.base_repository import BaseRepository
 from src.entities import EmployeeEntity
-from src.core import get_password_hash
 
 
 class EmployeeRepository(BaseRepository):
@@ -45,6 +45,7 @@ class EmployeeRepository(BaseRepository):
 
         return employee_query.all()
     
+    
     def get_by_id(self, employee_id: str) -> Optional[EmployeeEntity]:
         """
         Retrieves an employee by their ID from the Admin MySQL database.
@@ -56,8 +57,24 @@ class EmployeeRepository(BaseRepository):
         """
         return self.session.get(EmployeeEntity, employee_id)
     
+    
+    def get_by_email(self, email: str) -> Optional[EmployeeEntity]:
+        """
+        Retrieves an employee by their email from the Admin MySQL database.
+
+        :param email: The email of the employee to retrieve.
+        :type email: str
+        :return: The `EmployeeEntity` object if found, otherwise None.
+        :rtype: EmployeeEntity | None
+        """
+        return self.session.query(EmployeeEntity).filter_by(email=email).first()
+    
         
-    def create(self, employee_create_data: EmployeeCreateResource) -> EmployeeEntity:
+    def create(
+        self, 
+        employee_create_data: EmployeeCreateResource,
+        hashed_password: str
+    ) -> EmployeeEntity:
         """
         Creates a new employee record in the Admin MySQL database.
 
@@ -66,12 +83,11 @@ class EmployeeRepository(BaseRepository):
         :return: The created `EmployeeEntity` object.
         :rtype: EmployeeEntity
         """
-        # Hash the password before storing it
-        hashed_password = get_password_hash(employee_create_data.password)
+        
         
         # Create a new employee entity
         new_employee = EmployeeEntity(
-            id=employee_create_data.id,
+            id=str(employee_create_data.id),
             email=employee_create_data.email,
             hashed_password=hashed_password,
             first_name=employee_create_data.first_name,
@@ -87,14 +103,127 @@ class EmployeeRepository(BaseRepository):
         
         return new_employee
     
-    def is_email_taken(self, email: str) -> bool:
+    
+    def update(
+        self, 
+        employee_id: str, 
+        employee_update_data: EmployeeUpdateResource,
+        hashed_password: Optional[str] = None
+    ) -> Optional[EmployeeEntity]:
+        """
+        Updates an existing employee record in the Admin MySQL database.
+
+        :param employee_id: The ID of the employee to update.
+        :type employee_id: str
+        :param employee_update_data: The updated employee data.
+        :type employee_update_data: EmployeeUpdateResource
+        :return: The updated `EmployeeEntity` object if found, otherwise None.
+        :rtype: EmployeeEntity | None
+        """
+        # Retrieve the existing employee entity
+        employee = self.get_by_id(employee_id)
+        
+        if not employee:
+            return None
+        
+        # Update the fields of the existing employee entity
+        for field, value in employee_update_data.get_updated_fields().items():
+            if field == "password":
+                continue
+            setattr(employee, field, value)
+            
+        if hashed_password is not None and isinstance(hashed_password, str):
+            employee.hashed_password = hashed_password
+        
+        self.session.flush()
+        self.session.refresh(employee)
+        
+        return employee
+    
+    
+    def __update_deletion_status(
+        self, 
+        is_set_to_be_deleted: bool, 
+        employee_to_update: EmployeeEntity
+    ) -> EmployeeEntity:
+        """
+        Updates the deletion status of an employee in the Admin MySQL database.
+
+        This function can mark an employee as deleted (`is_deleted=True`) or undelete an employee (`is_deleted=False`).
+
+        :param is_set_to_be_deleted: Indicates whether the employee should be marked as deleted.
+        :type is_set_to_be_deleted: bool
+        :param employee_to_update: The employee entity to update.
+        :type employee_to_update: EmployeeEntity
+        :return: The updated `EmployeeEntity` object.
+        :rtype: EmployeeEntity
+        """
+        # Use a raw SQL query to update only the `is_deleted` field and preserve `updated_at`
+        self.session.execute(
+            text("""
+                UPDATE employees
+                SET is_deleted = :deletion_status, updated_at = :current_updated_at
+                WHERE id = :id
+            """),
+            {
+                "deletion_status": is_set_to_be_deleted,
+                "current_updated_at": employee_to_update.updated_at,
+                "id": employee_to_update.id
+            }
+        )
+        self.session.flush()
+        self.session.refresh(employee_to_update)
+
+        return employee_to_update
+    
+    
+    def delete(self, employee_to_delete: EmployeeEntity) -> EmployeeEntity:
+        """
+        Marks an employee as deleted in the Admin MySQL database.
+
+        :param employee_to_delete: The employee entity to mark as deleted.
+        :type employee_to_delete: EmployeeEntity
+        :return: The updated `EmployeeEntity` object that is now set to have been deleted.
+        :rtype: EmployeeEntity
+        """
+        return self.__update_deletion_status(
+            is_set_to_be_deleted=True, 
+            employee_to_update=employee_to_delete
+            )
+    
+    
+    def undelete(self, employee_to_undelete: EmployeeEntity) -> EmployeeEntity:
+        """
+        Undeletes an employee in the Admin MySQL database.
+
+        :param employee_to_undelete: The employee entity to undelete.
+        :type employee_to_undelete: EmployeeEntity
+        :return: The updated `EmployeeEntity` object that is now set to have been undeleted/activated.
+        :rtype: EmployeeEntity
+        """
+        return self.__update_deletion_status(
+            is_set_to_be_deleted=False, 
+            employee_to_update=employee_to_undelete
+            )
+    
+    
+    def is_email_taken(
+        self, 
+        email: str, 
+        employee_id: Optional[str] = None
+    ) -> bool:
         """
         Checks if an email is already taken by another employee.
 
         :param email: The email to check.
         :type email: str
-        :return: True if the email is taken, False otherwise.
+        :param employee_id: The ID of the employee to exclude from the check (optional).
+        :type employee_id: str | None
+        :return: True if the email is already taken, False otherwise.
         :rtype: bool
         """
-        return self.session.query(EmployeeEntity).filter_by(email=email).first() is not None
+        employee_query = self.session.query(EmployeeEntity).filter_by(email=email)
+        if employee_id is not None and isinstance(employee_id, str):
+            employee_query = employee_query.filter(EmployeeEntity.id != employee_id)
+        return employee_query.first() is not None
 

@@ -41,4 +41,4 @@ COPY . .
 EXPOSE 8001
 
 # Run the application with uvicorn and enable hot-reloading
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+CMD ["poetry", "run", "python", "main.py"]

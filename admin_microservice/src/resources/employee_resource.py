@@ -4,13 +4,12 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, UUID4
 
 # Internal library imports
-from src.core import is_password_pwned
-from src.exceptions import log_and_raise_error
+from src.logger_tool import log_and_raise_error
 
 class RoleEnum(str, Enum):
-    ADMIN = "admin"
-    MANAGER = "manager"
-    SALES_PERSON = "sales_person"
+    admin = "admin"
+    manager = "manager"
+    sales_person = "sales_person"
 
 class EmployeeBaseResource(BaseModel):
     email: EmailStr = Field(
@@ -99,22 +98,13 @@ class EmployeeCreateOrUpdateResource(EmployeeBaseResource):
 
     @field_validator('password')
     def validate_password(cls, password: str) -> str:
-        minimum_length_of_password = 7
         maximum_length_of_password = 30
         if ' ' in password:
             log_and_raise_error(f"The given password {password} contains whitespaces.")
         if len(password) > maximum_length_of_password:
             log_and_raise_error(f"The given password {password} is too long, "
                              f"it can only be maximum {maximum_length_of_password} characters long.")
-        if len(password) < minimum_length_of_password:
-            log_and_raise_error(f"The given password {password} is too short, "
-                             f"it must be at least {minimum_length_of_password} characters long.")
-        try:
-            if is_password_pwned(password):
-                log_and_raise_error(f"The given password {password} has been found in a data breach. "
-                                    f"Please choose a different password.")
-        except RuntimeError as e:
-            log_and_raise_error(f"An error occurred while checking if the password: '{password}' was pwned.")
+        
         return password
 
 class EmployeeCreateResource(EmployeeCreateOrUpdateResource):

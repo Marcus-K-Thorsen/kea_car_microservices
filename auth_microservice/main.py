@@ -3,8 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from src.logger_tool import logger
 import asyncio
+import os
+from dotenv import load_dotenv
 from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
 
+load_dotenv()
 
 @asynccontextmanager
 async def lifespan_of_consumer(app: FastAPI):
@@ -46,3 +49,14 @@ app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 @app.get("/")
 def read_root():
     return {"message": "Auth Microservice is running!!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    
+    API_HOST = os.getenv("API_HOST", "0.0.0.0")
+    try:
+        API_PORT = int(os.getenv("API_PORT", 8001))
+    except ValueError:
+        raise ValueError("API_PORT must be an integer.")
+    
+    uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)

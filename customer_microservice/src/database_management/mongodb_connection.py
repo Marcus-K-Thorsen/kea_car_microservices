@@ -24,6 +24,7 @@ from contextlib import contextmanager
 from pymongo import MongoClient
 from pymongo.database import Database
 from typing import Generator
+from src.logger_tool import logger
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -79,12 +80,12 @@ def get_mongodb() -> Generator[Database, None, None]:
         db = client.get_database(MONGO_DB_NAME)
         # Perform a simple operation to verify the connection
         #client.admin.command('ping')
-        print(f"Successfully connected to MongoDB at {MONGO_DB_HOST}:{MONGO_DB_PORT}")
+        logger.info(f"Successfully connected to MongoDB at {MONGO_DB_HOST}:{MONGO_DB_PORT}")
         yield db
     except Exception as e:
-        print(f"Failed to connect to MongoDB: {e}")
+        logger.error(f"Failed to connect to MongoDB: {e}")
         raise
     finally:
         client.close()
-        print("MongoDB connection closed.")
+        logger.info("MongoDB connection closed.")
         

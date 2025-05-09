@@ -4,13 +4,7 @@ from typing import Generator
 from dotenv import load_dotenv
 from contextlib import contextmanager
 from sqlalchemy import create_engine, Engine
-from sqlalchemy.orm import Session, DeclarativeBase, sessionmaker
-
-
-class BaseEntity(DeclarativeBase):
-    def to_dict(self):
-        """Convert the ORM object to a dictionary."""
-        return {column.key: getattr(self, column.key) for column in self.__table__.columns}
+from sqlalchemy.orm import Session, sessionmaker
 
 
 load_dotenv()

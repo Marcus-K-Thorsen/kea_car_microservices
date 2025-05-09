@@ -6,10 +6,8 @@ from sqlalchemy import Column, String, DATETIME, Enum as SQLAlchemyEnum
 
 
 # Internal library imports
-from src.database_management import BaseEntity
+from src.entities.base_entity import BaseEntity
 from src.resources import RoleEnum, EmployeeReturnResource
-
-
 
 
 class EmployeeEntity(BaseEntity):

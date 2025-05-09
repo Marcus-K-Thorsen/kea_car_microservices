@@ -13,11 +13,10 @@ Key Responsibilities:
 
 # External Library imports
 from typing import Callable
-import logging
-
 from fastapi import HTTPException, status
 
 # Internal library imports
+from src.logger_tool import logger
 from src.exceptions.database_exceptions import UnableToFindIdError
 
 
@@ -68,4 +67,4 @@ def log_error(error_message: str, error: Exception):
     :param error: The exception object to log.
     :type error: Exception
     """
-    logging.error(f"{error.__class__.__name__} Was Caught.\n{error_message}:\n{error}", exc_info=True)
+    logger.error(f"{error.__class__.__name__} Was Caught.\n{error_message}:\n{error}", exc_info=True)

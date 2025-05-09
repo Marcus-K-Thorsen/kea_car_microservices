@@ -1,1 +1,1 @@
-from .mysqldb_connection import Session, BaseEntity, get_mysqldb
+from .mysqldb_connection import Session, get_mysqldb

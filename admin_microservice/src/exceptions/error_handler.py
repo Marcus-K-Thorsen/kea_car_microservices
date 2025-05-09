@@ -1,49 +1,95 @@
 # External Library imports
-from typing import Optional
+from typing import Callable
+from fastapi import HTTPException, status
+
 
 # Internal library imports
 from src.logger_tool import logger
+from src.exceptions.invalid_credentials_errors import (
+    IncorrectEmailError,
+    IncorrectRoleError,
+    WeakPasswordError,
+    SelfDeleteError
+)
+from src.exceptions.database_errors import (
+    AlreadyTakenFieldValueError, 
+    UnableToFindIdError, 
+    AlreadyDeletedError, 
+    AlreadyUndeletedError
+)
 
 
-def log_and_raise_error(message: str, logger_level: str = "warning", exception_type: Optional[Exception] = None) -> None:
-    """
-    Logs a message at the specified logging level and raises an exception with the same message.
 
-    Args:
-        message (str): The message to log and include in the raised exception.
-                      Example: "The given email is invalid."
-        logger_level (str): The logging level to use. Options are:
-                            - "warning" (default)
-                            - "error"
-                            - "info"
-                            - "debug"
-                            Example: "error"
-        exception_type (Optional[Exception]): The type of exception to raise. If not provided, a ValueError is raised by default.
-                                              Example: KeyError, RuntimeError, or any custom exception class.
+def handle_http_exception(error_message: str, callback: Callable):
+    try:
+        return callback()
 
-    Raises:
-        ValueError: If no exception_type is provided, a ValueError is raised with the given message.
-        exception_type: If an exception_type is provided, it is raised with the given message.
+    except UnableToFindIdError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(f"{error_message}: {e}")
+        )
 
-    Usage Examples:
-        >>> log_and_raise_error("The given email is invalid.")
-        Logs: "The given email is invalid." at the "warning" level.
-        Raises: ValueError("The given email is invalid.")
+    except AlreadyTakenFieldValueError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
 
-        >>> log_and_raise_error("The given password is too short.", logger_level="error", exception_type=RuntimeError)
-        Logs: "The given password is too short." at the "error" level.
-        Raises: RuntimeError("The given password is too short.")
-    """
-    if logger_level == "warning":
-        logger.warning(message)
-    elif logger_level == "error":
-        logger.error(message)
-    elif logger_level == "info":
-        logger.info(message)
-    else:
-        logger.debug(message)
+    except IncorrectRoleError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
     
-    if exception_type:
-        raise exception_type(message)
-    else:
-        raise ValueError(message)
+    except SelfDeleteError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except IncorrectEmailError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except WeakPasswordError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+
+    except AlreadyDeletedError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except AlreadyUndeletedError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+
+    except Exception as e:
+        log_error(error_message, e)
+        # Raise a generic internal server error for the client
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(f"Internal Server Error Caught: {error_message}.")
+        )
+
+def log_error(error_message: str, error: Exception):  # pragma: no cover
+    # Log internal server errors for debugging
+    logger.error(f"{error.__class__.__name__} Was Caught.\n{error_message}:\n{error}", exc_info=True)
+
+

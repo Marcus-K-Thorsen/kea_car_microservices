@@ -1,3 +1,4 @@
+# External Library imports
 from aio_pika import ExchangeType, connect_robust
 from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel, AbstractRobustExchange, AbstractRobustQueue, AbstractIncomingMessage
 from typing import Optional
@@ -5,6 +6,8 @@ from abc import ABC, abstractmethod
 import asyncio
 import os
 from dotenv import load_dotenv
+
+# Internal Library imports
 from src.logger_tool import logger
 from src.database_management import get_mongodb, Database
 
@@ -57,7 +60,7 @@ class BaseConsumer(ABC):
             raise ConnectionError(f"Failed to connect to RabbitMQ after {retries} attempts (total time: {total_time} seconds).")
 
         # Declare exchange and queue
-        self.exhange = await self.channel.declare_exchange(self.exchange_name, ExchangeType.FANOUT)
+        self.exhange = await self.channel.declare_exchange(self.exchange_name, ExchangeType.FANOUT, durable=True)
         self.queue = await self.channel.declare_queue(self.queue_name, durable=True)
         await self.queue.bind(self.exchange_name)
         logger.info(
