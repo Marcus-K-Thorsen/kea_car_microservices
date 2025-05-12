@@ -5,6 +5,8 @@ from fastapi import APIRouter, Depends, Path, Query, Body
 
 # Internal library imports
 from src.exceptions import handle_http_exception
+from src.logger_tool import logger
+from src.core import get_current_employee_token, TokenPayload
 from src.services import employees_service as service
 from src.database_management import Session, get_mysqldb
 from src.resources import (
@@ -43,9 +45,9 @@ def get_db():
 
         The response is a list of employees represented as 'EmployeeReturnResource' objects.
     """,
-    #dependencies=[Depends(get_current_employee_token)]
+    dependencies=[Depends(get_current_employee_token)]
 )
-async def get_emplyees(
+async def get_employees(
         limit: Optional[int] = Query(
             default=None, ge=1,
             description="""Set a limit for the amount of employees that is returned."""
@@ -57,12 +59,14 @@ async def get_emplyees(
                             - `True`: Only deleted employees.
                             - `False`: Both active and deleted employees."""
         ),
-        session: Session = Depends(get_db)
+        session: Session = Depends(get_db),
+        token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     return handle_http_exception(
         error_message="Failed to get employees from the MySQL Admin database",
         callback=lambda: service.get_all(
             session,
+            token_payload,
             employee_limit=limit,
             is_deleted_filter=deleted
         )
@@ -84,19 +88,22 @@ async def get_emplyees(
     by giving a UUID in the path for the employee 
     and returns it as a 'EmployeeReturnResource'.
     """,
-    #dependencies=[Depends(get_current_employee_token)]
+    dependencies=[Depends(get_current_employee_token)]
 )
 async def get_employee(
         employee_id: UUID = Path(
             default=...,
             description="""The UUID of the employee to retrieve."""
         ),
-        session: Session = Depends(get_db)
+        session: Session = Depends(get_db),
+        token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
+    logger.info(f"Token Id: {token_payload.employee_id}")
     return handle_http_exception(
         error_message="Failed to get employee from the MySQL Admin database",
         callback=lambda: service.get_by_id(
             session,
+            token_payload,
             employee_id=str(employee_id)
         )
     )
@@ -117,16 +124,18 @@ async def get_employee(
     by giving a request body 'EmployeeCreateResource' 
     and returns it as a 'EmployeeReturnResource'.
     """,
-    #dependencies=[Depends(get_current_employee_token)]
+    dependencies=[Depends(get_current_employee_token)]
 )
 async def create_employee(
         employee_create_data: EmployeeCreateResource,
-        session: Session = Depends(get_db)
+        session: Session = Depends(get_db),
+        token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     return handle_http_exception(
         error_message="Failed to create employee within the MySQL Admin database",
         callback=lambda: service.create(
             session,
+            token_payload,
             employee_create_data
         )
     )
@@ -147,7 +156,7 @@ async def create_employee(
     and a request body 'EmployeeUpdateResource' 
     and returns it as a 'EmployeeReturnResource'.
     """,
-    #dependencies=[Depends(get_current_employee_token)]
+    dependencies=[Depends(get_current_employee_token)]
 )
 async def update_employee(
         employee_id: UUID = Path(
@@ -158,12 +167,14 @@ async def update_employee(
             default=...,
             title="EmployeeUpdateResource"
         ),
-        session: Session = Depends(get_db)
+        session: Session = Depends(get_db),
+        token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     return handle_http_exception(
         error_message="Failed to update employee within the MySQL Admin database",
         callback=lambda: service.update(
             session,
+            token_payload,
             employee_id=str(employee_id),
             employee_update_data=employee_update_data
         )
@@ -184,19 +195,21 @@ async def update_employee(
     by giving a UUID in the path for the employee 
     and returns it as a 'EmployeeReturnResource'.
     """,
-    #dependencies=[Depends(get_current_employee_token)]
+    dependencies=[Depends(get_current_employee_token)]
 )
 async def delete_employee(
         employee_id: UUID = Path(
             default=...,
             description="""The UUID of the employee to delete."""
         ),
-        session: Session = Depends(get_db)
+        session: Session = Depends(get_db),
+        token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     return handle_http_exception(
         error_message="Failed to delete employee within the MySQL Admin database",
         callback=lambda: service.delete(
             session,
+            token_payload,
             employee_id=str(employee_id)
         )
     )
@@ -214,19 +227,21 @@ async def delete_employee(
     by giving a UUID in the path for the employee 
     and returns it as a 'EmployeeReturnResource'.
     """,
-    #dependencies=[Depends(get_current_employee_token)]
+    dependencies=[Depends(get_current_employee_token)]
 )
 async def undelete_employee(
         employee_id: UUID = Path(
             default=...,
             description="""The UUID of the employee to undelete."""
         ),
-        session: Session = Depends(get_db)
+        session: Session = Depends(get_db),
+        token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     return handle_http_exception(
         error_message="Failed to undelete employee within the MySQL Admin database",
         callback=lambda: service.undelete(
             session,
+            token_payload,
             employee_id=str(employee_id)
         )
     )

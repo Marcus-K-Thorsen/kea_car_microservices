@@ -6,10 +6,11 @@ from fastapi import HTTPException, status
 # Internal library imports
 from src.logger_tool import logger
 from src.exceptions.invalid_credentials_errors import (
-    IncorrectEmailError,
+    IncorrectIdError,
     IncorrectRoleError,
     WeakPasswordError,
-    SelfDeleteError
+    SelfDeleteError,
+    SelfDemotionError
 )
 from src.exceptions.database_errors import (
     AlreadyTakenFieldValueError, 
@@ -51,8 +52,15 @@ def handle_http_exception(error_message: str, callback: Callable):
             status_code=status.HTTP_403_FORBIDDEN,
             detail=str(f"{error_message}: {e}")
         )
+    
+    except SelfDemotionError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
         
-    except IncorrectEmailError as e:
+    except IncorrectIdError as e:
         log_error(error_message, e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

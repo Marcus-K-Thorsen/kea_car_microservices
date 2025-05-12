@@ -15,31 +15,53 @@ class EmployeeBaseResource(BaseModel):
     email: EmailStr = Field(
         default=...,
         description="Email of the employee.",
-        examples=["hans@gmail.com"]
+        examples=["tom@gmail.com"]
     )
     first_name: str = Field(
         default=...,
         description="First name of the employee.",
-        examples=["Hans"]
+        examples=["Tom"]
     )
     last_name: str = Field(
         default=...,
         description="Last name of the employee.",
-        examples=["Hansen"]
+        examples=["Tomsen"]
     )
     role: RoleEnum = Field(
         default=...,
         description="Role of the employee.",
-        examples=["manager"]
+        examples=["admin"]
     )
     
     model_config = ConfigDict(from_attributes=True)
     
 class EmployeeCreateOrUpdateResource(EmployeeBaseResource):
+    email: EmailStr = Field(
+        default=...,
+        description="Email of the employee to create.",
+        examples=["new@gmail.com"]
+    )
+    first_name: str = Field(
+        default=...,
+        description="First name of the employee to create.",
+        examples=["New"]
+    )
+    last_name: str = Field(
+        default=...,
+        description="Last name of the employee to create.",
+        examples=["Employee"]
+    )
+    
+    role: RoleEnum = Field(
+        default=...,
+        description="Role of the employee to create.",
+        examples=["manager"]
+    )
+    
     password: str = Field(
         default=...,
         description="Password of the employee to create.", 
-        examples=["Hansen123"]
+        examples=["supersecretpassword125674"]
     )
 
     @field_validator('email')
@@ -114,7 +136,7 @@ class EmployeeCreateResource(EmployeeCreateOrUpdateResource):
     id: UUID4 = Field(
         default=...,
         description="ID of the employee to create.",
-        examples=["f9097a97-eca4-49b6-85a0-08423789c320"]
+        examples=["f9097a97-eca4-49b6-85a0-08423789c321"]
     )
 
 
@@ -125,27 +147,27 @@ class EmployeeUpdateResource(EmployeeCreateOrUpdateResource):
     email: EmailStr = Field(
         default=None,
         description="Email of the employee to update.",
-        examples=["hans@gmail.com"]
+        examples=["updated@gmail.com"]
     )
     first_name: str = Field(
         default=None,
         description="First name of the employee to update.",
-        examples=["Hans"]
+        examples=["Donald"]
     )
     last_name: str = Field(
         default=None,
         description="Last name of the employee to update.",
-        examples=["Hansen"]
+        examples=["Duck"]
     )
     role: RoleEnum = Field(
         default=None,
         description="Role of the employee to update.",
-        examples=["manager"]
+        examples=["sales_person"]
     )
     password: str = Field(
         default=None,
         description="Password of the employee to update.",
-        examples=["Hansen123"]
+        examples=["newsrecretp@ssword135"]
     )
     
     def get_updated_fields(self) -> dict[str, Any]:
@@ -159,7 +181,7 @@ class EmployeeReturnResource(EmployeeBaseResource):
     id: str = Field(
         default=...,
         description="ID of the employee.",
-        examples=["f9097a97-eca4-49b6-85a0-08423789c320"]
+        examples=["24bd8a11-2310-46bc-aebf-0887325ebdbd"]
     )
     is_deleted: bool = Field(
         default=...,

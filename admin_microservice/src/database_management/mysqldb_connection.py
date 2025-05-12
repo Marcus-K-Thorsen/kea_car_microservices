@@ -6,6 +6,8 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import Session, sessionmaker
 
+# Internal Library imports
+from src.logger_tool import logger
 
 load_dotenv()
 
@@ -29,7 +31,13 @@ def get_mysqldb() -> Generator[Session, None, None]:
     engine = get_engine()
     session = session_local(bind=engine)
     try:
+        logger.info("Creating a new session")
         yield session
         session.commit()
+    except Exception as e:
+        session.rollback()
+        logger.error(f"Error occurred: {e} rolling back the session")
+        raise e
     finally:
+        logger.info("Closing the session")
         session.close()

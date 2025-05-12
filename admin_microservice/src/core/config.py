@@ -7,7 +7,6 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
-#ACCESS_TOKEN_EXPIRE_MINUTES = 1440 # One day
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2 = OAuth2PasswordBearer(tokenUrl="/token")

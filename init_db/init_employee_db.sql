@@ -28,8 +28,8 @@ CREATE TABLE `accessories` (
   `id` char(36) DEFAULT (UUID()) NOT NULL,
   `name` varchar(60) NOT NULL,
   `price` double unsigned NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `accessory_name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +41,7 @@ CREATE TABLE `accessories` (
 
 LOCK TABLES `accessories` WRITE;
 /*!40000 ALTER TABLE `accessories` DISABLE KEYS */;
-INSERT INTO `accessories` VALUES ('0d61b4ee-2c27-400c-9ff5-38123284626c','Air Conditioning',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('0f5a86c2-1db5-4486-b5e4-33b92fa3e741','Alloy Wheels',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('31a9c926-cd49-4714-9be4-e145b982417e','Bluetooth Connectivity',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('5b55aa29-8eb8-4f83-8110-f2bb50e7d08c','Sport Package',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('5f94dd2c-6d3b-4f51-82e2-c3009b42250a','Keyless Entry',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('6b00d785-bdb8-4441-9590-04938eefa481','Tow Hitch',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('713d1b90-93e4-411e-8a63-6c6de9729641','Roof Rack',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('7425be25-07cc-4167-b00d-6d1804026c17','GPS Navigation',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('78ba9e9a-d693-4d71-b330-092928fe7123','Parking Sensors',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('8466ac46-1926-4969-875c-825f58d8ef64','Premium Sound System',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('8ac0c1eb-d36f-4a0c-9520-c9ec954f6948','Rear Spoiler',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('8e637319-526c-4597-ad23-71eae78bde94','Cruise Control',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('a0f75999-89b1-4120-9423-f6951d13334b','Fog Lights',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('a191672a-5efa-4ac5-85c2-679c1708a176','Sunroof',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('b09c572c-25b6-4f70-99f8-9d2817e5c1e5','Leather Seats',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('c7114d43-1a56-482f-b46b-80878586462a','Electric Seats',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('dab9106c-cf97-498b-8ed6-f5c02488f584','Backup Camera',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('e620ec3c-625d-4bde-9b77-f7449b6352d5','Adaptive Headlights',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('e7858d25-49e7-4ad5-821c-100de2b18918','Tinted Windows',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('fc8f689e-9615-4cf6-9664-31400db7ebea','Heated Seats',99.95,'2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `accessories` VALUES ('0d61b4ee-2c27-400c-9ff5-38123284626c','Air Conditioning',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('0f5a86c2-1db5-4486-b5e4-33b92fa3e741','Alloy Wheels',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('31a9c926-cd49-4714-9be4-e145b982417e','Bluetooth Connectivity',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('5b55aa29-8eb8-4f83-8110-f2bb50e7d08c','Sport Package',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('5f94dd2c-6d3b-4f51-82e2-c3009b42250a','Keyless Entry',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('6b00d785-bdb8-4441-9590-04938eefa481','Tow Hitch',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('713d1b90-93e4-411e-8a63-6c6de9729641','Roof Rack',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('7425be25-07cc-4167-b00d-6d1804026c17','GPS Navigation',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('78ba9e9a-d693-4d71-b330-092928fe7123','Parking Sensors',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8466ac46-1926-4969-875c-825f58d8ef64','Premium Sound System',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8ac0c1eb-d36f-4a0c-9520-c9ec954f6948','Rear Spoiler',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8e637319-526c-4597-ad23-71eae78bde94','Cruise Control',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('a0f75999-89b1-4120-9423-f6951d13334b','Fog Lights',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('a191672a-5efa-4ac5-85c2-679c1708a176','Sunroof',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('b09c572c-25b6-4f70-99f8-9d2817e5c1e5','Leather Seats',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('c7114d43-1a56-482f-b46b-80878586462a','Electric Seats',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('dab9106c-cf97-498b-8ed6-f5c02488f584','Backup Camera',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('e620ec3c-625d-4bde-9b77-f7449b6352d5','Adaptive Headlights',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('e7858d25-49e7-4ad5-821c-100de2b18918','Tinted Windows',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('fc8f689e-9615-4cf6-9664-31400db7ebea','Heated Seats',99.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `accessories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,8 +56,8 @@ CREATE TABLE `brands` (
   `id` char(36) DEFAULT (UUID()) NOT NULL,
   `name` varchar(60) NOT NULL,
   `logo_url` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `brand_name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -69,7 +69,7 @@ CREATE TABLE `brands` (
 
 LOCK TABLES `brands` WRITE;
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
-INSERT INTO `brands` VALUES ('83e36635-548d-491a-9e5f-3fafaab02ba0','Mercedes','https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('8bb880b8-e336-4039-ad86-2f758539e454','Ford','https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('fadeb491-9cde-4534-b855-b1ada31e2b47','Skoda','https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('feb2efdb-93ee-4f45-88b1-5e4086c00334','BMW','https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('fff14a06-dc2a-447d-a707-9c03fe00c7a0','Audi','https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png','2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `brands` VALUES ('83e36635-548d-491a-9e5f-3fafaab02ba0','Mercedes','https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8bb880b8-e336-4039-ad86-2f758539e454','Ford','https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('fadeb491-9cde-4534-b855-b1ada31e2b47','Skoda','https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('feb2efdb-93ee-4f45-88b1-5e4086c00334','BMW','https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('fff14a06-dc2a-447d-a707-9c03fe00c7a0','Audi','https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png','2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,8 +88,8 @@ CREATE TABLE `cars` (
   `employees_id` char(36) NOT NULL,
   `total_price` double unsigned NOT NULL,
   `purchase_deadline` date NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cars_models1_idx` (`models_id`),
   KEY `fk_cars_colors1_idx` (`colors_id`),
@@ -109,10 +109,10 @@ CREATE TABLE `cars` (
 LOCK TABLES `cars` WRITE;
 /*!40000 ALTER TABLE `cars` DISABLE KEYS */;
 INSERT INTO `cars` VALUES
-('0be86135-c58f-43b6-a369-a3c5445b9948','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','f9097a97-eca4-49b6-85a0-08423789c320',10530.8,'2025-04-26','2025-03-26 03:53:58','2025-03-26 03:53:58'),
-('a1b1e305-1a89-4b06-86d1-21ac1fa3c8a6','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','d096d2e1-f06a-4555-9cd1-afa9f930f10c',10530.8,'2024-04-30','2025-03-26 03:53:58','2025-03-26 03:53:58'),
-('a5503fbb-c388-4789-a10c-d7ae7bdf7408','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','f9097a97-eca4-49b6-85a0-08423789c320',10530.8, DATE_ADD(CURDATE(), INTERVAL 30 DAY),'2025-03-26 03:53:58','2025-03-26 03:53:58'),
-('d4c7f1f8-4451-43bc-a827-63216a2ddece','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','0ac1d668-55aa-46a1-898a-8fa61457facb','f9097a97-eca4-49b6-85a0-08423789c320',10530.8,'2024-04-30','2025-03-26 03:53:58','2025-03-26 03:53:58');
+('0be86135-c58f-43b6-a369-a3c5445b9948','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','f9097a97-eca4-49b6-85a0-08423789c320',10530.8,'2025-04-26','2025-03-26T03:53:58', '2025-03-26T03:53:58'),
+('a1b1e305-1a89-4b06-86d1-21ac1fa3c8a6','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','d096d2e1-f06a-4555-9cd1-afa9f930f10c',10530.8,'2024-04-30','2025-03-26T03:53:58', '2025-03-26T03:53:58'),
+('a5503fbb-c388-4789-a10c-d7ae7bdf7408','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','f9097a97-eca4-49b6-85a0-08423789c320',10530.8, DATE_ADD(CURDATE(), INTERVAL 30 DAY),'2025-03-26T03:53:58', '2025-03-26T03:53:58'),
+('d4c7f1f8-4451-43bc-a827-63216a2ddece','d4bd413c-00d8-45ce-be0e-1d1333ac5e75','7bb35b1d-37ff-43c2-988a-cf85c5b6d690','0ac1d668-55aa-46a1-898a-8fa61457facb','f9097a97-eca4-49b6-85a0-08423789c320',10530.8,'2024-04-30','2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `cars` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,8 +186,8 @@ CREATE TABLE `colors` (
   `red_value` tinyint unsigned NOT NULL,
   `green_value` tinyint unsigned NOT NULL,
   `blue_value` tinyint unsigned NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `color_name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -199,7 +199,7 @@ CREATE TABLE `colors` (
 
 LOCK TABLES `colors` WRITE;
 /*!40000 ALTER TABLE `colors` DISABLE KEYS */;
-INSERT INTO `colors` VALUES ('14382aba-6fe6-405d-a5e2-0b8cfd1f9582','silver',299.95,192,192,192,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('5e755eb3-0099-4cdd-b064-d8bd95968109','blue',99.95,0,0,255,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('74251648-a7b1-492a-ab2a-f2248c58da00','red',199.95,255,0,0,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('7bb35b1d-37ff-43c2-988a-cf85c5b6d690','white',399.95,255,255,255,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('e2164054-4cb8-49d5-a0da-eca5b36a0b3b','black',0,0,0,0,'2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `colors` VALUES ('14382aba-6fe6-405d-a5e2-0b8cfd1f9582','silver',299.95,192,192,192,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('5e755eb3-0099-4cdd-b064-d8bd95968109','blue',99.95,0,0,255,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('74251648-a7b1-492a-ab2a-f2248c58da00','red',199.95,255,0,0,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('7bb35b1d-37ff-43c2-988a-cf85c5b6d690','white',399.95,255,255,255,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('e2164054-4cb8-49d5-a0da-eca5b36a0b3b','black',0,0,0,0,'2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `colors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,8 +217,8 @@ CREATE TABLE `customers` (
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `customer_email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -230,7 +230,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES ('0ac1d668-55aa-46a1-898a-8fa61457facb','henrik@gmail.com','10203040','Henrik','Henriksen','Randomgade nr. 10 4. tv.','2025-03-26 03:53:58','2025-03-26 03:53:58'),('bbbb06bc-268d-4f88-8b8e-3da4df118328','oli@oli.dk','12345678','Oliver','Jorgensen','asdasd123','2025-03-26 03:53:58','2025-03-26 03:53:58'),('daf830ad-be98-4f95-8fa8-3dc7efa540fe','tom@gmail.com','12345678','Tom','Tomsen','Test 21','2025-03-26 03:53:58','2025-03-26 03:53:58'),('f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','james@gmail.com','12345678','James','Jamesen','Test 21','2025-03-26 03:53:58','2025-03-26 03:53:58'),('fc40f99e-13f0-460d-b79d-f75206acdd07','test@test.dk','12345678','Test','Teste','Test 21','2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `customers` VALUES ('0ac1d668-55aa-46a1-898a-8fa61457facb','henrik@gmail.com','10203040','Henrik','Henriksen','Randomgade nr. 10 4. tv.','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('bbbb06bc-268d-4f88-8b8e-3da4df118328','oli@oli.dk','12345678','Oliver','Jorgensen','asdasd123','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('daf830ad-be98-4f95-8fa8-3dc7efa540fe','tom@gmail.com','12345678','Tom','Tomsen','Test 21','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('f159bdaf-bc83-46c3-8a3f-f6b5c93ebbdc','james@gmail.com','12345678','James','Jamesen','Test 21','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('fc40f99e-13f0-460d-b79d-f75206acdd07','test@test.dk','12345678','Test','Teste','Test 21','2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -272,8 +272,8 @@ CREATE TABLE `insurances` (
   `id` char(36) DEFAULT (UUID()) NOT NULL,
   `name` varchar(45) NOT NULL,
   `price` double unsigned NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `insurance_name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -285,7 +285,7 @@ CREATE TABLE `insurances` (
 
 LOCK TABLES `insurances` WRITE;
 /*!40000 ALTER TABLE `insurances` DISABLE KEYS */;
-INSERT INTO `insurances` VALUES ('37074fac-26da-4e38-9ae6-acbe755359e5','Earthquake',29.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('3e9a0efb-f1a1-4757-b4c3-985fc856b8d5','Hauntings',39.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('76b21d38-2103-4464-84f2-c87178e4a30c','Broken Window',19.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('8456043d-5fb0-49bf-ac2c-51567a32cc87','Flat Tire',9.95,'2025-03-26 03:53:58','2025-03-26 03:53:58'),('a80a8bed-e1a2-462f-8a77-9483e757c0f2','Water Damage',49.95,'2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `insurances` VALUES ('37074fac-26da-4e38-9ae6-acbe755359e5','Earthquake',29.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('3e9a0efb-f1a1-4757-b4c3-985fc856b8d5','Hauntings',39.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('76b21d38-2103-4464-84f2-c87178e4a30c','Broken Window',19.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8456043d-5fb0-49bf-ac2c-51567a32cc87','Flat Tire',9.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),('a80a8bed-e1a2-462f-8a77-9483e757c0f2','Water Damage',49.95,'2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `insurances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,8 +302,8 @@ CREATE TABLE `models` (
   `name` varchar(60) NOT NULL,
   `price` double unsigned NOT NULL,
   `image_url` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_models_brands1_idx` (`brands_id`),
   CONSTRAINT `fk_models_brands1` FOREIGN KEY (`brands_id`) REFERENCES `brands` (`id`)
@@ -316,7 +316,7 @@ CREATE TABLE `models` (
 
 LOCK TABLES `models` WRITE;
 /*!40000 ALTER TABLE `models` DISABLE KEYS */;
-INSERT INTO `models` VALUES ('053b1148-1bb6-4445-85b1-9f71db5b7143','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A4',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a4.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('1de1b6d3-da97-440b-ba3b-1c865e1de47f','8bb880b8-e336-4039-ad86-2f758539e454','Mustang',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/mustang.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('37c7b96c-4142-4890-a1c0-cdb4ff95606e','8bb880b8-e336-4039-ad86-2f758539e454','Explorer',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/explorer.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('41e96e21-7e57-45aa-8462-35fe83565866','fadeb491-9cde-4534-b855-b1ada31e2b47','Kodiaq',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/kodiaq.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('44bb8524-0b5d-4451-9d20-9bdafe6f8808','fadeb491-9cde-4534-b855-b1ada31e2b47','Yeti',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/yeti.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('45395bf5-431b-4643-bce0-c8a3bdba3a63','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A6',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a6.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('460200f8-4e2d-47ad-b65e-e5e333c7ed4b','fadeb491-9cde-4534-b855-b1ada31e2b47','Octavia',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/octavia.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('48daf651-f67d-465e-8e14-fc02997c8cf9','fadeb491-9cde-4534-b855-b1ada31e2b47','Rapid',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/rapid.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('4bcd231c-8d2c-4c9e-a850-12f5e74edef5','feb2efdb-93ee-4f45-88b1-5e4086c00334','Series 3',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/Series_3.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('552bac65-bd5e-4dcd-8f50-cb5b1816d8b3','83e36635-548d-491a-9e5f-3fafaab02ba0','S-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/s-class.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('65e666f1-ea52-4982-a1e7-0f164891fee2','fadeb491-9cde-4534-b855-b1ada31e2b47','Citigo',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/citigo.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('77dc2097-6d49-4fc9-bd1a-b0221af35dc6','8bb880b8-e336-4039-ad86-2f758539e454','Fiesta',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/fiesta.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('78b4d92e-fa14-4081-9e77-71cd2bad502c','feb2efdb-93ee-4f45-88b1-5e4086c00334','i8',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/i8.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('866a22d1-0ea1-458d-9a12-e5206d6ed8fc','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A1',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a1.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('8ce88a9b-3275-4fea-86ac-2c15b92a6727','8bb880b8-e336-4039-ad86-2f758539e454','Fusion',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/fusion.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('8f599259-538f-4b3e-bc3b-50daa8f5fd96','feb2efdb-93ee-4f45-88b1-5e4086c00334','Series 2',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/Series_2.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('996f735f-b06d-426e-ac5b-e90827d92707','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A3',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a3.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('ad88f9d8-db4e-4527-b2c7-8abbb475467b','feb2efdb-93ee-4f45-88b1-5e4086c00334','X6',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/X6.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('be927e18-6bd4-491c-b031-73a569afa00b','83e36635-548d-491a-9e5f-3fafaab02ba0','A-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a-class.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('d4bd413c-00d8-45ce-be0e-1d1333ac5e75','fff14a06-dc2a-447d-a707-9c03fe00c7a0','R8',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/r8.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('d96e68ef-4f6f-4623-9c7b-7c4df75ff032','83e36635-548d-491a-9e5f-3fafaab02ba0','C-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/c-class.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('deec07da-2049-484f-adc8-2fea95708964','83e36635-548d-491a-9e5f-3fafaab02ba0','G-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/g-class.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('ed996516-a141-4f4e-8991-3edeaba81c14','feb2efdb-93ee-4f45-88b1-5e4086c00334','Series 1',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/Series_1.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('fa967f9a-598b-4240-ac49-70ad190795af','8bb880b8-e336-4039-ad86-2f758539e454','Pickup',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/pickup.png','2025-03-26 03:53:58','2025-03-26 03:53:58'),('fb98b121-6648-4a82-b05c-6793b419c1c9','83e36635-548d-491a-9e5f-3fafaab02ba0','AmgGT',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/amgGT.png','2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `models` VALUES ('053b1148-1bb6-4445-85b1-9f71db5b7143','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A4',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a4.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('1de1b6d3-da97-440b-ba3b-1c865e1de47f','8bb880b8-e336-4039-ad86-2f758539e454','Mustang',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/mustang.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('37c7b96c-4142-4890-a1c0-cdb4ff95606e','8bb880b8-e336-4039-ad86-2f758539e454','Explorer',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/explorer.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('41e96e21-7e57-45aa-8462-35fe83565866','fadeb491-9cde-4534-b855-b1ada31e2b47','Kodiaq',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/kodiaq.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('44bb8524-0b5d-4451-9d20-9bdafe6f8808','fadeb491-9cde-4534-b855-b1ada31e2b47','Yeti',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/yeti.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('45395bf5-431b-4643-bce0-c8a3bdba3a63','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A6',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a6.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('460200f8-4e2d-47ad-b65e-e5e333c7ed4b','fadeb491-9cde-4534-b855-b1ada31e2b47','Octavia',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/octavia.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('48daf651-f67d-465e-8e14-fc02997c8cf9','fadeb491-9cde-4534-b855-b1ada31e2b47','Rapid',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/rapid.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('4bcd231c-8d2c-4c9e-a850-12f5e74edef5','feb2efdb-93ee-4f45-88b1-5e4086c00334','Series 3',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/Series_3.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('552bac65-bd5e-4dcd-8f50-cb5b1816d8b3','83e36635-548d-491a-9e5f-3fafaab02ba0','S-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/s-class.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('65e666f1-ea52-4982-a1e7-0f164891fee2','fadeb491-9cde-4534-b855-b1ada31e2b47','Citigo',19999.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/citigo.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('77dc2097-6d49-4fc9-bd1a-b0221af35dc6','8bb880b8-e336-4039-ad86-2f758539e454','Fiesta',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/fiesta.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('78b4d92e-fa14-4081-9e77-71cd2bad502c','feb2efdb-93ee-4f45-88b1-5e4086c00334','i8',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/i8.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('866a22d1-0ea1-458d-9a12-e5206d6ed8fc','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A1',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a1.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8ce88a9b-3275-4fea-86ac-2c15b92a6727','8bb880b8-e336-4039-ad86-2f758539e454','Fusion',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/fusion.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('8f599259-538f-4b3e-bc3b-50daa8f5fd96','feb2efdb-93ee-4f45-88b1-5e4086c00334','Series 2',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/Series_2.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('996f735f-b06d-426e-ac5b-e90827d92707','fff14a06-dc2a-447d-a707-9c03fe00c7a0','A3',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a3.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('ad88f9d8-db4e-4527-b2c7-8abbb475467b','feb2efdb-93ee-4f45-88b1-5e4086c00334','X6',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/X6.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('be927e18-6bd4-491c-b031-73a569afa00b','83e36635-548d-491a-9e5f-3fafaab02ba0','A-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/a-class.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('d4bd413c-00d8-45ce-be0e-1d1333ac5e75','fff14a06-dc2a-447d-a707-9c03fe00c7a0','R8',10000.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/r8.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('d96e68ef-4f6f-4623-9c7b-7c4df75ff032','83e36635-548d-491a-9e5f-3fafaab02ba0','C-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/c-class.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('deec07da-2049-484f-adc8-2fea95708964','83e36635-548d-491a-9e5f-3fafaab02ba0','G-Class',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/g-class.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('ed996516-a141-4f4e-8991-3edeaba81c14','feb2efdb-93ee-4f45-88b1-5e4086c00334','Series 1',10090.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/Series_1.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('fa967f9a-598b-4240-ac49-70ad190795af','8bb880b8-e336-4039-ad86-2f758539e454','Pickup',10990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/pickup.png','2025-03-26T03:53:58', '2025-03-26T03:53:58'),('fb98b121-6648-4a82-b05c-6793b419c1c9','83e36635-548d-491a-9e5f-3fafaab02ba0','AmgGT',19990.95,'https://keacar.ams3.cdn.digitaloceanspaces.com/amgGT.png','2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `models` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,8 +359,8 @@ CREATE TABLE `purchases` (
   `id` char(36) DEFAULT (UUID()) NOT NULL,
   `cars_id` char(36) NOT NULL,
   `date_of_purchase` date NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP() NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cars_id_UNIQUE` (`cars_id`),
   KEY `fk_purchases_cars1_idx` (`cars_id`),
@@ -374,7 +374,7 @@ CREATE TABLE `purchases` (
 
 LOCK TABLES `purchases` WRITE;
 /*!40000 ALTER TABLE `purchases` DISABLE KEYS */;
-INSERT INTO `purchases` VALUES ('bdfca7c4-e0ad-4618-8766-9bb355371c81','d4c7f1f8-4451-43bc-a827-63216a2ddece','2025-04-01','2025-03-26 03:53:58','2025-03-26 03:53:58');
+INSERT INTO `purchases` VALUES ('bdfca7c4-e0ad-4618-8766-9bb355371c81','d4c7f1f8-4451-43bc-a827-63216a2ddece','2025-04-01','2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `purchases` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,9 +409,9 @@ CREATE TABLE `employees` (
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` VALUES 
-('d096d2e1-f06a-4555-9cd1-afa9f930f10c','james@gmail.com','$2b$10$sB6/ocJJK9HodVv7qEozKO826Ik5gmZH/1GU/xReM1ijIjlA7hvTa','James','Jamesen','sales_person',FALSE,'2025-03-26 03:53:58','2025-03-26 03:53:58'),
-('f9097a97-eca4-49b6-85a0-08423789c320','hans@gmail.com','$2b$12$BKrnHSqhmb8NsKnUhhSGWeOj0Pnyx0so0xeXlUrDrNLplk2VnjDyK','Hans','Hansen','manager',FALSE,'2025-03-26 03:53:58','2025-03-26 03:53:58'),
-('24bd8a11-2310-46bc-aebf-0887325ebdbd','tom@gmail.com','$2b$12$O8wDPpEJYPorIgSR5F/QTO2l277gsYPOcvxc/nKUHyggBh374mcyW','Tom','Tomsen','admin',FALSE,'2025-03-26 03:53:58','2025-03-26 03:53:58');
+('d096d2e1-f06a-4555-9cd1-afa9f930f10c','james@gmail.com','$2b$10$sB6/ocJJK9HodVv7qEozKO826Ik5gmZH/1GU/xReM1ijIjlA7hvTa','James','Jamesen','sales_person',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),
+('f9097a97-eca4-49b6-85a0-08423789c320','hans@gmail.com','$2b$12$BKrnHSqhmb8NsKnUhhSGWeOj0Pnyx0so0xeXlUrDrNLplk2VnjDyK','Hans','Hansen','manager',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),
+('24bd8a11-2310-46bc-aebf-0887325ebdbd','tom@gmail.com','$2b$12$O8wDPpEJYPorIgSR5F/QTO2l277gsYPOcvxc/nKUHyggBh374mcyW','Tom','Tomsen','admin',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 

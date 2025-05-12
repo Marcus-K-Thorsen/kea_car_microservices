@@ -21,6 +21,7 @@ class EmployeeUndeletedPublisher(BasePublisher):
     def __init__(self):
         super().__init__(routing_key="employee.undeleted")
         
+
         
 employee_created_publisher = EmployeeCreatedPublisher()
 employee_updated_publisher = EmployeeUpdatedPublisher()

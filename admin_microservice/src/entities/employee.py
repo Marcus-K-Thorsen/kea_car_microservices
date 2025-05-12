@@ -19,8 +19,12 @@ class EmployeeEntity(BaseEntity):
     last_name: Mapped[str] = Column(String(45), nullable=False)
     role: Mapped[RoleEnum] = Column(SQLAlchemyEnum(RoleEnum), nullable=False)
     is_deleted: Mapped[bool] = Column(default=False, nullable=False)
-    created_at: Mapped[datetime] = Column(DATETIME, server_default=func.now(), nullable=False)
-    updated_at: Mapped[datetime] = Column(DATETIME, server_default=func.now(), onupdate=func.now(), nullable=False)
+    created_at: Mapped[datetime] = Column(
+        DATETIME, server_default=func.now(), nullable=False
+    )
+    updated_at: Mapped[datetime] = Column(
+        DATETIME, server_default=func.now(), onupdate=func.now(), nullable=False
+    )
 
 
     def as_resource(self) -> EmployeeReturnResource:

@@ -1,11 +1,16 @@
+# External Library imports
 from fastapi import FastAPI
+from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from src.logger_tool import logger
 import asyncio
 import os
 from dotenv import load_dotenv
+
+# Internal Library imports
 from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
+from src.logger_tool import logger
+from src.routers import login_router
 
 load_dotenv()
 
@@ -46,9 +51,19 @@ CORS_SETTINGS = {
 
 app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
+# Include routers
+app.include_router(
+    login_router, tags=["Login"]
+)
+
 @app.get("/")
 def read_root():
     return {"message": "Auth Microservice is running!!"}
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
 
 if __name__ == "__main__":
     import uvicorn

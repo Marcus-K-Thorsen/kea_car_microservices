@@ -18,6 +18,26 @@ class IncorrectEmailError(IncorrectCredentialError):
 
     def __str__(self):
         return f"{self.message}"
+    
+class IncorrectIdError(IncorrectCredentialError):
+    """Exception raised for incorrect email"""
+
+    def __init__(self, id: str):
+        self.message = f"The ID '{id}' is incorrect."
+        super().__init__(self.message)  # Call the base class constructor
+
+    def __str__(self):
+        return f"{self.message}"
+
+class SelfDemotionError(IncorrectCredentialError):
+    """Exception raised when an employee attempts to demote itself."""
+
+    def __init__(self, employee: EmployeeEntity, demoted_role: RoleEnum):
+        self.message = f"Employee with ID '{employee.id}' cannot demote itself from '{employee.role.value}' to '{demoted_role.value}'."
+        super().__init__(self.message)
+
+    def __str__(self):
+        return self.message
 
 class CurrentEmployeeDeletedError(IncorrectCredentialError):
     """Exception raised when the current employee is deleted"""

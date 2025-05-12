@@ -42,9 +42,9 @@ class BasePublisher():
             logger.error(f"Invalid message type: {type(message).__name__}. Expected str, bytes, dict, list, Pydantic BaseModel, or a MySQLAlchemy BaseEntity.")
             raise TypeError("Message must be a string, bytes, a JSON-serializable object, a Pydantic BaseModel instance or a MySQLAlchemy BaseEntity instance.")
         
-        logger.info(f"Publishing message: {message} to the exchange: {self.get_exchange_name()} with routing key: {self.get_routing_key()}")
+        logger.info(f"Publishing message: {message}...")
         self.rabbitmq_management.publish_message(message)
-        logger.info("Message published successfully.")
+        logger.info(f"Message successfully published to exchange: {self.get_exchange_name()} with routing key: {self.get_routing_key()}.")
     
     
     def close_connection(self) -> None:

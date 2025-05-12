@@ -5,7 +5,9 @@ from .invalid_credentials_errors import (
     IncorrectEmailError,
     IncorrectRoleError,
     WeakPasswordError,
-    SelfDeleteError
+    SelfDeleteError,
+    IncorrectIdError,
+    SelfDemotionError
 )
 from .database_errors import (
     AlreadyTakenFieldValueError, 

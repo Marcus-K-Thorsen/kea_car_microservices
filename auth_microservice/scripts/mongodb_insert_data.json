@@ -7,8 +7,8 @@
         "first_name": "James",
         "last_name": "Jamesen",
         "role": "sales_person",
-        "created_at": "2025-03-26T03:53:58.577642+00:00",
-        "updated_at": "2025-03-26T03:53:58.577642+00:00"
+        "created_at": "2025-03-26T03:53:58",
+        "updated_at": "2025-03-26T03:53:58"
       },
       {
         "_id": "f9097a97-eca4-49b6-85a0-08423789c320",
@@ -17,8 +17,8 @@
         "first_name": "Hans",
         "last_name": "Hansen",
         "role": "manager",
-        "created_at": "2025-03-26T03:53:58.577642+00:00",
-        "updated_at": "2025-03-26T03:53:58.577642+00:00"
+        "created_at": "2025-03-26T03:53:58",
+        "updated_at": "2025-03-26T03:53:58"
       },
       {
         "_id": "24bd8a11-2310-46bc-aebf-0887325ebdbd",
@@ -27,8 +27,8 @@
         "first_name": "Tom",
         "last_name": "Tomsen",
         "role": "admin",
-        "created_at": "2025-03-26T03:53:58.577642+00:00",
-        "updated_at": "2025-03-26T03:53:58.577642+00:00"
+        "created_at": "2025-03-26T03:53:58",
+        "updated_at": "2025-03-26T03:53:58"
       }
     ]
   }

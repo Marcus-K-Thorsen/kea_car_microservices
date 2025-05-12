@@ -2,6 +2,9 @@
 import hashlib
 import requests
 from typing import Union, List
+from datetime import datetime, timezone
+from fastapi import Depends, HTTPException, status
+from jwt import ExpiredSignatureError, InvalidTokenError, decode
 
 # Internal Library imports
 from src.repositories import EmployeeRepository
@@ -9,11 +12,17 @@ from src.core.config import pwd_context
 from src.entities import EmployeeEntity
 from src.resources import RoleEnum
 from src.core.tokens import TokenPayload
-from src.logger_tool import log_and_raise_error
+from src.logger_tool import log_and_raise_error, logger
 from src.exceptions import (
-    IncorrectEmailError, 
+    IncorrectIdError, 
     CurrentEmployeeDeletedError,
     IncorrectRoleError
+)
+from src.core.config import (
+    pwd_context,
+    SECRET_KEY,
+    ALGORITHM,
+    oauth2
 )
 
 def get_current_employee(
@@ -26,7 +35,7 @@ def get_current_employee(
     Retrieves the current employee from the database using the provided token payload and checks if it is a valid employee.
 
     Args:
-        token_payload (TokenPayload): The payload containing the token information, such as the email for the current employee.
+        token_payload (TokenPayload): The payload containing the token information, such as the ID for the current employee.
         repository (EmployeeRepository): The repository to access employee data.
         current_user_action (str): The action the current user is about to perform.
         valid_roles (RoleEnum | List[RoleEnum] | None): The valid roles for the current employee.
@@ -62,10 +71,10 @@ def get_current_employee(
         raise TypeError(f"valid_roles must be of type RoleEnum, List[RoleEnum], or None, "
                         f"not {type(valid_roles).__name__}.")
     
-    current_employee = repository.get_by_email(token_payload.email)
+    current_employee = repository.get_by_id(token_payload.employee_id)
     
     if current_employee is None:
-        raise IncorrectEmailError(token_payload.email)
+        raise IncorrectIdError(token_payload.employee_id)
     
     if current_employee.is_deleted:
         raise CurrentEmployeeDeletedError(current_employee)
@@ -78,7 +87,7 @@ def get_current_employee(
                 email_of_current_employee=current_employee.email,
                 incorrect_role=current_employee.role,
                 correct_roles=valid_roles,
-                action="access this resource"
+                action=current_user_action
             )
     
     return current_employee
@@ -86,6 +95,7 @@ def get_current_employee(
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
+
 
 def is_password_to_short(password: str) -> bool:
     """
@@ -100,6 +110,7 @@ def is_password_to_short(password: str) -> bool:
         bool: True if the password is too short, False otherwise.
     """
     return len(password) < 8
+
 
 def is_password_pwned(password: str) -> bool:
     """
@@ -142,3 +153,76 @@ def is_password_pwned(password: str) -> bool:
     # Check if the suffix is in the list of hashes returned by the API
     hashes = (line.split(':') for line in response.text.splitlines())
     return any(suffix == h for h, _ in hashes)
+
+
+def decode_access_token(token: str) -> TokenPayload:
+    if not isinstance(token, str):
+        raise TypeError(f"token must be of type str, not {type(token).__name__}.")
+    try:
+        payload = decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        sub = payload.get("sub")
+        exp = payload.get("exp")
+
+        if not sub:
+            raise InvalidTokenError("Missing subject in decoded token.")
+
+        if exp is None:
+            raise InvalidTokenError("Missing expiration in decoded token.")
+
+        if not isinstance(exp, (int, float)):
+            raise TypeError(
+                f"""
+                Expiration in decoded token is not an int or float, 
+                but an invalid type of: {type(exp).__name__}."""
+            )
+
+        expires_at = datetime.fromtimestamp(exp, tz=timezone.utc)
+        token_payload = TokenPayload(employee_id=sub, expires_at=expires_at)
+        return token_payload
+
+    except ExpiredSignatureError as e:
+        logger.error(
+            msg=f"Could not validate credentials: Token has expired. {e}",
+            exc_info=True,
+            stack_info=True
+        )
+        raise e
+
+    except InvalidTokenError as e:
+        logger.error(
+            msg=f"Could not validate credentials: Invalid token. {e}",
+            exc_info=True,
+            stack_info=True
+        )
+        raise e
+
+def get_employee_token(token: str) -> TokenPayload:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    internal_server_error = HTTPException(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        detail="Internal server error.",
+    )
+    try:
+        token_payload = decode_access_token(token)
+        return token_payload
+    except ExpiredSignatureError:
+        credentials_exception.detail += ": Token has expired."
+        raise credentials_exception
+    except InvalidTokenError:
+        credentials_exception.detail += ": Invalid token."
+        raise credentials_exception
+    except Exception as e:
+        logger.error(
+            msg=f"Caught Exception in function get_current_employee_token in src.core.security.py: {e}",
+            exc_info=True,
+            stack_info=True
+        )
+        raise internal_server_error
+
+
+async def get_current_employee_token(token: str = Depends(oauth2)):
+    return get_employee_token(token)

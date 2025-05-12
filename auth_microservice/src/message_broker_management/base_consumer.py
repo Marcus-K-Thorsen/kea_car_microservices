@@ -1,15 +1,23 @@
 # External Library imports
-from aio_pika import ExchangeType, connect_robust
-from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel, AbstractRobustExchange, AbstractRobustQueue, AbstractIncomingMessage
-from typing import Optional
-from abc import ABC, abstractmethod
-import asyncio
 import os
+import asyncio
+from typing import Optional
 from dotenv import load_dotenv
+from abc import ABC, abstractmethod
+from aio_pika import ExchangeType, connect_robust
+
+from aio_pika.abc import (
+    AbstractRobustConnection,
+    AbstractIncomingMessage,
+    AbstractRobustExchange, 
+    AbstractRobustChannel, 
+    AbstractRobustQueue
+)
 
 # Internal Library imports
 from src.logger_tool import logger
 from src.database_management import get_mongodb, Database
+
 
 load_dotenv()
 
@@ -54,7 +62,7 @@ class BaseConsumer(ABC):
                 break
             except Exception as e:
                 total_time += delay
-                logger.error(f"Connection failed: {e}. Retrying in {delay} seconds...")
+                logger.warning(f"Connection failed: {e}. Retrying in {delay} seconds...")
                 await asyncio.sleep(delay)
         else:
             raise ConnectionError(f"Failed to connect to RabbitMQ after {retries} attempts (total time: {total_time} seconds).")

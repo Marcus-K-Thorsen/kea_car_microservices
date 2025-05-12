@@ -4,10 +4,21 @@ from enum import Enum
 from datetime import datetime
 from sqlalchemy.orm import DeclarativeBase
 
+def truncate_to_seconds(dt: datetime) -> datetime:
+    """Truncate a datetime object to seconds."""
+    return dt.replace(microsecond=0)
+
 class BaseEntity(DeclarativeBase):
     def to_dict(self):
         """Convert the ORM object to a dictionary."""
-        return {column.key: getattr(self, column.key) for column in self.__table__.columns}
+        result = {}
+        for column in self.__table__.columns:
+            value = getattr(self, column.key)
+            # Apply truncate_to_seconds to datetime fields
+            if isinstance(value, datetime):
+                value = truncate_to_seconds(value)
+            result[column.key] = value
+        return result
 
     def to_json(self) -> str:
         """Convert the entity to a JSON-compatible byte string."""

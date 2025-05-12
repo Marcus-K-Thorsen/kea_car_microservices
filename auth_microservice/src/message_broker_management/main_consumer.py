@@ -3,7 +3,8 @@ import json
 
 # Internal Library imports
 from src.logger_tool import logger
-from .base_consumer import BaseConsumer, AbstractIncomingMessage
+from src.message_broker_management.base_consumer import BaseConsumer, AbstractIncomingMessage
+from src.util import handle_messages
 
 class MainConsumer(BaseConsumer):
     def __init__(self):
@@ -16,15 +17,18 @@ class MainConsumer(BaseConsumer):
         """Handle incoming messages."""
         async with message.process():
             try:
-                logger.info(f"This is The Routing Key: {message.routing_key}!")
+                logger.info(f"Received message with routing key: {message.routing_key}")
                 # Decode the message and log it
                 message_body: str = message.body.decode("utf-8")
-                logger.info(f"This is The queue: {self.queue_name} received message: {message_body}")
                 # Parse the message body as JSON
                 message_data = json.loads(message_body)
-                logger.info(f"Received message data: {message_data}")
+                # Handle the message based on the routing key
+                handle_messages.handle_message(self.database, message_data, message.routing_key)
+                await message.ack()
+                logger.info(f"Message processed successfully: {message_body}")
             except Exception as e:
-                logger.error(f"Unexpected error while processing message: {e}")
+                await message.nack(requeue=True)
+                logger.error(f"Failed to process message: {message_body}")
 
 
 

@@ -2,7 +2,7 @@
 import os
 from pika.frame import Method
 from dotenv import load_dotenv
-from pika.exceptions import ChannelClosed
+from pika.exceptions import ChannelClosed, AMQPConnectionError
 from typing import Union, Literal, Optional, List
 from pika.adapters.blocking_connection import BlockingChannel
 from pika import BlockingConnection, ConnectionParameters, PlainCredentials
@@ -30,6 +30,7 @@ class RabbitMQManagement():
             port=PORT,
             credentials=CREDENTIALS
             )
+        self.connection_params: ConnectionParameters = connection_params
         
         self.queue_name: Optional[str] = None
         self.exchange_name: Optional[str] = None
@@ -246,6 +247,17 @@ class RabbitMQManagement():
         logger.info(f'Binding queue: {self.queue_name} to exchange: {self.exchange_name} without a routing key.')
         return self.channel.queue_bind(self.queue_name, self.exchange_name)
     
+    def reconnect(self):
+        """Reconnect to RabbitMQ and reopen the channel."""
+        try:
+            logger.info("Reconnecting to RabbitMQ...")
+            self.connection = BlockingConnection(self.connection_params)
+            self.channel = self.connection.channel()
+            logger.info("Reconnected to RabbitMQ successfully.")
+        except Exception as e:
+            logger.error(f"Failed to reconnect to RabbitMQ: {e}")
+            raise e
+    
     def publish_message(self, message: Union[str, bytes]) -> None:
         """
         Publish a message to the exchange on the RabbitMQ server. The exchange must have been declared before calling this function.
@@ -254,22 +266,35 @@ class RabbitMQManagement():
         
         :param str | bytes message: The message to be published. Must be a non-empty string or bytes.
         """
-        # Check if the exchange exists
-        logger.info(f'Publishing message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}')
-        if self.exchange_name is None or not self.does_exchange_exist(self.exchange_name):
-            logger.error('Exchange does not exist. Please declare the exchange before publishing a message.')
-            raise ValueError('Exchange does not exist. Please declare the exchange before publishing a message.')
+        try:
+            # Check if the channel is open
+            if self.channel.is_closed:
+                logger.warning("Channel is closed. Attempting to reconnect...")
+                self.reconnect()
+                
+            # Check if the exchange exists
+            logger.info(f'Publishing message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}')
+            if self.exchange_name is None or not self.does_exchange_exist(self.exchange_name):
+                logger.error('Exchange does not exist. Please declare the exchange before publishing a message.')
+                raise ValueError('Exchange does not exist. Please declare the exchange before publishing a message.')
         
-        # Validate message
-        if not isinstance(message, (str, bytes)):
-            logger.error(f'Message must be a string or bytes, not type: {type(message).__name__}')
-            raise TypeError('Message must be a string or bytes')
+            # Validate message
+            if not isinstance(message, (str, bytes)):
+                logger.error(f'Message must be a string or bytes, not type: {type(message).__name__}')
+                raise TypeError('Message must be a string or bytes')
         
-        # Publish the message to the exchange
-        self.channel.basic_publish(
-            exchange=self.exchange_name,
-            routing_key=self.routing_key,
-            body=message
-        )
-        logger.info(f'Successfully published message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}.')
+            # Publish the message to the exchange
+            self.channel.basic_publish(
+                exchange=self.exchange_name,
+                routing_key=self.routing_key,
+                body=message
+            )
+            logger.info(f'Successfully published message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}.')
+        except AMQPConnectionError as e:
+            logger.error(f'Connection error while publishing message: {e}')
+            self.reconnect()
+            self.publish_message(message)
+        except Exception as e:
+            logger.error(f'Error publishing message: {e}')
+            raise e
 

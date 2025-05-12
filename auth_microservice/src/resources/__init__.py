@@ -1,1 +1,2 @@
-from .employee_resource import EmployeeCreateOrUpdateResource, EmployeeReturnResource
+from .employee_resource import EmployeeReturnResource
+from .login_resource import EmployeeLoginResource

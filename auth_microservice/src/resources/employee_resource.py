@@ -1,7 +1,5 @@
 # External Library imports
-from enum import Enum
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-from datetime import datetime
 
 # Internal library imports
 
@@ -37,10 +35,6 @@ class EmployeeBaseResource(BaseModel):
     
     model_config = ConfigDict(from_attributes=True)
     
-class EmployeeCreateOrUpdateResource(EmployeeBaseResource):
-    hashed_password: str
-    created_at: datetime
-    updated_at: datetime
 
 
 

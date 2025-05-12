@@ -1,10 +1,7 @@
 # External Library imports
-import json
 from typing import List, Optional
-from datetime import datetime
 
 # Internal library imports
-from src.logger_tool import logger
 from src.database_management import Session
 from src.repositories import EmployeeRepository
 from src.core import (
@@ -18,7 +15,8 @@ from src.exceptions import (
     AlreadyTakenFieldValueError,
     UnableToFindIdError,
     WeakPasswordError,
-    SelfDeleteError
+    SelfDeleteError,
+    SelfDemotionError
 )
 from src.resources import (
     EmployeeCreateResource, 
@@ -36,7 +34,7 @@ from src.message_broker_management import (
 
 def get_all(
     session: Session,
-    #token: TokenPayload,
+    token: TokenPayload,
     employee_limit: Optional[int] = None,
     is_deleted_filter: Optional[bool] = None
 ) -> List[EmployeeReturnResource]:
@@ -52,7 +50,7 @@ def get_all(
         raise TypeError(f"is_deleted_filter must be of type bool or None, "
                         f"not {type(is_deleted_filter).__name__}.")
         
-    #current_employee = get_current_employee(token, repository, current_user_action="get_all employees", valid_roles=RoleEnum.admin)
+    get_current_employee(token, repository, current_user_action="get_all employees", valid_roles=RoleEnum.admin)
 
     
     employees = repository.get_all(limit=employee_limit, deletion_filter=is_deleted_filter)
@@ -61,7 +59,7 @@ def get_all(
 
 def get_by_id(
     session: Session,
-    #token: TokenPayload,
+    token: TokenPayload,
     employee_id: str
 ) -> EmployeeReturnResource:
 
@@ -71,7 +69,7 @@ def get_by_id(
         raise TypeError(f"employee_id must be of type str, "
                         f"not {type(employee_id).__name__}.")
     
-    #current_employee = get_current_employee(token, repository, current_user_action="get employee by id", valid_roles=RoleEnum.admin)
+    get_current_employee(token, repository, current_user_action="get employee by id", valid_roles=RoleEnum.admin)
 
     employee = repository.get_by_id(employee_id)
     if employee is None:
@@ -79,33 +77,13 @@ def get_by_id(
             entity_name="Employee",
             entity_id=employee_id
         )
-    
-    
-    json_dump = employee.to_json()
-    json_dump_encoded = employee.to_bytes()
-    json_dump_decoded = json_dump_encoded.decode()
-    json_decoded = json.loads(json_dump_decoded)
-    
-    logger.info("--------------------------------")
-    logger.info(f"Employee to json_dump: {json_dump}")
-    logger.info("--------------------------------")
-    logger.info(f"Json dump encoded: {json_dump_encoded}")
-    logger.info("--------------------------------")
-    logger.info(f"Json dump decoded: {json_dump_decoded}")
-    logger.info("--------------------------------")
-    logger.info(f"Json Decoded type: {type(json_decoded).__name__}")
-    logger.info("--------------------------------")
-    created_at_as_datetime = datetime.fromisoformat(json_decoded.get('created_at'))
-    logger.info(f"created_at_as_datetime: {created_at_as_datetime}")
-    
-    
 
     return employee.as_resource()
 
 
 def create(
     session: Session,
-    #token: TokenPayload,
+    token: TokenPayload,
     employee_create_data: EmployeeCreateResource
 ) -> EmployeeReturnResource:
 
@@ -115,7 +93,7 @@ def create(
         raise TypeError(f"employee_create_data must be of type EmployeeCreateResource, "
                         f"not {type(employee_create_data).__name__}.")
         
-    #current_employee = get_current_employee(token, repository, current_user_action="create employee", valid_roles=RoleEnum.admin)
+    get_current_employee(token, repository, current_user_action="create employee", valid_roles=RoleEnum.admin)
     
     already_created_employee = repository.get_by_id(employee_create_data.id)
     if already_created_employee is not None:
@@ -151,7 +129,7 @@ def create(
 
 def update(
     session: Session,
-    #token: TokenPayload,
+    token: TokenPayload,
     employee_id: str,
     employee_update_data: EmployeeUpdateResource
 ) -> EmployeeReturnResource:
@@ -166,7 +144,10 @@ def update(
         raise TypeError(f"employee_update_data must be of type EmployeeUpdateResource, "
                         f"not {type(employee_update_data).__name__}.")
         
-    #current_employee = get_current_employee(token, repository, current_user_action="update employee", valid_roles=RoleEnum.admin)
+    current_employee = get_current_employee(token, repository, current_user_action="update employee", valid_roles=RoleEnum.admin)
+    
+    if current_employee.id == employee_id and employee_update_data.role is not None and employee_update_data.role != RoleEnum.admin:
+        raise SelfDemotionError(current_employee, employee_update_data.role)
     
     if repository.is_email_taken(employee_update_data.email, employee_id):
         raise AlreadyTakenFieldValueError(
@@ -206,7 +187,7 @@ def update(
 
 def delete(
     session: Session,
-    #token: TokenPayload,
+    token: TokenPayload,
     employee_id: str
 ) -> EmployeeReturnResource:
     
@@ -216,10 +197,10 @@ def delete(
         raise TypeError(f"employee_id must be of type str, "
                         f"not {type(employee_id).__name__}.")
         
-    #current_employee = get_current_employee(token, repository, current_user_action="delete employee", valid_roles=RoleEnum.admin)
+    current_employee = get_current_employee(token, repository, current_user_action="delete employee", valid_roles=RoleEnum.admin)
     
-    #if current_employee.id == employee_id:
-    #    raise SelfDeleteError(employee_id)
+    if current_employee.id == employee_id:
+        raise SelfDeleteError(employee_id)
     
     employee_to_delete = repository.get_by_id(employee_id)
     if employee_to_delete is None:
@@ -236,7 +217,7 @@ def delete(
 
 def undelete(
     session: Session,
-    #token: TokenPayload,
+    token: TokenPayload,
     employee_id: str
 ) -> EmployeeReturnResource:
 
@@ -246,7 +227,7 @@ def undelete(
         raise TypeError(f"employee_id must be of type str, "
                         f"not {type(employee_id).__name__}.")
         
-    #current_employee = get_current_employee(token, repository, current_user_action="undelete employee", valid_roles=RoleEnum.admin)
+    get_current_employee(token, repository, current_user_action="undelete employee", valid_roles=RoleEnum.admin)
     
     employee_to_undelete = repository.get_by_id(employee_id)
     if employee_to_undelete is None:

@@ -4,3 +4,4 @@ from .employee_resource import (
     EmployeeUpdateResource, 
     EmployeeReturnResource
 )
+from .login_resource import EmployeeLoginResource
