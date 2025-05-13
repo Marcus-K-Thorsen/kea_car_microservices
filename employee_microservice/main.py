@@ -1,10 +1,43 @@
+# External Libary imports
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from fastapi.responses import Response
 from dotenv import load_dotenv
+from fastapi import FastAPI
+import asyncio
 import os
 
+# Internal Library imports
+from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
+from src.logger_tool import logger
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan_of_consumer(app: FastAPI):
+    """Lifespan function to handle startup and shutdown events."""
+    # Startup logic
+    
+    try:
+        consumer = get_admin_exchange_consumer()
+        app.state.consumer = consumer  # Store the consumer in the app state
+        logger.info("Starting RabbitMQ consumer...")
+        asyncio.create_task(start_consumer(consumer))
+        logger.info("RabbitMQ consumer started successfully.")
+    except Exception as e:
+        logger.error(f"Failed to start RabbitMQ consumer: {e}")
+        raise e
+
+    # Yield control to the application
+    yield
+    
+    consumer = app.state.consumer  # Retrieve the consumer from the app state
+    # Shutdown logic
+    if consumer:
+        await stop_consumer(consumer)
+    
+
+app = FastAPI(
+    lifespan=lifespan_of_consumer
+)
 
 CORS_SETTINGS = {
     "allow_origins": ["*"],
@@ -20,6 +53,10 @@ app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 @app.get("/")
 def read_root():
     return {"Hello": "Employee Service"}
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
 
 if __name__ == "__main__":
     import uvicorn

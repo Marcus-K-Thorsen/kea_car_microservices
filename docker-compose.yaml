@@ -147,6 +147,24 @@ services:
     volumes:
       - ./customer_microservice:/app
 
+  employee_microservice:
+    build:
+      context: ./employee_microservice
+      dockerfile: Dockerfile
+    image: employee_microservice_image:latest  # Explicitly name the image
+    container_name: employee_microservice
+    ports:
+      - "8003:8003"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mysqldb_employee:
+        condition: service_started
+    env_file:
+      - ./employee_microservice/.env
+    volumes:
+      - ./employee_microservice:/app
+
 volumes:
   rabbitmq_data:
   mysqldb_admin:

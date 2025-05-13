@@ -1,13 +1,12 @@
 # External Library imports
 from datetime import datetime
-from sqlalchemy.sql import func
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, relationship
 from sqlalchemy import Column, String, DateTime, Enum as SQLAlchemyEnum
 
-
 # Internal library imports
-from src.entities.base_entity import BaseEntity
+from src.entities.base_entity import BaseEntity, BaseMessage
 from src.resources import RoleEnum, EmployeeReturnResource
+
 
 
 class EmployeeEntity(BaseEntity):
@@ -18,13 +17,11 @@ class EmployeeEntity(BaseEntity):
     first_name: Mapped[str] = Column(String(45), nullable=False)
     last_name: Mapped[str] = Column(String(45), nullable=False)
     role: Mapped[RoleEnum] = Column(SQLAlchemyEnum(RoleEnum), nullable=False)
-    is_deleted: Mapped[bool] = Column(default=False, nullable=False)
-    created_at: Mapped[datetime] = Column(
-        DateTime, server_default=func.now(), nullable=False
-    )
-    updated_at: Mapped[datetime] = Column(
-        DateTime, server_default=func.now(), onupdate=func.now(), nullable=False
-    )
+    is_deleted: Mapped[bool] = Column(nullable=False)
+    created_at: Mapped[datetime] = Column(DateTime, nullable=False)
+    updated_at: Mapped[datetime] = Column(DateTime, nullable=False)
+
+    cars = relationship("CarEntity", back_populates="employee")
 
 
     def as_resource(self) -> EmployeeReturnResource:
@@ -36,3 +33,13 @@ class EmployeeEntity(BaseEntity):
             role=self.role,
             is_deleted=self.is_deleted,
         )
+
+class EmployeeMesssage(BaseMessage):
+    email: str
+    hashed_password: str
+    first_name: str
+    last_name: str
+    role: RoleEnum
+    is_deleted: bool
+
+

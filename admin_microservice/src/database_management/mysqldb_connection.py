@@ -21,6 +21,7 @@ session_local = sessionmaker(autocommit=False, autoflush=False)
 
 
 def get_engine() -> Engine:
+    logger.info(f"Establishing MySQLDB connection to the database: '{DB_NAME}' on host:port '{DB_HOST}:{DB_PORT}' with the user: '{DB_USER}'...")
     connection_string = f'mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     engine = create_engine(connection_string, pool_pre_ping=True)
     return engine

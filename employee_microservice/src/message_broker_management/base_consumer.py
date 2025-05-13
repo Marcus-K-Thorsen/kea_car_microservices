@@ -16,7 +16,7 @@ from aio_pika.abc import (
 
 # Internal Library imports
 from src.logger_tool import logger
-from src.database_management import get_mongodb, Database
+from src.database_management import get_mysqldb, Session
 
 
 load_dotenv()
@@ -39,10 +39,10 @@ class BaseConsumer(ABC):
         self.queue: Optional[AbstractRobustQueue] = None
         self.connection: Optional[AbstractRobustConnection] = None
         self.channel: Optional[AbstractRobustChannel] = None
-        with get_mongodb(as_administrator=True) as database:
-            if not isinstance(database, Database):
-                raise TypeError(f"Database connection is not of type Database, but the type: {type(database).__name__}.")
-            self.database: Database = database
+        with get_mysqldb(as_administrator=True) as session:
+            if not isinstance(session, Session):
+                raise TypeError(f"Session connection is not of type Session, but the type: {type(session).__name__}.")
+            self.session: Session = session
 
     async def connect(self):
         """Establish a connection to RabbitMQ."""
@@ -75,42 +75,34 @@ class BaseConsumer(ABC):
             f"Connected to RabbitMQ. Declared exchange: {self.exchange_name}, queue: {self.queue_name}"
         )
         
-    def is_database_connected(self) -> bool:
-        """Check if the database connection is established."""
-        if not isinstance(self.database, Database):
-            logger.warning("Database connection is not established.")
+    def is_session_connected(self) -> bool:
+        """Check if the session connection is established."""
+        if not isinstance(self.session, Session):
+            logger.warning("Session connection is not established.")
             return False
-        try:
-            # Check if the database client is connected by accessing its address
-            if self.database.client.address is not None:
-                return True
-        except Exception as e:
-            logger.warning(f"Database connection check failed and therefor is not connected: {e}")
-            return False
-
-        return False
+        return self.session.is_active and self.session.bind is not None
     
-    def close_database_connection(self):
-        """Close the database connection."""
-        self.database.client.close()
-        self.database = None
-        logger.info("Database connection closed.")
+    def close_session_connection(self):
+        """Close the session connection."""
+        self.session.close()
+        self.session = None
+        logger.info("Session connection closed.")
         
-    def create_database_connection(self):
-        """Create a new database connection."""
-        with get_mongodb(as_administrator=True) as database:
-            if not isinstance(database, Database):
-                raise TypeError(f"Database connection is not of type Database, but the type: {type(database).__name__}.")
-            self.database = database
-            
-    def get_database_connection(self) -> Database:
-        """Get the database connection."""
-        if not self.is_database_connected():
-            logger.warning("Database connection is not established. Creating a new database connection.")
-            self.create_database_connection()
-        if not self.is_database_connected():
-            raise ConnectionError("Failed to establish a database connection.")
-        return self.database
+    def create_session_connection(self):
+        """Create a new session connection."""
+        with get_mysqldb(as_administrator=True) as session:
+            if not isinstance(session, Session):
+                raise TypeError(f"Session connection is not of type Session, but the type: {type(session).__name__}.")
+            self.session = session
+    
+    def get_session_connection(self) -> Session:
+        """Get the session connection."""
+        if not self.is_session_connected():
+            logger.warning("Session connection is not established. Creating a new session connection.")
+            self.create_session_connection()
+        if not self.is_session_connected():
+            raise ConnectionError("Session connection is not established.")
+        return self.session
 
     @abstractmethod
     async def on_message(self, message: AbstractIncomingMessage):
@@ -126,8 +118,8 @@ class BaseConsumer(ABC):
         logger.info(f"Starting consumer on queue: {self.queue_name}...")
         await self.queue.consume(self.on_message)
         
-        if not self.is_database_connected():
-            self.create_database_connection()
+        if not self.is_session_connected():
+            self.create_session_connection()
 
     async def stop(self):
         """Close the connection."""
@@ -139,7 +131,7 @@ class BaseConsumer(ABC):
         if self.channel is not None and isinstance(self.channel, AbstractRobustChannel):
             await self.channel.close()
             self.channel = None
-        if self.is_database_connected():
-            self.close_database_connection()
+        if self.is_session_connected():
+            self.close_session_connection()
         
         logger.info("Consumer stopped and connection closed.")

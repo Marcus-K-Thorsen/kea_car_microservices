@@ -10,7 +10,7 @@ class MainConsumer(BaseConsumer):
     def __init__(self):
         super().__init__(
             exchange_name="admin_exchange",
-            queue_name="auth_microservice_queue",
+            queue_name="employee_microservice_queue",
         )
 
     async def on_message(self, message: AbstractIncomingMessage):
@@ -23,12 +23,14 @@ class MainConsumer(BaseConsumer):
                 # Parse the message body as JSON
                 message_data = json.loads(message_body)
                 # Handle the message based on the routing key
-                handle_messages.handle_message(self.get_database_connection(), message_data, message.routing_key)
+                handle_messages.handle_message(self.get_session_connection(), message_data, message.routing_key)
                 await message.ack()
                 logger.info(f"Message processed successfully: {message_body}")
             except Exception as e:
+                # Log the error and requeue the message
+                logger.error(f"Error processing message: {e}")
                 await message.nack(requeue=True)
-                logger.error(f"Failed to process message: {message_body}")
+                logger.warning(f"Will requeue the message: {message_body}")
 
 
 

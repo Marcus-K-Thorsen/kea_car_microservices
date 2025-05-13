@@ -144,7 +144,7 @@ def update(
         raise TypeError(f"employee_update_data must be of type EmployeeUpdateResource, "
                         f"not {type(employee_update_data).__name__}.")
         
-    current_employee = get_current_employee(token, repository, current_user_action="update employee", valid_roles=RoleEnum.admin)
+    current_employee = get_current_employee(token, repository, current_user_action="update employee", valid_roles=[RoleEnum.admin])
     
     if current_employee.id == employee_id and employee_update_data.role is not None and employee_update_data.role != RoleEnum.admin:
         raise SelfDemotionError(current_employee, employee_update_data.role)
