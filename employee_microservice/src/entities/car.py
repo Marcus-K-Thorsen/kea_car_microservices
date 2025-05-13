@@ -32,7 +32,7 @@ class CarEntity(BaseEntity):
     models_id: Mapped[str] = Column(String(36), ForeignKey('models.id'), nullable=False)
     colors_id: Mapped[str] = Column(String(36), ForeignKey('colors.id'), nullable=False)
     customers_id: Mapped[str] = Column(String(36), ForeignKey('customers.id'), nullable=False)
-    sales_people_id: Mapped[str] = Column(String(36), ForeignKey('sales_people.id'), nullable=False)
+    employees_id: Mapped[str] = Column(String(36), ForeignKey('employees.id'), nullable=False)
     total_price: Mapped[float] = Column(Double, nullable=False)
     purchase_deadline: Mapped[date] = Column(Date, nullable=False)
     created_at: Mapped[datetime] = Column(
