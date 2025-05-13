@@ -27,6 +27,8 @@ class BaseEntity(DeclarativeBase):
                 return obj.isoformat()  # Convert datetime to ISO 8601 string
             if isinstance(obj, Enum):
                 return obj.value  # Convert Enum to its value
+            if isinstance(obj, bool):
+                return obj
             raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
         return json.dumps(self.to_dict(), default=custom_serializer)
