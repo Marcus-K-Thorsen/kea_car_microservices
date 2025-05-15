@@ -1,11 +1,15 @@
 # External Library imports
 from fastapi import APIRouter, Form, HTTPException
 import requests
+from dotenv import load_dotenv
+import os
 
 # Internal library imports
 from src.core import Token
 from src.resources import EmployeeLoginResource
 
+load_dotenv()
+MYSQL_DB_HOST = os.getenv("MYSQL_DB_HOST")
 
 router: APIRouter = APIRouter()
 
@@ -46,7 +50,8 @@ async def login_for_access_token(
     )
     
     # Send a POST request to the Auth Microservice
-    auth_microservice_url = "http://auth_microservice:8001/login"
+    
+    auth_microservice_url = "http://auth_microservice:8001/login" if MYSQL_DB_HOST == "mysqldb_admin" else "http://auth-microservice:8001/login"
     response = requests.post(
         auth_microservice_url,
         json=employee_login_data.model_dump(),
