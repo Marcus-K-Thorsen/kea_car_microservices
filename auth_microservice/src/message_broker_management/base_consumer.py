@@ -46,8 +46,8 @@ class BaseConsumer(ABC):
 
     async def connect(self):
         """Establish a connection to RabbitMQ."""
-        retries = 5
-        delay = 5
+        retries = 10
+        delay = 6
         total_time = 0
         for attempt in range(retries):
             try:
