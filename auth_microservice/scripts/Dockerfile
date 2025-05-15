@@ -25,7 +25,7 @@ RUN pip install "poetry==$POETRY_VERSION"
 WORKDIR /app
 
 # Copy poetry.lock and pyproject.toml from the parent directory
-COPY ../poetry.lock ../pyproject.toml ./
+COPY poetry.lock pyproject.toml ./
 
 # add venv to path
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
