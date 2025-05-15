@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
 from src.logger_tool import logger
 from src.routers import login_router
+from scripts.seed_mongodb import seed_data_manually
 
 load_dotenv()
 
@@ -74,4 +75,5 @@ if __name__ == "__main__":
     except ValueError:
         raise ValueError("API_PORT must be an integer.")
     
+    seed_data_manually()
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
