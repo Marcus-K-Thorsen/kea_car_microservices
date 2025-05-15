@@ -51,6 +51,7 @@ class InsuranceCreateOrUpdateResource(InsuranceBaseResource):
             raise ValueError(
                 f"Name '{name}' must be at most {maximum_length} characters long."
             )
+        return name
 
 class InsuranceCreateResource(InsuranceCreateOrUpdateResource):
     id: UUID4 = Field(

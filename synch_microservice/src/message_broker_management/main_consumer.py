@@ -10,7 +10,7 @@ class MainConsumer(BaseConsumer):
     def __init__(self):
         super().__init__(
             exchange_name="employee_exchange",
-            queue_name="auth_microservice_queue",
+            queue_name="synch_microservice_queue"
         )
 
     async def on_message(self, message: AbstractIncomingMessage):

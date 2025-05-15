@@ -50,7 +50,7 @@ class InsuranceRepository(BaseRepository):
             price=insurance_create_data.price
         )
         self.session.add(insurance)
-        self.flush()
+        self.session.flush()
         self.session.refresh(insurance)
         return insurance
     

@@ -10,7 +10,7 @@ metadata:
   name: rabbitmq-data
   namespace: kea-car-microservices
 spec:
-  accessModes: [ "ReadWriteOnce" ]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 1Gi
@@ -21,7 +21,7 @@ metadata:
   name: mysqldb-admin
   namespace: kea-car-microservices
 spec:
-  accessModes: [ "ReadWriteOnce" ]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 1Gi
@@ -32,7 +32,7 @@ metadata:
   name: mongodb-auth
   namespace: kea-car-microservices
 spec:
-  accessModes: [ "ReadWriteOnce" ]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 1Gi
@@ -43,7 +43,7 @@ metadata:
   name: mongodb-customer
   namespace: kea-car-microservices
 spec:
-  accessModes: [ "ReadWriteOnce" ]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 1Gi
@@ -54,7 +54,7 @@ metadata:
   name: mysqldb-employee
   namespace: kea-car-microservices
 spec:
-  accessModes: [ "ReadWriteOnce" ]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 1Gi
@@ -65,14 +65,14 @@ metadata:
   name: kea-env
   namespace: kea-car-microservices
 data:
-  RABBITMQ_USERNAME: user
-  RABBITMQ_PASSWORD: password
-  MYSQL_DB_ADMIN_ROOTPASSWORD: adminpassword
+  RABBITMQ_USERNAME: guest
+  RABBITMQ_PASSWORD: guest
+  MYSQL_DB_ADMIN_ROOTPASSWORD: rootpassword
   MONGO_DB_AUTH_ROOT_USERNAME: root
   MONGO_DB_AUTH_ROOT_PASSWORD: rootpassword
   MONGO_DB_CUSTOMER_ROOT_USERNAME: root
   MONGO_DB_CUSTOMER_ROOT_PASSWORD: rootpassword
-  MYSQL_DB_EMPLOYEE_ROOT_PASSWORD: employeepassword
+  MYSQL_DB_EMPLOYEE_ROOT_PASSWORD: rootpassword
   # Add other env vars as needed
 ---
 apiVersion: v1
@@ -107,35 +107,35 @@ spec:
         app: rabbitmq
     spec:
       containers:
-      - name: rabbitmq
-        image: rabbitmq:3-management
-        ports:
-        - containerPort: 5672
-        - containerPort: 15672
-        - containerPort: 15692
-        env:
-        - name: RABBITMQ_DEFAULT_USER
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: RABBITMQ_USERNAME
-        - name: RABBITMQ_DEFAULT_PASS
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: RABBITMQ_PASSWORD
-        volumeMounts:
-        - name: rabbitmq-data
-          mountPath: /var/lib/rabbitmq
-        readinessProbe:
-          exec:
-            command: ["rabbitmqctl", "status"]
-          initialDelaySeconds: 30
-          periodSeconds: 30
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+            - containerPort: 15692
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: RABBITMQ_PASSWORD
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+          readinessProbe:
+            exec:
+              command: ["rabbitmqctl", "status"]
+            initialDelaySeconds: 30
+            periodSeconds: 30
       volumes:
-      - name: rabbitmq-data
-        persistentVolumeClaim:
-          claimName: rabbitmq-data
+        - name: rabbitmq-data
+          persistentVolumeClaim:
+            claimName: rabbitmq-data
 ---
 apiVersion: v1
 kind: Service
@@ -172,32 +172,32 @@ spec:
         app: mysqldb-admin
     spec:
       containers:
-      - name: mysqldb-admin
-        image: mysql:latest
-        ports:
-        - containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: MYSQL_DB_ADMIN_ROOTPASSWORD
-        volumeMounts:
         - name: mysqldb-admin
-          mountPath: /var/lib/mysql
-        - name: init-admin-db
-          mountPath: /docker-entrypoint-initdb.d/init_admin_db.sql
-          subPath: init_admin_db.sql
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: MYSQL_DB_ADMIN_ROOTPASSWORD
+          volumeMounts:
+            - name: mysqldb-admin
+              mountPath: /var/lib/mysql
+            - name: init-admin-db
+              mountPath: /docker-entrypoint-initdb.d/init_admin_db.sql
+              subPath: init_admin_db.sql
       volumes:
-      - name: mysqldb-admin
-        persistentVolumeClaim:
-          claimName: mysqldb-admin
-      - name: init-admin-db
-        configMap:
-          name: init-admin-db
-          items:
-            - key: init_admin_db.sql
-              path: init_admin_db.sql
+        - name: mysqldb-admin
+          persistentVolumeClaim:
+            claimName: mysqldb-admin
+        - name: init-admin-db
+          configMap:
+            name: init-admin-db
+            items:
+              - key: init_admin_db.sql
+                path: init_admin_db.sql
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -236,30 +236,30 @@ spec:
         app: mongodb-auth
     spec:
       containers:
-      - name: mongodb-auth
-        image: mongo:latest
-        ports:
-        - containerPort: 27017
-        env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: MONGO_DB_AUTH_ROOT_USERNAME
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: MONGO_DB_AUTH_ROOT_PASSWORD
-        - name: MONGO_INITDB_DATABASE
-          value: kea_cars_auth_dev
-        volumeMounts:
         - name: mongodb-auth
-          mountPath: /data/db
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: MONGO_DB_AUTH_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: MONGO_DB_AUTH_ROOT_PASSWORD
+            - name: MONGO_INITDB_DATABASE
+              value: kea_cars_auth_dev
+          volumeMounts:
+            - name: mongodb-auth
+              mountPath: /data/db
       volumes:
-      - name: mongodb-auth
-        persistentVolumeClaim:
-          claimName: mongodb-auth
+        - name: mongodb-auth
+          persistentVolumeClaim:
+            claimName: mongodb-auth
 ---
 apiVersion: v1
 kind: Service
@@ -289,30 +289,30 @@ spec:
         app: mongodb-customer
     spec:
       containers:
-      - name: mongodb-customer
-        image: mongo:latest
-        ports:
-        - containerPort: 27017
-        env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: MONGO_DB_CUSTOMER_ROOT_USERNAME
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: MONGO_DB_CUSTOMER_ROOT_PASSWORD
-        - name: MONGO_INITDB_DATABASE
-          value: kea_cars_customer_dev
-        volumeMounts:
         - name: mongodb-customer
-          mountPath: /data/db
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: MONGO_DB_CUSTOMER_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: MONGO_DB_CUSTOMER_ROOT_PASSWORD
+            - name: MONGO_INITDB_DATABASE
+              value: kea_cars_customer_dev
+          volumeMounts:
+            - name: mongodb-customer
+              mountPath: /data/db
       volumes:
-      - name: mongodb-customer
-        persistentVolumeClaim:
-          claimName: mongodb-customer
+        - name: mongodb-customer
+          persistentVolumeClaim:
+            claimName: mongodb-customer
 ---
 apiVersion: v1
 kind: Service
@@ -342,32 +342,32 @@ spec:
         app: mysqldb-employee
     spec:
       containers:
-      - name: mysqldb-employee
-        image: mysql:latest
-        ports:
-        - containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: kea-env
-              key: MYSQL_DB_EMPLOYEE_ROOT_PASSWORD
-        volumeMounts:
         - name: mysqldb-employee
-          mountPath: /var/lib/mysql
-        - name: init-employee-db
-          mountPath: /docker-entrypoint-initdb.d/init_employee_db.sql
-          subPath: init_employee_db.sql
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: kea-env
+                  key: MYSQL_DB_EMPLOYEE_ROOT_PASSWORD
+          volumeMounts:
+            - name: mysqldb-employee
+              mountPath: /var/lib/mysql
+            - name: init-employee-db
+              mountPath: /docker-entrypoint-initdb.d/init_employee_db.sql
+              subPath: init_employee_db.sql
       volumes:
-      - name: mysqldb-employee
-        persistentVolumeClaim:
-          claimName: mysqldb-employee
-      - name: init-employee-db
-        configMap:
-          name: init-employee-db
-          items:
-            - key: init_employee_db.sql
-              path: init_employee_db.sql
+        - name: mysqldb-employee
+          persistentVolumeClaim:
+            claimName: mysqldb-employee
+        - name: init-employee-db
+          configMap:
+            name: init-employee-db
+            items:
+              - key: init_employee_db.sql
+                path: init_employee_db.sql
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -406,11 +406,11 @@ spec:
         app: seed-mongodb-auth
     spec:
       containers:
-      - name: seed-mongodb-auth
-        image: seed_mongodb_auth_image:latest
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: seed-mongodb-auth
+          image: seed_mongodb_auth_image:latest
+          envFrom:
+            - configMapRef:
+                name: kea-env
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -428,11 +428,11 @@ spec:
         app: seed-mongodb-customer
     spec:
       containers:
-      - name: seed-mongodb-customer
-        image: seed_mongodb_customer_image:latest
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: seed-mongodb-customer
+          image: seed_mongodb_customer_image:latest
+          envFrom:
+            - configMapRef:
+                name: kea-env
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -450,13 +450,13 @@ spec:
         app: admin-microservice
     spec:
       containers:
-      - name: admin-microservice
-        image: admin_microservice_image:latest
-        ports:
-        - containerPort: 8000
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: admin-microservice
+          image: oliroat/admin_microservice:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: kea-env
 ---
 apiVersion: v1
 kind: Service
@@ -486,13 +486,13 @@ spec:
         app: auth-microservice
     spec:
       containers:
-      - name: auth-microservice
-        image: auth_microservice_image:latest
-        ports:
-        - containerPort: 8001
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: auth-microservice
+          image: oliroat/auth_microservice:latest
+          ports:
+            - containerPort: 8001
+          envFrom:
+            - configMapRef:
+                name: kea-env
 ---
 apiVersion: v1
 kind: Service
@@ -522,13 +522,13 @@ spec:
         app: customer-microservice
     spec:
       containers:
-      - name: customer-microservice
-        image: customer_microservice_image:latest
-        ports:
-        - containerPort: 8002
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: customer-microservice
+          image: oliroat/customer_microservice:latest
+          ports:
+            - containerPort: 8002
+          envFrom:
+            - configMapRef:
+                name: kea-env
 ---
 apiVersion: v1
 kind: Service
@@ -558,13 +558,13 @@ spec:
         app: employee-microservice
     spec:
       containers:
-      - name: employee-microservice
-        image: employee_microservice_image:latest
-        ports:
-        - containerPort: 8003
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: employee-microservice
+          image: oliroat/employee_microservice:latest
+          ports:
+            - containerPort: 8003
+          envFrom:
+            - configMapRef:
+                name: kea-env
 ---
 apiVersion: v1
 kind: Service
@@ -594,8 +594,24 @@ spec:
         app: synch-microservice
     spec:
       containers:
-      - name: synch-microservice
-        image: synch_microservice_image:latest
-        envFrom:
-        - configMapRef:
-            name: kea-env
+        - name: synch-microservice
+          image: oliroat/synch_microservice:latest
+          env:
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_USERNAME
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+            - name: MONGO_DB_HOST
+              value: "mongodb_customer"
+            - name: MONGO_DB_PORT
+              value: "27017"
+            - name: MONGO_DB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_DB_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MONGO_DB_NAME
+              value: "kea_cars_customer_dev"
