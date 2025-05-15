@@ -34,7 +34,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN poetry install --no-root
 
 # Copy the rest of the application
-COPY ./scripts .
+COPY . .
 
 
 CMD ["poetry", "run", "python", "seed_mongodb.py"]
