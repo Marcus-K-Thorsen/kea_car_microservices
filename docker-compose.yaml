@@ -3,9 +3,9 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"    # RabbitMQ default port
-      - "15672:15672"  # RabbitMQ management UI
-      - "15692:15692"  # Prometheus metrics endpoint
+      - "5672:5672" # RabbitMQ default port
+      - "15672:15672" # RabbitMQ management UI
+      - "15692:15692" # Prometheus metrics endpoint
     env_file:
       - .env
     environment:
@@ -19,7 +19,6 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     #cpus: '0.5'  # Limit to 50% of a single CPU core
-
 
   mysqldb_admin:
     image: mysql:latest
@@ -79,7 +78,7 @@ services:
     build:
       context: ./auth_microservice
       dockerfile: scripts/Dockerfile
-    image: seed_mongodb_auth_image:latest  # Explicitly name the image
+    image: seed_mongodb_auth_image:latest # Explicitly name the image
     container_name: seed_mongodb_auth
     depends_on:
       - mongodb_auth
@@ -90,7 +89,7 @@ services:
     build:
       context: ./customer_microservice
       dockerfile: scripts/Dockerfile
-    image: seed_mongodb_customer_image:latest  # Explicitly name the image
+    image: seed_mongodb_customer_image:latest # Explicitly name the image
     container_name: seed_mongodb_customer
     depends_on:
       - mongodb_customer
@@ -101,7 +100,7 @@ services:
     build:
       context: ./admin_microservice
       dockerfile: Dockerfile
-    image: admin_microservice_image:latest  # Explicitly name the image
+    image: admin_microservice_image:latest # Explicitly name the image
     container_name: admin_microservice
     ports:
       - "8000:8000"
@@ -119,7 +118,7 @@ services:
     build:
       context: ./auth_microservice
       dockerfile: Dockerfile
-    image: auth_microservice_image:latest  # Explicitly name the image
+    image: auth_microservice_image:latest # Explicitly name the image
     container_name: auth_microservice
     ports:
       - "8001:8001"
@@ -135,7 +134,7 @@ services:
     build:
       context: ./customer_microservice
       dockerfile: Dockerfile
-    image: customer_microservice_image:latest  # Explicitly name the image
+    image: customer_microservice_image:latest # Explicitly name the image
     container_name: customer_microservice
     ports:
       - "8002:8002"
@@ -151,7 +150,7 @@ services:
     build:
       context: ./employee_microservice
       dockerfile: Dockerfile
-    image: employee_microservice_image:latest  # Explicitly name the image
+    image: employee_microservice_image:latest # Explicitly name the image
     container_name: employee_microservice
     ports:
       - "8003:8003"
@@ -164,6 +163,22 @@ services:
       - ./employee_microservice/.env
     volumes:
       - ./employee_microservice:/app
+
+  synch_microservice:
+    build:
+      context: ./synch_microservice
+      dockerfile: Dockerfile
+    image: synch_microservice_image:latest # Explicitly name the image
+    container_name: synch_microservice
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mongodb_customer:
+        condition: service_started
+    env_file:
+      - ./synch_microservice/.env
+    volumes:
+      - ./synch_microservice:/app
 
 volumes:
   rabbitmq_data:
