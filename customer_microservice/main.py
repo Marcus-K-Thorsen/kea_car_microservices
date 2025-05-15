@@ -33,7 +33,7 @@ from src.routers import (
     insurances_router,
     accessories_router
 )
-from scripts.seed_mongodb import seed_data_manually
+
 
 # Initialize the FastAPI application
 app = FastAPI()
@@ -85,7 +85,6 @@ def start_application():
         raise ValueError("API_PORT must be an integer.")
 
     # Run the FastAPI application
-    seed_data_manually()
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
 
 

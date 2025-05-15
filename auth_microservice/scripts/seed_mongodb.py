@@ -70,44 +70,6 @@ def seed_data(db: Database):
     duration = (end_time - start_time).total_seconds()
     print(f"Successfully seeded the MongoDB database: '{MONGO_DB_NAME}', it took {duration} seconds.")
 
-def seed_data_manually():
-    # Sleep for 7 seconds
-    sleep(7)
-    
-    client: Optional[MongoClient] = None
-
-    try:
-
-        client = MongoClient(
-            host=MONGO_DB_HOST, 
-            port=MONGO_DB_PORT,
-            username=MONGO_DB_ROOT_USERNAME,
-            password=MONGO_DB_ROOT_PASSWORD,
-            authSource='admin'
-            )
-        
-        db = client.get_database(MONGO_DB_NAME)
-        
-        # Check if the database has already been seeded
-        seed_metadata = db.get_collection("seed_metadata")
-        if seed_metadata.find_one({"seeded": True}):
-            print(f"Database: '{MONGO_DB_NAME}' has already been seeded. Skipping seed script.")
-        else:
-            seed_data(db)
-            # Mark the database as seeded
-            seed_metadata.insert_one({"seeded": True, "timestamp": datetime.now()})
-            print("Database seeding completed.")
-        
-        
-    except Exception as error:
-        print(f"Error {error.__class__.__name__} caught during Mongo Database restore:\n"
-              f"{error}")
-    finally:
-        
-        if client is not None and isinstance(client, MongoClient):
-            client.close()
-            print("MongoDB connection closed.")
-
 
 if __name__ == '__main__':
     # Sleep for 5 seconds
@@ -119,7 +81,7 @@ if __name__ == '__main__':
 
         client = MongoClient(
             host=MONGO_DB_HOST, 
-            port=MONGO_DB_PORT,
+            port=MONGO_DB_PORT if MONGO_DB_HOST == "mongodb_auth" else None,
             username=MONGO_DB_ROOT_USERNAME,
             password=MONGO_DB_ROOT_PASSWORD,
             authSource='admin'
@@ -141,6 +103,7 @@ if __name__ == '__main__':
     except Exception as error:
         print(f"Error {error.__class__.__name__} caught during Mongo Database restore:\n"
               f"{error}")
+        raise
     finally:
         
         if client is not None and isinstance(client, MongoClient):
