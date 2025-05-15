@@ -30,6 +30,12 @@ class ModelEntity(BaseEntity):
     brand: Mapped[BrandEntity] = relationship('BrandEntity', back_populates='models', lazy=False, uselist=False)
     colors: Mapped[List[ColorEntity]] = relationship('ColorEntity', secondary=models_has_colors, back_populates='models', lazy=False)
     cars = relationship('CarEntity', back_populates='model')
+    
+    def _relationship_dict(self):
+        # Only include color IDs
+        return {
+            "color_ids": [color.id for color in self.colors]
+        }
 
     def as_resource(self) -> ModelReturnResource:
         return ModelReturnResource(

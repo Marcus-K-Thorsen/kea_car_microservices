@@ -1,10 +1,9 @@
 # External Library imports
-from datetime import datetime
+
 
 # Internal Library import
 from src.util.handle_employee_message import handle_employee_message
 from src.database_management import Session
-from src.resources import RoleEnum
 from src.entities.employee import EmployeeMesssage
 from src.logger_tool import logger
 
@@ -26,6 +25,6 @@ def handle_message(session: Session, message: dict, routing_key: str) -> None:
         logger.info(f"Handling employee message with routing key: {routing_key}")
         employee_message = EmployeeMesssage(**message)
         handle_employee_message(session, employee_message, routing_key)
-        
+        session.commit()
     else:
         raise ValueError(f"Invalid routing key: {routing_key}, expected 'employee' in routing key.")

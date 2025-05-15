@@ -35,7 +35,7 @@ def handle_http_exception(error_message: str, callback: Callable):
     except AlreadyTakenFieldValueError as e:
         log_error(error_message, e)
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_409_CONFLICT,
             detail=str(f"{error_message}: {e}")
         )
 

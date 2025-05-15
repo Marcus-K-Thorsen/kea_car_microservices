@@ -44,6 +44,7 @@ def get_db():
             - `False`: Returns both active and deleted employees.
 
         The response is a list of employees represented as 'EmployeeReturnResource' objects.
+        The endpoint requires an authorization token in the header and is accessible only by employees with the role: 'ADMIN'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
@@ -87,6 +88,8 @@ async def get_employees(
     Retrieves an Employee by ID from the MySQL Admin database 
     by giving a UUID in the path for the employee 
     and returns it as a 'EmployeeReturnResource'.
+    
+    The endpoint requires an authorization token in the header and is accessible only by employees with the role: 'ADMIN'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
@@ -123,6 +126,11 @@ async def get_employee(
     Creates an Employee within the MySQL Admin database 
     by giving a request body 'EmployeeCreateResource' 
     and returns it as a 'EmployeeReturnResource'.
+    
+    If successful a message will be send to the 'auth_microservice' and the 'employee_microservice', 
+    to create that employee in their databases as well.
+    
+    The endpoint requires an authorization token in the header and is accessible only by employees with the role: 'ADMIN'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
@@ -155,6 +163,11 @@ async def create_employee(
     by giving a UUID in the path for the employee 
     and a request body 'EmployeeUpdateResource' 
     and returns it as a 'EmployeeReturnResource'.
+    
+    If successful a message will be send to the 'auth_microservice' and the 'employee_microservice', 
+    to update that employee in their databases as well.
+    
+    The endpoint requires an authorization token in the header and is accessible only by employees with the role: 'ADMIN'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
@@ -194,6 +207,11 @@ async def update_employee(
     Deletes an Employee within the MySQL Admin database 
     by giving a UUID in the path for the employee 
     and returns it as a 'EmployeeReturnResource'.
+    
+    If successful a message will be send to the 'auth_microservice' and the 'employee_microservice', 
+    to delete that employee in their databases as well.
+    
+    The endpoint requires an authorization token in the header and is accessible only by employees with the role: 'ADMIN'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
@@ -226,6 +244,11 @@ async def delete_employee(
     Undeletes an Employee within the MySQL Admin database 
     by giving a UUID in the path for the employee 
     and returns it as a 'EmployeeReturnResource'.
+    
+    If successful a message will be send to the 'auth_microservice' and the 'employee_microservice', 
+    to undelete that employee in their databases as well.
+    
+    The endpoint requires an authorization token in the header and is accessible only by employees with the role: 'ADMIN'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )

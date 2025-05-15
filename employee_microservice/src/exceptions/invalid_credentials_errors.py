@@ -37,3 +37,13 @@ class IncorrectRoleError(IncorrectCredentialError):
 
     def __str__(self):
         return f"{self.message}"
+    
+class CurrentEmployeeDeletedError(IncorrectCredentialError):
+    """Exception raised when the current employee is deleted"""
+
+    def __init__(self, deleted_employee: EmployeeEntity):
+        self.message = f"The current employee with ID '{deleted_employee.id}' and email: '{deleted_employee.email}' is deleted: {deleted_employee.is_deleted}."
+        super().__init__(self.message)  # Call the base class constructor
+
+    def __str__(self):
+        return f"{self.message}"

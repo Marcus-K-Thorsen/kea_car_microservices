@@ -9,6 +9,14 @@ import os
 
 # Internal Library imports
 from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
+from src.routers import (
+    login_router,
+    employees_router,
+    insurances_router,
+    brands_router,
+    models_router
+)
+from src.message_broker_management import close_all_publisher_connections
 from src.logger_tool import logger
 
 @asynccontextmanager
@@ -50,9 +58,15 @@ load_dotenv()
 
 app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
+app.include_router(employees_router, tags=["Employees"])
+app.include_router(insurances_router, tags=["Insurances"])
+app.include_router(brands_router, tags=["Brands"])
+app.include_router(models_router, tags=["Models"])
+app.include_router(login_router, tags=["Login"])
+
 @app.get("/")
 def read_root():
-    return {"Hello": "Employee Service"}
+    return {"Hello": "Employee Service!"}
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
@@ -68,3 +82,5 @@ if __name__ == "__main__":
         raise ValueError("API_PORT must be an integer.")
     
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
+    
+    close_all_publisher_connections()

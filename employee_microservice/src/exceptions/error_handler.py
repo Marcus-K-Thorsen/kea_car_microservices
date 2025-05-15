@@ -5,7 +5,15 @@ from fastapi import HTTPException, status
 
 # Internal library imports
 from src.logger_tool import logger
-from src.exceptions.invalid_credentials_errors import IncorrectCredentialError
+from src.exceptions.invalid_credentials_errors import (
+    IncorrectCredentialError,
+    IncorrectRoleError,
+    CurrentEmployeeDeletedError
+    )
+from src.exceptions.database_errors import (
+    UnableToFindIdError,
+    AlreadyTakenFieldValueError
+)
 
 
 
@@ -13,6 +21,34 @@ def handle_http_exception(error_message: str, callback: Callable):
     try:
         return callback()
 
+    except UnableToFindIdError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except AlreadyTakenFieldValueError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except CurrentEmployeeDeletedError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except IncorrectRoleError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
+        
     except IncorrectCredentialError as e:
         log_error(error_message, e)
         raise HTTPException(

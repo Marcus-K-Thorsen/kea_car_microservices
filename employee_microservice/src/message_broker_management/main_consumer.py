@@ -15,22 +15,22 @@ class MainConsumer(BaseConsumer):
 
     async def on_message(self, message: AbstractIncomingMessage):
         """Handle incoming messages."""
-        async with message.process():
+        async with message.process(requeue=True, reject_on_redelivered=True):
             try:
                 logger.info(f"Received message with routing key: {message.routing_key}")
                 # Decode the message and log it
                 message_body: str = message.body.decode("utf-8")
+                logger.info(f"Received message to process: {message_body}")
                 # Parse the message body as JSON
                 message_data = json.loads(message_body)
                 # Handle the message based on the routing key
                 handle_messages.handle_message(self.get_session_connection(), message_data, message.routing_key)
-                await message.ack()
-                logger.info(f"Message processed successfully: {message_body}")
+                logger.info(f"Message processed successfully: {message_data}")
             except Exception as e:
-                # Log the error and requeue the message
+                # Log the error
                 logger.error(f"Error processing message: {e}")
-                await message.nack(requeue=True)
-                logger.warning(f"Will requeue the message: {message_body}")
+                logger.warning(f"Will requeue the message: {message.body}")
+                raise
 
 
 

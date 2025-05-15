@@ -50,12 +50,13 @@ def get_all(
         raise TypeError(f"is_deleted_filter must be of type bool or None, "
                         f"not {type(is_deleted_filter).__name__}.")
         
-    get_current_employee(token, repository, current_user_action="get_all employees", valid_roles=RoleEnum.admin)
+    get_current_employee(token, session, current_user_action="get_all employees", valid_roles=RoleEnum.admin)
 
     
     employees = repository.get_all(limit=employee_limit, deletion_filter=is_deleted_filter)
     
     return [employee.as_resource() for employee in employees]
+
 
 def get_by_id(
     session: Session,
@@ -69,7 +70,7 @@ def get_by_id(
         raise TypeError(f"employee_id must be of type str, "
                         f"not {type(employee_id).__name__}.")
     
-    get_current_employee(token, repository, current_user_action="get employee by id", valid_roles=RoleEnum.admin)
+    get_current_employee(token, session, current_user_action="get employee by id", valid_roles=RoleEnum.admin)
 
     employee = repository.get_by_id(employee_id)
     if employee is None:
@@ -93,7 +94,7 @@ def create(
         raise TypeError(f"employee_create_data must be of type EmployeeCreateResource, "
                         f"not {type(employee_create_data).__name__}.")
         
-    get_current_employee(token, repository, current_user_action="create employee", valid_roles=RoleEnum.admin)
+    get_current_employee(token, session, current_user_action="create employee", valid_roles=RoleEnum.admin)
     
     already_created_employee = repository.get_by_id(employee_create_data.id)
     if already_created_employee is not None:
@@ -122,9 +123,11 @@ def create(
     
     created_employee = repository.create(employee_create_data, hashed_password)
     
+    employee_as_resource = created_employee.as_resource()
+    
     publish_employee_created_message(created_employee)
     
-    return created_employee.as_resource()
+    return employee_as_resource
 
 
 def update(
@@ -144,7 +147,7 @@ def update(
         raise TypeError(f"employee_update_data must be of type EmployeeUpdateResource, "
                         f"not {type(employee_update_data).__name__}.")
         
-    current_employee = get_current_employee(token, repository, current_user_action="update employee", valid_roles=[RoleEnum.admin])
+    current_employee = get_current_employee(token, session, current_user_action="update employee", valid_roles=[RoleEnum.admin])
     
     if current_employee.id == employee_id and employee_update_data.role is not None and employee_update_data.role != RoleEnum.admin:
         raise SelfDemotionError(current_employee, employee_update_data.role)
@@ -180,9 +183,11 @@ def update(
             entity_id=employee_id
         )
     
+    employee_as_resource = updated_employee.as_resource()
+    
     publish_employee_updated_message(updated_employee)
     
-    return updated_employee.as_resource()
+    return employee_as_resource
 
 
 def delete(
@@ -197,7 +202,7 @@ def delete(
         raise TypeError(f"employee_id must be of type str, "
                         f"not {type(employee_id).__name__}.")
         
-    current_employee = get_current_employee(token, repository, current_user_action="delete employee", valid_roles=RoleEnum.admin)
+    current_employee = get_current_employee(token, session, current_user_action="delete employee", valid_roles=RoleEnum.admin)
     
     if current_employee.id == employee_id:
         raise SelfDeleteError(employee_id)
@@ -208,12 +213,18 @@ def delete(
             entity_name="Employee",
             entity_id=employee_id
         )
+        
+    if employee_to_delete.is_deleted:
+        return employee_to_delete.as_resource()
 
     deleted_employee = repository.delete(employee_to_delete)
     
+    employee_as_resource = deleted_employee.as_resource()
+    
     publish_employee_deleted_message(deleted_employee)
     
-    return deleted_employee.as_resource()
+    return employee_as_resource
+
 
 def undelete(
     session: Session,
@@ -227,7 +238,7 @@ def undelete(
         raise TypeError(f"employee_id must be of type str, "
                         f"not {type(employee_id).__name__}.")
         
-    get_current_employee(token, repository, current_user_action="undelete employee", valid_roles=RoleEnum.admin)
+    get_current_employee(token, session, current_user_action="undelete employee", valid_roles=RoleEnum.admin)
     
     employee_to_undelete = repository.get_by_id(employee_id)
     if employee_to_undelete is None:
@@ -235,9 +246,13 @@ def undelete(
             entity_name="Employee",
             entity_id=employee_id
         )
+    
+    if not employee_to_undelete.is_deleted:
+        return employee_to_undelete.as_resource()
 
     undeleted_employee = repository.undelete(employee_to_undelete)
+    employee_as_resource = undeleted_employee.as_resource()
     
     publish_employee_undeleted_message(undeleted_employee)
     
-    return undeleted_employee.as_resource()
+    return employee_as_resource

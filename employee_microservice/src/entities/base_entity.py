@@ -27,7 +27,13 @@ class BaseEntity(DeclarativeBase):
             elif isinstance(value, date):
                 value = value.isoformat()
             result[column.key] = value
+        
+        result.update(self._relationship_dict())
         return result
+    
+    def _relationship_dict(self):
+        """Override in subclasses to add relationship fields to dict."""
+        return {}
 
     def to_json(self) -> str:
         """Convert the entity to a JSON-compatible byte string."""
@@ -38,8 +44,6 @@ class BaseEntity(DeclarativeBase):
                 return obj.isoformat()  # Convert date to ISO 8601 string
             if isinstance(obj, Enum):
                 return obj.value  # Convert Enum to its value
-            if isinstance(obj, bool):
-                return obj
             raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
         return json.dumps(self.to_dict(), default=custom_serializer)

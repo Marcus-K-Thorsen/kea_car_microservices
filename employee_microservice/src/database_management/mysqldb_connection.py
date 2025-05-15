@@ -42,7 +42,7 @@ def get_mysqldb(as_administrator: bool = False) -> Generator[Session, None, None
     except Exception as e:
         session.rollback()
         logger.error(f"Error occurred: {e} rolling back the session")
-        raise e
+        raise
     finally:
         if not as_administrator:
             logger.info("Closing the session")

@@ -24,7 +24,9 @@ from .employee_resource import (
     RoleEnum
 )
 from .insurance_resource import (
-    InsuranceReturnResource
+    InsuranceReturnResource,
+    InsuranceCreateResource,
+    InsuranceUpdateResource
 )
 from .model_resource import (
     ModelReturnResource,

@@ -22,3 +22,11 @@ class UnableToFindIdError(DatabaseError):
     def __str__(self):
         return f"{self.message}"
 
+class UnableToUndeleteAlreadyUndeletedEntityError(DatabaseError):
+    def __init__(self, entity_name: str, entity_id: Union[str, UUID]):
+        entity_id= str(entity_id) if isinstance(entity_id, UUID) else entity_id
+        self.message = f'{entity_name} with ID: {entity_id} has not been deleted yet and can not be undeleted.'
+        super().__init__(self.message)  # Initialize the base Exception with the message
+
+    def __str__(self):
+        return f"{self.message}"

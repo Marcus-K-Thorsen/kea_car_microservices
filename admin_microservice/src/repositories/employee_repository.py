@@ -213,7 +213,7 @@ class EmployeeRepository(BaseRepository):
         employee_id: Optional[str] = None
     ) -> bool:
         """
-        Checks if an email is already taken by another employee.
+        Checks if an email is already taken by another employee in the Admin MySQL database.
 
         :param email: The email to check.
         :type email: str

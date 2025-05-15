@@ -9,7 +9,7 @@ from src.repositories.base_repository import BaseRepository
 class EmployeeRepository(BaseRepository):
     def get_by_id(self, employee_id: str) -> Optional[EmployeeEntity]:
         """
-        Retrieves an employee by ID.
+        Retrieves an employee by ID from the Auth Mongo database.
         
         :param employee_id: The ID of the employee to retrieve.
         :type employee_id: str
@@ -29,7 +29,7 @@ class EmployeeRepository(BaseRepository):
     
     def get_by_email(self, email: str) -> Optional[EmployeeEntity]:
         """
-        Retrieves an employee by email.
+        Retrieves an employee by email from the Auth Mongo database.
         
         :param email: The email of the employee to retrieve.
         :type email: str
@@ -49,7 +49,9 @@ class EmployeeRepository(BaseRepository):
     
     def create(self, employee: EmployeeEntity) -> EmployeeEntity:
         """
-        Creates a new employee in the database.
+        Creates a new employee in the Auth Mongo database.
+        This function is only to be used for consuming messages from the queue.
+        It is not to be used for creating employees from the API.
         
         :param employee: The employee to create.
         :type employee: EmployeeEntity
@@ -64,7 +66,10 @@ class EmployeeRepository(BaseRepository):
     
     def update(self, employee: EmployeeEntity) -> Optional[EmployeeEntity]:
         """
-        Updates an employee in the database.
+        Updates an employee in the Auth Mongo database.
+        This function is only to be used for consuming messages from the queue.
+        It is not to be used for updating employees from the API.
+        
         :param employee: The employee to update.
         :type employee: EmployeeEntity
         :return: The updated employee if successful, None otherwise.
@@ -85,7 +90,9 @@ class EmployeeRepository(BaseRepository):
 
     def delete(self, employee_id: str) -> bool:
         """
-        Deletes an employee by ID.
+        Deletes an employee by ID in the Employee Mongo database.
+        This function is only to be used for consuming messages from the queue.
+        It is not to be used for deleting employees from the API.
         
         :param employee_id: The ID of the employee to delete.
         :type employee_id: str

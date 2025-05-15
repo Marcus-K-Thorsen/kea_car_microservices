@@ -38,7 +38,7 @@ def get_mysqldb() -> Generator[Session, None, None]:
     except Exception as e:
         session.rollback()
         logger.error(f"Error occurred: {e} rolling back the session")
-        raise e
+        raise
     finally:
         logger.info("Closing the session")
         session.close()

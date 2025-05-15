@@ -1,5 +1,6 @@
 import json
 import os
+from time import sleep
 from dotenv import load_dotenv
 from datetime import datetime
 from pymongo import MongoClient, UpdateOne, IndexModel
@@ -84,7 +85,8 @@ def seed_data(db: Database):
 
 
 if __name__ == '__main__':
-    
+    # Sleep for 5 seconds
+    sleep(5)
     
     client: Optional[MongoClient] = None
 

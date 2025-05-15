@@ -276,7 +276,9 @@
         "brand": {
           "_id": "fff14a06-dc2a-447d-a707-9c03fe00c7a0",
           "name": "Audi",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -285,7 +287,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -293,7 +297,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -301,7 +307,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -315,7 +323,9 @@
         "brand": {
           "_id": "8bb880b8-e336-4039-ad86-2f758539e454",
           "name": "Ford",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -324,7 +334,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -332,7 +344,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -346,7 +360,9 @@
         "brand": {
           "_id": "8bb880b8-e336-4039-ad86-2f758539e454",
           "name": "Ford",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -355,7 +371,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -363,7 +381,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -371,7 +391,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -385,7 +407,9 @@
         "brand": {
           "_id": "fadeb491-9cde-4534-b855-b1ada31e2b47",
           "name": "Skoda",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -394,7 +418,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -402,7 +428,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -416,7 +444,9 @@
         "brand": {
           "_id": "fadeb491-9cde-4534-b855-b1ada31e2b47",
           "name": "Skoda",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -425,7 +455,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -433,7 +465,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -441,7 +475,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -455,7 +491,9 @@
         "brand": {
           "_id": "fff14a06-dc2a-447d-a707-9c03fe00c7a0",
           "name": "Audi",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -464,7 +502,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -472,7 +512,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -480,7 +522,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -494,7 +538,9 @@
         "brand": {
           "_id": "fadeb491-9cde-4534-b855-b1ada31e2b47",
           "name": "Skoda",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -503,7 +549,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -511,7 +559,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -519,7 +569,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -533,7 +585,9 @@
         "brand": {
           "_id": "fadeb491-9cde-4534-b855-b1ada31e2b47",
           "name": "Skoda",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -542,7 +596,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -550,7 +606,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -558,7 +616,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -572,7 +632,9 @@
         "brand": {
           "_id": "feb2efdb-93ee-4f45-88b1-5e4086c00334",
           "name": "BMW",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -581,7 +643,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -589,7 +653,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -597,7 +663,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -611,7 +679,9 @@
         "brand": {
           "_id": "83e36635-548d-491a-9e5f-3fafaab02ba0",
           "name": "Mercedes",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -620,7 +690,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -628,7 +700,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -636,7 +710,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -650,7 +726,9 @@
         "brand": {
           "_id": "fadeb491-9cde-4534-b855-b1ada31e2b47",
           "name": "Skoda",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Skoda-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -659,7 +737,9 @@
             "price": 299.95,
             "red_value": 192,
             "green_value": 192,
-            "blue_value": 192
+            "blue_value": 192,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "5e755eb3-0099-4cdd-b064-d8bd95968109",
@@ -667,7 +747,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "74251648-a7b1-492a-ab2a-f2248c58da00",
@@ -675,7 +757,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -683,7 +767,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -691,7 +777,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -705,7 +793,9 @@
         "brand": {
           "_id": "8bb880b8-e336-4039-ad86-2f758539e454",
           "name": "Ford",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -714,7 +804,9 @@
             "price": 299.95,
             "red_value": 192,
             "green_value": 192,
-            "blue_value": 192
+            "blue_value": 192,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "5e755eb3-0099-4cdd-b064-d8bd95968109",
@@ -722,7 +814,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "74251648-a7b1-492a-ab2a-f2248c58da00",
@@ -730,7 +824,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -738,7 +834,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -746,7 +844,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -760,7 +860,9 @@
         "brand": {
           "_id": "feb2efdb-93ee-4f45-88b1-5e4086c00334",
           "name": "BMW",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -769,7 +871,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -777,7 +881,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -791,7 +897,9 @@
         "brand": {
           "_id": "fff14a06-dc2a-447d-a707-9c03fe00c7a0",
           "name": "Audi",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -800,7 +908,9 @@
             "price": 299.95,
             "red_value": 192,
             "green_value": 192,
-            "blue_value": 192
+            "blue_value": 192,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "5e755eb3-0099-4cdd-b064-d8bd95968109",
@@ -808,7 +918,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "74251648-a7b1-492a-ab2a-f2248c58da00",
@@ -816,7 +928,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -824,7 +938,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -832,7 +948,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -846,7 +964,9 @@
         "brand": {
           "_id": "8bb880b8-e336-4039-ad86-2f758539e454",
           "name": "Ford",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -855,7 +975,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -863,7 +985,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -871,7 +995,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -885,7 +1011,9 @@
         "brand": {
           "_id": "feb2efdb-93ee-4f45-88b1-5e4086c00334",
           "name": "BMW",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -894,7 +1022,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -902,7 +1032,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -910,7 +1042,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -924,7 +1058,9 @@
         "brand": {
           "_id": "fff14a06-dc2a-447d-a707-9c03fe00c7a0",
           "name": "Audi",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -933,7 +1069,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -941,7 +1079,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -949,7 +1089,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -963,7 +1105,9 @@
         "brand": {
           "_id": "feb2efdb-93ee-4f45-88b1-5e4086c00334",
           "name": "BMW",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -972,7 +1116,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -980,7 +1126,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -988,7 +1136,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1002,7 +1152,9 @@
         "brand": {
           "_id": "83e36635-548d-491a-9e5f-3fafaab02ba0",
           "name": "Mercedes",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1011,7 +1163,9 @@
             "price": 299.95,
             "red_value": 192,
             "green_value": 192,
-            "blue_value": 192
+            "blue_value": 192,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "5e755eb3-0099-4cdd-b064-d8bd95968109",
@@ -1019,7 +1173,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "74251648-a7b1-492a-ab2a-f2248c58da00",
@@ -1027,7 +1183,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -1035,7 +1193,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1043,7 +1203,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1057,7 +1219,9 @@
         "brand": {
           "_id": "fff14a06-dc2a-447d-a707-9c03fe00c7a0",
           "name": "Audi",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Audi-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1066,7 +1230,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1074,7 +1240,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1088,7 +1256,9 @@
         "brand": {
           "_id": "83e36635-548d-491a-9e5f-3fafaab02ba0",
           "name": "Mercedes",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1097,7 +1267,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -1105,7 +1277,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1113,7 +1287,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1127,7 +1303,9 @@
         "brand": {
           "_id": "83e36635-548d-491a-9e5f-3fafaab02ba0",
           "name": "Mercedes",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1136,7 +1314,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -1144,7 +1324,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1152,7 +1334,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1166,7 +1350,9 @@
         "brand": {
           "_id": "feb2efdb-93ee-4f45-88b1-5e4086c00334",
           "name": "BMW",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/bmw-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1175,7 +1361,9 @@
             "price": 299.95,
             "red_value": 192,
             "green_value": 192,
-            "blue_value": 192
+            "blue_value": 192,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "5e755eb3-0099-4cdd-b064-d8bd95968109",
@@ -1183,7 +1371,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "74251648-a7b1-492a-ab2a-f2248c58da00",
@@ -1191,7 +1381,9 @@
             "price": 199.95,
             "red_value": 255,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -1199,7 +1391,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1207,7 +1401,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1221,7 +1417,9 @@
         "brand": {
           "_id": "8bb880b8-e336-4039-ad86-2f758539e454",
           "name": "Ford",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Ford-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1230,7 +1428,9 @@
             "price": 99.95,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "7bb35b1d-37ff-43c2-988a-cf85c5b6d690",
@@ -1238,7 +1438,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1246,7 +1448,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",
@@ -1260,7 +1464,9 @@
         "brand": {
           "_id": "83e36635-548d-491a-9e5f-3fafaab02ba0",
           "name": "Mercedes",
-          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png"
+          "logo_url": "https://keacar.ams3.cdn.digitaloceanspaces.com/Mercedes-logo.png",
+          "created_at": "2025-03-26T03:53:58",
+          "updated_at": "2025-03-26T03:53:58"
         },
         "colors": [
           {
@@ -1269,7 +1475,9 @@
             "price": 399.95,
             "red_value": 255,
             "green_value": 255,
-            "blue_value": 255
+            "blue_value": 255,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           },
           {
             "_id": "e2164054-4cb8-49d5-a0da-eca5b36a0b3b",
@@ -1277,7 +1485,9 @@
             "price": 0.0,
             "red_value": 0,
             "green_value": 0,
-            "blue_value": 0
+            "blue_value": 0,
+            "created_at": "2025-03-26T03:53:58",
+            "updated_at": "2025-03-26T03:53:58"
           }
         ],
         "created_at": "2025-03-26T03:53:58",

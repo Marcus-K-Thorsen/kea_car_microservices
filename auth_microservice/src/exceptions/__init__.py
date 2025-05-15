@@ -5,6 +5,7 @@ from .invalid_credentials_errors import (
     IncorrectEmailError
 )
 from .database_errors import (
+    UnableToUndeleteAlreadyUndeletedEntityError,
     AlreadyTakenFieldValueError, 
     UnableToFindIdError
 )
