@@ -13,4 +13,8 @@ docker-compose down --volumes --remove-orphans
 
 # To stop the docker compose regularly
 docker-compose down
+
+kubectl apply -R -f kubernetes/
+
+kubectl delete -R -f kubernetes/
 ```

@@ -206,7 +206,10 @@ metadata:
   namespace: kea-car-microservices
 data:
   init_admin_db.sql: |
-    # Place your SQL initialization script here or mount as a volume if too large
+  volumeMounts:
+    - name: init-admin-db
+      mountPath: /docker-entrypoint-initdb.d/init_admin_db.sql
+      subPath: init_admin_db.sql
 ---
 apiVersion: v1
 kind: Service
@@ -454,9 +457,35 @@ spec:
           image: oliroat/admin_microservice:latest
           ports:
             - containerPort: 8000
-          envFrom:
-            - configMapRef:
-                name: kea-env
+          env:
+            - name: API_HOST
+              value: "0.0.0.0"
+            - name: API_PORT
+              value: "8000"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_USERNAME
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+            - name: MYSQL_DB_HOST
+              value: "mysqldb_admin"
+            - name: MYSQL_DB_PORT
+              value: "3306"
+            - name: MYSQL_DB_ROOT_USERNAME
+              value: "root"
+            - name: MYSQL_DB_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MYSQL_DB_NAME
+              value: "kea_cars_admin_dev"
+            - name: MYSQL_DB_APPLICATION_USERNAME
+              value: "application_user"
+            - name: MYSQL_DB_APPLICATION_PASSWORD
+              value: "supersecretpassword"
+            - name: SECRET_KEY
+              value: "secret"
 ---
 apiVersion: v1
 kind: Service
@@ -490,9 +519,35 @@ spec:
           image: oliroat/auth_microservice:latest
           ports:
             - containerPort: 8001
-          envFrom:
-            - configMapRef:
-                name: kea-env
+          env:
+            - name: API_HOST
+              value: "0.0.0.0"
+            - name: API_PORT
+              value: "8001"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_USERNAME
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+            - name: MONGO_DB_HOST
+              value: "mongodb_auth"
+            - name: MONGO_DB_PORT
+              value: "27017"
+            - name: MONGO_DB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_DB_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MONGO_DB_NAME
+              value: "kea_cars_auth_dev"
+            - name: MONGO_DB_APPLICATION_USERNAME
+              value: "application_user"
+            - name: MONGO_DB_APPLICATION_PASSWORD
+              value: "supersecretpassword"
+            - name: SECRET_KEY
+              value: "secret"
 ---
 apiVersion: v1
 kind: Service
@@ -526,9 +581,25 @@ spec:
           image: oliroat/customer_microservice:latest
           ports:
             - containerPort: 8002
-          envFrom:
-            - configMapRef:
-                name: kea-env
+          env:
+            - name: API_HOST
+              value: "0.0.0.0"
+            - name: API_PORT
+              value: "8002"
+            - name: MONGO_DB_HOST
+              value: "mongodb_customer"
+            - name: MONGO_DB_PORT
+              value: "27017"
+            - name: MONGO_DB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_DB_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MONGO_DB_NAME
+              value: "kea_cars_customer_dev"
+            - name: MONGO_DB_APPLICATION_USERNAME
+              value: "application_user"
+            - name: MONGO_DB_APPLICATION_PASSWORD
+              value: "supersecretpassword"
 ---
 apiVersion: v1
 kind: Service
@@ -562,9 +633,35 @@ spec:
           image: oliroat/employee_microservice:latest
           ports:
             - containerPort: 8003
-          envFrom:
-            - configMapRef:
-                name: kea-env
+          env:
+            - name: API_HOST
+              value: "0.0.0.0"
+            - name: API_PORT
+              value: "8003"
+            - name: RABBITMQ_HOST
+              value: "rabbitmq"
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_USERNAME
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+            - name: MYSQL_DB_HOST
+              value: "mysqldb_employee"
+            - name: MYSQL_DB_PORT
+              value: "3306"
+            - name: MYSQL_DB_ROOT_USERNAME
+              value: "root"
+            - name: MYSQL_DB_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MYSQL_DB_NAME
+              value: "kea_cars_employee_dev"
+            - name: MYSQL_DB_APPLICATION_USERNAME
+              value: "application_user"
+            - name: MYSQL_DB_APPLICATION_PASSWORD
+              value: "supersecretpassword"
+            - name: SECRET_KEY
+              value: "secret"
 ---
 apiVersion: v1
 kind: Service
