@@ -1,0 +1,601 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kea-car-microservices
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmq-data
+  namespace: kea-car-microservices
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysqldb-admin
+  namespace: kea-car-microservices
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-auth
+  namespace: kea-car-microservices
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-customer
+  namespace: kea-car-microservices
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysqldb-employee
+  namespace: kea-car-microservices
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kea-env
+  namespace: kea-car-microservices
+data:
+  RABBITMQ_USERNAME: user
+  RABBITMQ_PASSWORD: password
+  MYSQL_DB_ADMIN_ROOTPASSWORD: adminpassword
+  MONGO_DB_AUTH_ROOT_USERNAME: root
+  MONGO_DB_AUTH_ROOT_PASSWORD: rootpassword
+  MONGO_DB_CUSTOMER_ROOT_USERNAME: root
+  MONGO_DB_CUSTOMER_ROOT_PASSWORD: rootpassword
+  MYSQL_DB_EMPLOYEE_ROOT_PASSWORD: employeepassword
+  # Add other env vars as needed
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kea-secrets
+  namespace: kea-car-microservices
+type: Opaque
+stringData:
+  rabbitmq-user: user
+  rabbitmq-pass: password
+  mysql-admin-root: adminpassword
+  mongo-auth-root-user: root
+  mongo-auth-root-pass: rootpassword
+  mongo-customer-root-user: root
+  mongo-customer-root-pass: rootpassword
+  mysql-employee-root: employeepassword
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3-management
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        - containerPort: 15692
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: RABBITMQ_USERNAME
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: RABBITMQ_PASSWORD
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+        readinessProbe:
+          exec:
+            command: ["rabbitmqctl", "status"]
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      volumes:
+      - name: rabbitmq-data
+        persistentVolumeClaim:
+          claimName: rabbitmq-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: amqp
+      port: 5672
+      targetPort: 5672
+    - name: management
+      port: 15672
+      targetPort: 15672
+    - name: prometheus
+      port: 15692
+      targetPort: 15692
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldb-admin
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldb-admin
+  template:
+    metadata:
+      labels:
+        app: mysqldb-admin
+    spec:
+      containers:
+      - name: mysqldb-admin
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: MYSQL_DB_ADMIN_ROOTPASSWORD
+        volumeMounts:
+        - name: mysqldb-admin
+          mountPath: /var/lib/mysql
+        - name: init-admin-db
+          mountPath: /docker-entrypoint-initdb.d/init_admin_db.sql
+          subPath: init_admin_db.sql
+      volumes:
+      - name: mysqldb-admin
+        persistentVolumeClaim:
+          claimName: mysqldb-admin
+      - name: init-admin-db
+        configMap:
+          name: init-admin-db
+          items:
+            - key: init_admin_db.sql
+              path: init_admin_db.sql
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-admin-db
+  namespace: kea-car-microservices
+data:
+  init_admin_db.sql: |
+    # Place your SQL initialization script here or mount as a volume if too large
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysqldb-admin
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: mysqldb-admin
+  ports:
+    - port: 3307
+      targetPort: 3306
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-auth
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-auth
+  template:
+    metadata:
+      labels:
+        app: mongodb-auth
+    spec:
+      containers:
+      - name: mongodb-auth
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: MONGO_DB_AUTH_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: MONGO_DB_AUTH_ROOT_PASSWORD
+        - name: MONGO_INITDB_DATABASE
+          value: kea_cars_auth_dev
+        volumeMounts:
+        - name: mongodb-auth
+          mountPath: /data/db
+      volumes:
+      - name: mongodb-auth
+        persistentVolumeClaim:
+          claimName: mongodb-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-auth
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: mongodb-auth
+  ports:
+    - port: 27019
+      targetPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-customer
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-customer
+  template:
+    metadata:
+      labels:
+        app: mongodb-customer
+    spec:
+      containers:
+      - name: mongodb-customer
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: MONGO_DB_CUSTOMER_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: MONGO_DB_CUSTOMER_ROOT_PASSWORD
+        - name: MONGO_INITDB_DATABASE
+          value: kea_cars_customer_dev
+        volumeMounts:
+        - name: mongodb-customer
+          mountPath: /data/db
+      volumes:
+      - name: mongodb-customer
+        persistentVolumeClaim:
+          claimName: mongodb-customer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-customer
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: mongodb-customer
+  ports:
+    - port: 27018
+      targetPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldb-employee
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldb-employee
+  template:
+    metadata:
+      labels:
+        app: mysqldb-employee
+    spec:
+      containers:
+      - name: mysqldb-employee
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: kea-env
+              key: MYSQL_DB_EMPLOYEE_ROOT_PASSWORD
+        volumeMounts:
+        - name: mysqldb-employee
+          mountPath: /var/lib/mysql
+        - name: init-employee-db
+          mountPath: /docker-entrypoint-initdb.d/init_employee_db.sql
+          subPath: init_employee_db.sql
+      volumes:
+      - name: mysqldb-employee
+        persistentVolumeClaim:
+          claimName: mysqldb-employee
+      - name: init-employee-db
+        configMap:
+          name: init-employee-db
+          items:
+            - key: init_employee_db.sql
+              path: init_employee_db.sql
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-employee-db
+  namespace: kea-car-microservices
+data:
+  init_employee_db.sql: |
+    # Place your SQL initialization script here or mount as a volume if too large
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysqldb-employee
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: mysqldb-employee
+  ports:
+    - port: 3308
+      targetPort: 3306
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seed-mongodb-auth
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seed-mongodb-auth
+  template:
+    metadata:
+      labels:
+        app: seed-mongodb-auth
+    spec:
+      containers:
+      - name: seed-mongodb-auth
+        image: seed_mongodb_auth_image:latest
+        envFrom:
+        - configMapRef:
+            name: kea-env
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seed-mongodb-customer
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seed-mongodb-customer
+  template:
+    metadata:
+      labels:
+        app: seed-mongodb-customer
+    spec:
+      containers:
+      - name: seed-mongodb-customer
+        image: seed_mongodb_customer_image:latest
+        envFrom:
+        - configMapRef:
+            name: kea-env
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-microservice
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-microservice
+  template:
+    metadata:
+      labels:
+        app: admin-microservice
+    spec:
+      containers:
+      - name: admin-microservice
+        image: admin_microservice_image:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: kea-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-microservice
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: admin-microservice
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-microservice
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-microservice
+  template:
+    metadata:
+      labels:
+        app: auth-microservice
+    spec:
+      containers:
+      - name: auth-microservice
+        image: auth_microservice_image:latest
+        ports:
+        - containerPort: 8001
+        envFrom:
+        - configMapRef:
+            name: kea-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-microservice
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: auth-microservice
+  ports:
+    - port: 8001
+      targetPort: 8001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-microservice
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-microservice
+  template:
+    metadata:
+      labels:
+        app: customer-microservice
+    spec:
+      containers:
+      - name: customer-microservice
+        image: customer_microservice_image:latest
+        ports:
+        - containerPort: 8002
+        envFrom:
+        - configMapRef:
+            name: kea-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-microservice
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: customer-microservice
+  ports:
+    - port: 8002
+      targetPort: 8002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-microservice
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-microservice
+  template:
+    metadata:
+      labels:
+        app: employee-microservice
+    spec:
+      containers:
+      - name: employee-microservice
+        image: employee_microservice_image:latest
+        ports:
+        - containerPort: 8003
+        envFrom:
+        - configMapRef:
+            name: kea-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-microservice
+  namespace: kea-car-microservices
+spec:
+  selector:
+    app: employee-microservice
+  ports:
+    - port: 8003
+      targetPort: 8003
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synch-microservice
+  namespace: kea-car-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synch-microservice
+  template:
+    metadata:
+      labels:
+        app: synch-microservice
+    spec:
+      containers:
+      - name: synch-microservice
+        image: synch_microservice_image:latest
+        envFrom:
+        - configMapRef:
+            name: kea-env
