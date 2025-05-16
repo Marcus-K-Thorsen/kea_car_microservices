@@ -76,8 +76,8 @@ services:
 
   seed_mongodb_auth:
     build:
-      context: ./auth_microservice
-      dockerfile: scripts/Dockerfile
+      context: ./auth_microservice/scripts
+      dockerfile: Dockerfile
     image: seed_mongodb_auth_image:latest # Explicitly name the image
     container_name: seed_mongodb_auth
     depends_on:
@@ -87,8 +87,8 @@ services:
 
   seed_mongodb_customer:
     build:
-      context: ./customer_microservice
-      dockerfile: scripts/Dockerfile
+      context: ./customer_microservice/scripts
+      dockerfile: Dockerfile
     image: seed_mongodb_customer_image:latest # Explicitly name the image
     container_name: seed_mongodb_customer
     depends_on:

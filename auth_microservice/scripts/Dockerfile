@@ -37,4 +37,4 @@ RUN poetry install --no-root
 COPY . .
 
 
-CMD ["poetry", "run", "python", "scripts/seed_mongodb.py"]
+CMD ["poetry", "run", "python", "seed_mongodb.py"]
