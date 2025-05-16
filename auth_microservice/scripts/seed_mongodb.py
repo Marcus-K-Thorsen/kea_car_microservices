@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
         client = MongoClient(
             host=MONGO_DB_HOST, 
-            port=MONGO_DB_PORT if MONGO_DB_HOST == "mongodb_auth" else None,
+            port=MONGO_DB_PORT,
             username=MONGO_DB_ROOT_USERNAME,
             password=MONGO_DB_ROOT_PASSWORD,
             authSource='admin'
