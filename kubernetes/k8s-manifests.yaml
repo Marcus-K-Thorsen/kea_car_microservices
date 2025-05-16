@@ -802,7 +802,7 @@ spec:
             - name: MONGO_DB_HOST
               value: "mongodb-customer"
             - name: MONGO_DB_PORT
-              value: "27017"
+              value: "27018"
             - name: MONGO_DB_ROOT_USERNAME
               value: "root"
             - name: MONGO_DB_ROOT_PASSWORD
@@ -850,7 +850,7 @@ spec:
             - name: MYSQL_DB_HOST
               value: "mysqldb-admin"
             - name: MYSQL_DB_PORT
-              value: "3306"
+              value: "3307"
             - name: MYSQL_DB_ROOT_USERNAME
               value: "root"
             - name: MYSQL_DB_ROOT_PASSWORD
@@ -863,6 +863,8 @@ spec:
               value: "supersecretpassword"
             - name: SECRET_KEY
               value: "secret"
+            - name: KUBERNETES_AUTH_MICROSERVICE
+              value: "http://auth-microservice:8001/login"
 ---
 apiVersion: v1
 kind: Service
@@ -914,7 +916,7 @@ spec:
             - name: MONGO_DB_HOST
               value: "mongodb-auth"
             - name: MONGO_DB_PORT
-              value: "27017"
+              value: "27019"
             - name: MONGO_DB_ROOT_USERNAME
               value: "root"
             - name: MONGO_DB_ROOT_PASSWORD
@@ -927,6 +929,8 @@ spec:
               value: "supersecretpassword"
             - name: SECRET_KEY
               value: "secret"
+            - name: KUBERNETES_AUTH_MICROSERVICE
+              value: "http://auth-microservice:8001/login"
 ---
 apiVersion: v1
 kind: Service
@@ -1032,7 +1036,7 @@ spec:
             - name: MYSQL_DB_HOST
               value: "mysqldb-employee"
             - name: MYSQL_DB_PORT
-              value: "3306"
+              value: "3308"
             - name: MYSQL_DB_ROOT_USERNAME
               value: "root"
             - name: MYSQL_DB_ROOT_PASSWORD
@@ -1090,7 +1094,7 @@ spec:
             - name: MONGO_DB_HOST
               value: "mongodb-customer"
             - name: MONGO_DB_PORT
-              value: "27017"
+              value: "27018"
             - name: MONGO_DB_ROOT_USERNAME
               value: "root"
             - name: MONGO_DB_ROOT_PASSWORD

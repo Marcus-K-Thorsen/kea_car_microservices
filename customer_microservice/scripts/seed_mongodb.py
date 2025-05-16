@@ -1,3 +1,4 @@
+import time
 import json
 import os
 from time import sleep
@@ -83,23 +84,39 @@ def seed_data(db: Database):
     duration = (end_time - start_time).total_seconds()
     print(f"Successfully seeded the MongoDB database: '{MONGO_DB_NAME}', it took {duration} seconds.")
 
-
-
 if __name__ == '__main__':
     # Sleep for 5 seconds
     sleep(5)
+    MAX_RETRIES = 10
+    RETRY_DELAY = 5  # seconds
+    
+    start_time = datetime.now()
+    print(f"SEED_MONGODB: {start_time}: Starting MongoDB restore:\n"
+          f"MongoDB host: {MONGO_DB_HOST}\n"
+          f"MongoDB port: {MONGO_DB_PORT}\n"
+          f"MongoDB name: {MONGO_DB_NAME}")
     
     client: Optional[MongoClient] = None
-
     try:
-
-        client = MongoClient(
-            host=MONGO_DB_HOST, 
-            port=MONGO_DB_PORT if MONGO_DB_HOST == "mongodb_customer" else None,                     
-            username=MONGO_DB_ROOT_USERNAME,
-            password=MONGO_DB_ROOT_PASSWORD,
-            authSource='admin'
-            )
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                client = MongoClient(
+                    host=MONGO_DB_HOST, 
+                    port=MONGO_DB_PORT,
+                    username=MONGO_DB_ROOT_USERNAME,
+                    password=MONGO_DB_ROOT_PASSWORD,
+                    authSource='admin'
+                )
+                # Try a simple command to check if the connection works
+                client.admin.command('ping')
+                print(f"Connected to MongoDB on attempt {attempt}.")
+                break
+            except Exception as error:
+                print(f"Attempt {attempt} failed: {error}")
+                if attempt == MAX_RETRIES:
+                    print("Max retries reached. Exiting.")
+                    raise
+                time.sleep(RETRY_DELAY)
         
         db = client.get_database(MONGO_DB_NAME)
         
@@ -112,13 +129,15 @@ if __name__ == '__main__':
             # Mark the database as seeded
             seed_metadata.insert_one({"seeded": True, "timestamp": datetime.now()})
             print("Database seeding completed.")
-            
+        
+        end_time = datetime.now()
+        duration = (end_time - start_time).total_seconds()
+        print(f"Successfully seeded the MongoDB database: '{MONGO_DB_NAME}', it took {duration} seconds.")
     except Exception as error:
         print(f"Error {error.__class__.__name__} caught during Mongo Database restore:\n"
               f"{error}")
         raise
     finally:
-        
         if client is not None and isinstance(client, MongoClient):
             client.close()
             print("MongoDB connection closed.")

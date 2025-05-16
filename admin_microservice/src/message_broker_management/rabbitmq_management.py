@@ -1,5 +1,7 @@
 # External Library imports
 import os
+import time
+from datetime import datetime
 from pika.frame import Method
 from dotenv import load_dotenv
 from pika.exceptions import ChannelClosed, AMQPConnectionError
@@ -36,8 +38,7 @@ class RabbitMQManagement():
         self.exchange_name: Optional[str] = None
         self.routing_keys: List[str] = []
         self.routing_key: str = ''
-        self.connection: BlockingConnection = BlockingConnection(connection_params)
-        self.channel: BlockingChannel = self.connection.channel()
+        self.connect()
     
     def does_queue_exist(self, queue_name: str) -> bool:
         if not isinstance(queue_name, str):
@@ -247,16 +248,29 @@ class RabbitMQManagement():
         logger.info(f'Binding queue: {self.queue_name} to exchange: {self.exchange_name} without a routing key.')
         return self.channel.queue_bind(self.queue_name, self.exchange_name)
     
-    def reconnect(self):
-        """Reconnect to RabbitMQ and reopen the channel."""
-        try:
-            logger.info("Reconnecting to RabbitMQ...")
-            self.connection = BlockingConnection(self.connection_params)
-            self.channel = self.connection.channel()
-            logger.info("Reconnected to RabbitMQ successfully.")
-        except Exception as e:
-            logger.error(f"Failed to reconnect to RabbitMQ: {e}")
-            raise e
+    def connect(self):
+        """Reconnect to RabbitMQ and reopen the channel with retry logic."""
+        max_retries = 15
+        delay = 5  # seconds
+        attempt = 0
+
+        start_time = datetime.now()
+        while attempt < max_retries:
+            attempt += 1
+            try:
+                logger.info(f"Attempt {attempt} to connect to RabbitMQ at {self.connection_params.host}:{self.connection_params.port}...")
+                self.connection = BlockingConnection(self.connection_params)
+                self.channel = self.connection.channel()
+                elapsed = (datetime.now() - start_time).total_seconds()
+                logger.info(f"Reconnected to RabbitMQ successfully on attempt {attempt} after {elapsed:.2f} seconds.")
+                return
+            except Exception as e:
+                logger.warning(f"Attempt {attempt} failed: {e}")
+                if attempt == max_retries:
+                    elapsed = (datetime.now() - start_time).total_seconds()
+                    logger.error(f"Failed to reconnect to RabbitMQ after {max_retries} attempts and {elapsed:.2f} seconds.")
+                    raise
+                time.sleep(delay)
     
     def publish_message(self, message: Union[str, bytes]) -> None:
         """
@@ -270,7 +284,7 @@ class RabbitMQManagement():
             # Check if the channel is open
             if self.channel.is_closed:
                 logger.warning("Channel is closed. Attempting to reconnect...")
-                self.reconnect()
+                self.connect()
                 
             # Check if the exchange exists
             logger.info(f'Publishing message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}')
@@ -292,7 +306,7 @@ class RabbitMQManagement():
             logger.info(f'Successfully published message: {message} to exchange: {self.exchange_name} with routing key: {self.routing_key}.')
         except AMQPConnectionError as e:
             logger.error(f'Connection error while publishing message: {e}')
-            self.reconnect()
+            self.connect()
             self.publish_message(message)
         except Exception as e:
             logger.error(f'Error publishing message: {e}')

@@ -11,6 +11,7 @@ from src.resources import EmployeeLoginResource
 
 load_dotenv()
 MYSQL_DB_HOST = os.getenv("MYSQL_DB_HOST")
+KUBERNETES_AUTH_MICROSERVICE = os.getenv("KUBERNETES_AUTH_MICROSERVICE")
 
 router: APIRouter = APIRouter()
 
@@ -49,7 +50,7 @@ async def login_for_access_token(
         email=username,
         password=password
     )
-    auth_microservice_url = "http://auth_microservice:8001/login" if MYSQL_DB_HOST == "mysqldb_employee" else "http://auth-microservice:8001/login"
+    auth_microservice_url = "http://auth_microservice:8001/login" if KUBERNETES_AUTH_MICROSERVICE is None else KUBERNETES_AUTH_MICROSERVICE
     # Send a POST request to the Auth Microservice
     response = requests.post(
         auth_microservice_url,
