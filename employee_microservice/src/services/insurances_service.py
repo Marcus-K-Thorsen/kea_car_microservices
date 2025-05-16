@@ -2,7 +2,6 @@
 from typing import List, Optional
 
 # Internal library imports
-from src.logger_tool import logger
 from src.database_management import Session
 from src.repositories import InsuranceRepository
 from src.resources import (
@@ -69,9 +68,6 @@ def get_by_id(
             entity_name="Insurance",
             entity_id=insurance_id
         )
-    
-    logger.info(f"Insurance as bytes: {insurance.to_bytes()}")
-    
     
     return insurance.as_resource()
 

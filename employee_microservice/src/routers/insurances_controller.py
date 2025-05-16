@@ -58,7 +58,7 @@ async def get_insurances(
     )
 
 @router.get(
-    path="/insurance/{insurance_id}",
+    path="/insurances/{insurance_id}",
     response_model=InsuranceReturnResource,
     response_description=
     """
@@ -111,7 +111,7 @@ async def get_insurance(
     If successful a message will be send to the 'synch_microservice', 
     to create that insurance in the Customer database as well.
     
-    The endpoint requires an authorization token in the header and is only accessible by employees with the roles: 'ADMIN' and 'MANAGER'.
+    The endpoint requires an authorization token in the header and is only accessible by employees with the role: 'ADMIN' or 'MANAGER'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
@@ -147,7 +147,7 @@ async def create_insurance(
     If successful a message will be send to the 'synch_microservice', 
     to update that insurance in the Customer database as well.
     
-    The endpoint requires an authorization token in the header and is only accessible by employees with the roles: 'ADMIN' and 'MANAGER'.
+    The endpoint requires an authorization token in the header and is only accessible by employees with the role: 'ADMIN' or 'MANAGER'.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )

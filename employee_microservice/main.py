@@ -10,11 +10,16 @@ import os
 # Internal Library imports
 from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
 from src.routers import (
-    login_router,
-    employees_router,
+    accessories_router,
     insurances_router,
+    employees_router,
+    customers_router,
+    purchases_router,
+    colors_router,
     brands_router,
-    models_router
+    models_router,
+    login_router,
+    cars_router
 )
 from src.message_broker_management import close_all_publisher_connections
 from src.logger_tool import logger
@@ -58,10 +63,15 @@ load_dotenv()
 
 app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
+app.include_router(accessories_router, tags=["Accessories"])
+app.include_router(brands_router, tags=["Brands"])
+app.include_router(cars_router, tags=["Cars"])
+app.include_router(colors_router, tags=["Colors"])
+app.include_router(customers_router, tags=["Customers"])
 app.include_router(employees_router, tags=["Employees"])
 app.include_router(insurances_router, tags=["Insurances"])
-app.include_router(brands_router, tags=["Brands"])
 app.include_router(models_router, tags=["Models"])
+app.include_router(purchases_router, tags=["Purchases"])
 app.include_router(login_router, tags=["Login"])
 
 @app.get("/")

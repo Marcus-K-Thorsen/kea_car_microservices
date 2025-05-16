@@ -88,7 +88,7 @@ class EmployeeRepository(BaseRepository):
         # Create a new employee entity
         new_employee = EmployeeEntity(
             id=str(employee_create_data.id),
-            email=employee_create_data.email,
+            email=str(employee_create_data.email),
             hashed_password=hashed_password,
             first_name=employee_create_data.first_name,
             last_name=employee_create_data.last_name,
@@ -130,6 +130,8 @@ class EmployeeRepository(BaseRepository):
         for field, value in employee_update_data.get_updated_fields().items():
             if field == "password":
                 continue
+            if field == "email":
+                value = str(value)
             setattr(employee, field, value)
             
         if hashed_password is not None and isinstance(hashed_password, str):

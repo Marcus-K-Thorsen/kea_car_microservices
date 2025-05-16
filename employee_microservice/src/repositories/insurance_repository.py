@@ -45,7 +45,7 @@ class InsuranceRepository(BaseRepository):
         :rtype: InsuranceEntity
         """
         insurance = InsuranceEntity(
-            id=insurance_create_data.id,
+            id=str(insurance_create_data.id),
             name=insurance_create_data.name,
             price=insurance_create_data.price
         )

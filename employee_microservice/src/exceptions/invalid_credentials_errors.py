@@ -3,7 +3,7 @@ from typing import Union, List
 
 # Internal Library imports
 from src.resources import RoleEnum
-from src.entities import EmployeeEntity
+from src.entities import EmployeeEntity, CarEntity
 
 class IncorrectCredentialError(Exception):
     """Base class for exceptions related to incorrect credentials"""
@@ -47,3 +47,22 @@ class CurrentEmployeeDeletedError(IncorrectCredentialError):
 
     def __str__(self):
         return f"{self.message}"
+    
+
+class UnableToDeleteAnotherEmployeesCarError(IncorrectCredentialError):
+    """Exception raised when the current employee is a wrong role to delete another employee's car"""
+
+    def __init__(self, current_employee: EmployeeEntity, car_entity: CarEntity):
+        self.message = f"The employee with ID: '{current_employee.id}' and role: '{current_employee.role.value}' is not allowed to delete the car with ID: '{car_entity.id}'."
+        super().__init__(self.message)  # Call the base class constructor
+
+    def __str__(self):
+        return f"{self.message}"
+    
+
+class EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError(IncorrectCredentialError):
+    """Exception raised when the current employee is a wrong role to retrieve or make car purchases based on other employees"""
+
+    def __init__(self, current_employee: EmployeeEntity):
+        self.message = f"The employee with ID: '{current_employee.id}' and role: '{current_employee.role.value}' is not allowed to retrieve or make car purchases based on other employees."
+        super().__init__(self.message)  # Call the base class constructor

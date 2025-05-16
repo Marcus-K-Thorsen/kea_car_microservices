@@ -1,5 +1,10 @@
+from .accessories_controller import router as accessories_router
 from .brands_controller import router as brands_router
-from .models_controller import router as models_router
+from .cars_controller import router as cars_router
+from .colors_controller import router as colors_router
+from .customers_controller import router as customers_router
 from .employees_controller import router as employees_router
 from .insurances_controller import router as insurances_router
+from .models_controller import router as models_router
+from .purchases_controller import router as purchases_router
 from .login_controller import router as login_router

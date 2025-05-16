@@ -1,5 +1,6 @@
 # External Library imports
 from typing import List, Optional
+from pydantic import EmailStr
 
 # Internal library imports
 from src.database_management import Session
@@ -100,11 +101,11 @@ def create(
     if already_created_employee is not None:
         return already_created_employee.as_resource()
 
-    if repository.is_email_taken(employee_create_data.email):
+    if repository.is_email_taken(str(employee_create_data.email)):
         raise AlreadyTakenFieldValueError(
             entity_name="Employee",
             field="email",
-            value=employee_create_data.email
+            value=str(employee_create_data.email)
         )
     
     if is_password_to_short(employee_create_data.password):
@@ -152,11 +153,13 @@ def update(
     if current_employee.id == employee_id and employee_update_data.role is not None and employee_update_data.role != RoleEnum.admin:
         raise SelfDemotionError(current_employee, employee_update_data.role)
     
-    if repository.is_email_taken(employee_update_data.email, employee_id):
+    employee_email_to_update: Optional[EmailStr] = employee_update_data.email
+    
+    if employee_email_to_update is not None and repository.is_email_taken(str(employee_email_to_update), employee_id):
         raise AlreadyTakenFieldValueError(
             entity_name="Employee",
             field="email",
-            value=employee_update_data.email
+            value=str(employee_email_to_update)
         )
     
     updated_password: Optional[str] = employee_update_data.password

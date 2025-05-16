@@ -16,7 +16,9 @@ from .color_resource import (
     ColorReturnResource
 )
 from .customer_resource import (
-    CustomerReturnResource
+    CustomerReturnResource,
+    CustomerCreateResource,
+    CustomerUpdateResource
 )
 from .employee_resource import (
     EmployeeReturnResource,

@@ -8,11 +8,17 @@ from src.logger_tool import logger
 from src.exceptions.invalid_credentials_errors import (
     IncorrectCredentialError,
     IncorrectRoleError,
-    CurrentEmployeeDeletedError
+    CurrentEmployeeDeletedError,
+    UnableToDeleteAnotherEmployeesCarError,
+    EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError
     )
 from src.exceptions.database_errors import (
     UnableToFindIdError,
-    AlreadyTakenFieldValueError
+    UnableToFindEntityError,
+    AlreadyTakenFieldValueError,
+    PurchaseDeadlineHasPastError,
+    TheColorIsNotAvailableInModelToGiveToCarError,
+    UnableToDeleteCarWithoutDeletingPurchaseTooError,
 )
 
 
@@ -25,6 +31,20 @@ def handle_http_exception(error_message: str, callback: Callable):
         log_error(error_message, e)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except UnableToFindEntityError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except PurchaseDeadlineHasPastError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(f"{error_message}: {e}")
         )
         
@@ -43,6 +63,34 @@ def handle_http_exception(error_message: str, callback: Callable):
         )
         
     except IncorrectRoleError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
+    
+    except UnableToDeleteAnotherEmployeesCarError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except TheColorIsNotAvailableInModelToGiveToCarError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except UnableToDeleteCarWithoutDeletingPurchaseTooError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError as e:
         log_error(error_message, e)
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

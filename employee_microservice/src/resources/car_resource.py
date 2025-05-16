@@ -33,7 +33,7 @@ class CarCreateResource(CarBaseResource):
         description="The UUID for the car to create.",
         examples=["2a83a308-bc3d-4e6f-b3a5-ba68ece13d1e"]
     )
-    purchase_deadline: Optional[date] = Field(
+    purchase_deadline: date = Field(
         default_factory=calculate_purchase_deadline,
         description="The deadline for when the car must be purchased.",
         examples=[calculate_purchase_deadline()]
@@ -53,9 +53,9 @@ class CarCreateResource(CarBaseResource):
         description="UUID for the car's Customer.",
         examples=["0ac1d668-55aa-46a1-898a-8fa61457facb"]
     )
-    employees_id: UUID4 = Field(
-        default=...,
-        description="UUID for the car's Employee.",
+    employees_id: Optional[UUID4] = Field(
+        default=None,
+        description="UUID for the car's Employee, if no employee_id is given the employee ID from the token will be used.",
         examples=["f9097a97-eca4-49b6-85a0-08423789c320"]
     )
     accessory_ids: List[UUID4] = Field(
@@ -94,21 +94,18 @@ class CarCreateResource(CarBaseResource):
         return insurance_ids
 
     @field_validator('purchase_deadline')
-    def validate_purchase_deadline(cls, purchase_deadline: Optional[date]) -> date:
-        if purchase_deadline is not None:
-            current_date = date.today()
-            if purchase_deadline == current_date:
-                raise ValueError(f"The given purchase deadline '{purchase_deadline.strftime('%d-%m-%Y')}' "
-                                 f"must be after the current date '{current_date.strftime('%d-%m-%Y')}'.")
-            if purchase_deadline < current_date:
-                raise ValueError(f"The given purchase deadline '{purchase_deadline.strftime('%d-%m-%Y')}' "
+    def validate_purchase_deadline(cls, purchase_deadline: date) -> date:
+        current_date = date.today()
+        if purchase_deadline == current_date:
+            raise ValueError(f"The given purchase deadline '{purchase_deadline.strftime('%d-%m-%Y')}' "
+                             f"must be after the current date '{current_date.strftime('%d-%m-%Y')}'.")
+        if purchase_deadline < current_date:
+            raise ValueError(f"The given purchase deadline '{purchase_deadline.strftime('%d-%m-%Y')}' "
                                  f"must not be in the past of the current date '{current_date.strftime('%d-%m-%Y')}'.")
-            date_of_exceeded_deadline = current_date + timedelta(days=DAYS_TO_DEADLINE+1)
-            if purchase_deadline >= date_of_exceeded_deadline:
-                raise ValueError(f"The given purchase deadline '{purchase_deadline.strftime('%d-%m-%Y')}' "
+        date_of_exceeded_deadline = current_date + timedelta(days=DAYS_TO_DEADLINE+1)
+        if purchase_deadline >= date_of_exceeded_deadline:
+            raise ValueError(f"The given purchase deadline '{purchase_deadline.strftime('%d-%m-%Y')}' "
                                  f"must be within {DAYS_TO_DEADLINE} days from the current date '{current_date.strftime('%d-%m-%Y')}'.")
-        else:
-            purchase_deadline = calculate_purchase_deadline()
         return purchase_deadline
 
 class CarReturnResource(CarBaseResource):
