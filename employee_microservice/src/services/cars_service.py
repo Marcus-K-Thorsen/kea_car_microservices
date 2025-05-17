@@ -86,7 +86,7 @@ def get_all(
                 entity_id=customer_id
             )
     
-    filtered_employee = Optional[EmployeeEntity] = None
+    filtered_employee: Optional[EmployeeEntity] = None
     if employee_id is not None:
         filtered_employee = employee_repository.get_by_id(employee_id)
         if filtered_employee is None:

@@ -31,13 +31,14 @@ async def lifespan_of_consumer(app: FastAPI):
     
     try:
         consumer = get_admin_exchange_consumer()
+        await consumer.connect()
         app.state.consumer = consumer  # Store the consumer in the app state
         logger.info("Starting RabbitMQ consumer...")
         asyncio.create_task(start_consumer(consumer))
         logger.info("RabbitMQ consumer started successfully.")
     except Exception as e:
         logger.error(f"Failed to start RabbitMQ consumer: {e}")
-        raise e
+        raise
 
     # Yield control to the application
     yield

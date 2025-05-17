@@ -143,18 +143,22 @@ metadata:
   name: rabbitmq
   namespace: kea-car-microservices
 spec:
+  type: NodePort
   selector:
     app: rabbitmq
   ports:
     - name: amqp
       port: 5672
       targetPort: 5672
+      nodePort: 30567
     - name: management
       port: 15672
       targetPort: 15672
+      nodePort: 31567
     - name: prometheus
       port: 15692
       targetPort: 15692
+      nodePort: 31592
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -974,7 +978,7 @@ spec:
             - name: MONGO_DB_HOST
               value: "mongodb-customer"
             - name: MONGO_DB_PORT
-              value: "27017"
+              value: "27018"
             - name: MONGO_DB_ROOT_USERNAME
               value: "root"
             - name: MONGO_DB_ROOT_PASSWORD
@@ -1049,6 +1053,8 @@ spec:
               value: "supersecretpassword"
             - name: SECRET_KEY
               value: "secret"
+            - name: KUBERNETES_AUTH_MICROSERVICE
+              value: "http://auth-microservice:8001/login"
 ---
 apiVersion: v1
 kind: Service
