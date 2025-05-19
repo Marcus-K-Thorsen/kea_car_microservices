@@ -23,10 +23,10 @@ data:
               job: varlogs
               __path__: /var/log/*.log
 
-      - job_name: auth-microservice
+      - job_name: auth_microservice
         static_configs:
           - targets:
               - promtail:9080
             labels:
-              job: auth-microservice
+              job: auth_microservice
               __path__: /var/log/*.log
