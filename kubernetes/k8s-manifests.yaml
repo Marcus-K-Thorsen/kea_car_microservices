@@ -937,11 +937,11 @@ spec:
               value: "http://auth-microservice:8001/login"
           volumeMounts:
             - name: log-volume
-              mountPath: /var/log/auth-microservice # Mount the log directory to this path
+              mountPath: /var/log/auth_microservice # Mount the log directory to this path
       volumes:
         - name: log-volume
           hostPath:
-            path: /var/log/auth-microservice # This should be the location of logs on the node
+            path: /var/log/auth_microservice # This should be the location of logs on the node
             type: DirectoryOrCreate
 ---
 apiVersion: v1
