@@ -760,7 +760,7 @@ metadata:
   name: seed-mongodb-auth
   namespace: kea-car-microservices
 spec:
-  backoffLimit: 3  # Number of retries before considering the job failed
+  backoffLimit: 3 # Number of retries before considering the job failed
   template:
     metadata:
       labels:
@@ -792,7 +792,7 @@ metadata:
   name: seed-mongodb-customer
   namespace: kea-car-microservices
 spec:
-  backoffLimit: 3  # Number of retries before considering the job failed
+  backoffLimit: 3 # Number of retries before considering the job failed
   template:
     metadata:
       labels:
@@ -935,6 +935,14 @@ spec:
               value: "secret"
             - name: KUBERNETES_AUTH_MICROSERVICE
               value: "http://auth-microservice:8001/login"
+          volumeMounts:
+            - name: log-volume
+              mountPath: /var/log/auth-microservice # Mount the log directory to this path
+      volumes:
+        - name: log-volume
+          hostPath:
+            path: /var/log/auth-microservice # This should be the location of logs on the node
+            type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: Service

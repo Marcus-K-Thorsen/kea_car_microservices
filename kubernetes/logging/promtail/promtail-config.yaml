@@ -23,34 +23,10 @@ data:
               job: varlogs
               __path__: /var/log/*.log
 
-      - job_name: transaction-receiver
+      - job_name: auth-microservice
         static_configs:
           - targets:
               - promtail:9080
             labels:
-              job: transaction-receiver
-              __path__: /var/log/transaction-receiver/*.log
-
-      - job_name: bank
-        static_configs:
-          - targets:
-              - promtail:9080
-            labels:
-              job: bank
-              __path__: /var/log/bank/*.log
-
-      - job_name: fraud-detection
-        static_configs:
-          - targets:
-              - promtail:9080
-            labels:
-              job: fraud-detection
-              __path__: /var/log/fraud-detection/*.log
-
-      - job_name: transaction-processing
-        static_configs:
-          - targets:
-              - promtail:9080
-            labels:
-              job: transaction-processing
-              __path__: /var/log/transaction-processing/*.log
+              job: auth-microservice
+              __path__: /var/log/auth-microservice/*.log
