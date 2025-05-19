@@ -7,7 +7,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Add file handler to log to a file as well
-file_handler = logging.FileHandler("auth_microservice.log")
+file_handler = logging.FileHandler("var/log/auth_microservice/auth_microservice.log")
 file_handler.setLevel(logging.INFO)
 file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
 logger.addHandler(file_handler)
