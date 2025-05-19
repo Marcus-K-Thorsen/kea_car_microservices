@@ -1,8 +1,10 @@
 import os
 import logging
 
-# Ensure log directory exists
-log_dir = "var/log/auth_microservice"
+# Get the absolute path to the parent directory of auth_microservice
+current_dir = os.path.dirname(os.path.abspath(__file__))
+auth_microservice_dir = os.path.dirname(current_dir)
+log_dir = os.path.join(auth_microservice_dir, "var", "log", "auth_microservice")
 os.makedirs(log_dir, exist_ok=True)
 
 # Configure logging
