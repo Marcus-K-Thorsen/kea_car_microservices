@@ -18,7 +18,6 @@ services:
       retries: 10
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    #cpus: '0.5'  # Limit to 50% of a single CPU core
 
   mysqldb_admin:
     image: mysql:latest

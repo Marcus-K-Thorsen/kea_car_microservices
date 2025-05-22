@@ -40,7 +40,9 @@ async def lifespan_of_consumer(app: FastAPI):
     
 
 app = FastAPI(
-    lifespan=lifespan_of_consumer
+    lifespan=lifespan_of_consumer,
+    title="Authentication Microservice API",
+    description="API for employee authentication in the KEA Cars system. Issues JWT tokens for secure access to protected endpoints. Synchronizes employee data with the admin microservice."
 )
 
 CORS_SETTINGS = {

@@ -36,7 +36,10 @@ from src.routers import (
 
 
 # Initialize the FastAPI application
-app = FastAPI()
+app = FastAPI(
+    title="Customer Microservice API",
+    description="Public API for retrieving available car models, brands, colors, accessories, and insurances in the KEA Cars system. Provides read-only access to non-critical data for customers. No authentication required."
+)
 
 # Configure CORS settings
 CORS_SETTINGS = {

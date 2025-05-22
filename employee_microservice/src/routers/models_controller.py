@@ -116,9 +116,9 @@ MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2MB
     summary="Create a Model - Requires authorization token in header.",
     description=
     """
-    Creates a Customer within the MySQL Employee database 
-    by giving a request body 'CustomerCreateResource' 
-    and returns it as a 'CustomerReturnResource'.
+    Creates a Model within the MySQL Employee database 
+    by giving a request body 'ModelCreateResource' 
+    and returns it as a 'ModelReturnResource'.
     
     The endpoint requires an authorization token in the header and is only accessible by employees with the role: 'ADMIN' or 'MANAGER'.   
     """,

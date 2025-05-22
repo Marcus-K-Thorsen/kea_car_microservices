@@ -50,7 +50,9 @@ async def lifespan_of_consumer(app: FastAPI):
     
 
 app = FastAPI(
-    lifespan=lifespan_of_consumer
+    lifespan=lifespan_of_consumer,
+    title="Employee Microservice API",
+    description="API for managing brands, models, colors, accessories, insurances, customers, cars, and purchases in the KEA Cars system. Used by employees (admins, managers, sales people). Handles business logic, enforces role-based access, and synchronizes employee data with the admin microservice."
 )
 
 CORS_SETTINGS = {
