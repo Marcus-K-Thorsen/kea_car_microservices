@@ -25,7 +25,6 @@ RABBITMQ_HOST = os.getenv("RABBITMQ_HOST", "rabbitmq")
 RABBITMQ_PORT = int(os.getenv("RABBITMQ_PORT", 5672))
 RABBITMQ_USERNAME = os.getenv("RABBITMQ_USERNAME", "guest")
 RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "guest")
-RABBITMQ_HEARTBEAT = int(os.getenv("RABBITMQ_HEARTBEAT", 30)) 
 
 
 class BaseConsumer(ABC):
@@ -58,7 +57,6 @@ class BaseConsumer(ABC):
                     port=RABBITMQ_PORT,
                     login=RABBITMQ_USERNAME,
                     password=RABBITMQ_PASSWORD,
-                    heartbeat=RABBITMQ_HEARTBEAT 
                 )
                 self.channel = await self.connection.channel()
                 break
