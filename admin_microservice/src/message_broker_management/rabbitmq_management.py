@@ -30,7 +30,8 @@ class RabbitMQManagement():
         connection_params = ConnectionParameters(
             host=HOST,
             port=PORT,
-            credentials=CREDENTIALS
+            credentials=CREDENTIALS,
+            heartbeat=30 
             )
         self.connection_params: ConnectionParameters = connection_params
         
