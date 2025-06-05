@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 import asyncio
 import os
-import sys
 
 # Internal Library imports
 from src.message_broker_management import get_admin_exchange_consumer, start_consumer, stop_consumer
@@ -38,7 +37,9 @@ async def lifespan_of_consumer(app: FastAPI):
         logger.info("RabbitMQ consumer started successfully.")
     except Exception as e:
         logger.error(f"Failed to start RabbitMQ consumer: {e}")
-        sys.exit(1)
+        if app.state.consumer:
+            await stop_consumer(app.state.consumer)
+        os._exit(1)  # Exit the application if consumer fails to start
     logger.info("Employee Microservice is starting up...")
 
     # Yield control to the application
@@ -95,5 +96,5 @@ if __name__ == "__main__":
     except ValueError:
         raise ValueError("API_PORT must be an integer.")
     
-    uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
+    uvicorn.run(app, host=API_HOST, port=API_PORT)
     

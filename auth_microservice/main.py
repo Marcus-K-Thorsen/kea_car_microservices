@@ -29,8 +29,10 @@ async def lifespan_of_consumer(app: FastAPI):
         logger.info("RabbitMQ consumer started successfully.")
     except Exception as e:
         logger.error(f"Failed to start RabbitMQ consumer: {e}")
-        sys.exit(1)
-    logger.info("Auth Microservice is starting up...")
+        if app.state.consumer:
+            await stop_consumer(app.state.consumer)  # Ensure consumer is stopped on failure
+        os._exit(1)  # Exit the application if consumer fails to start
+    logger.info("Authentication Microservice is starting up...")
     
 
     # Yield control to the application
@@ -80,4 +82,4 @@ if __name__ == "__main__":
     except ValueError:
         raise ValueError("API_PORT must be an integer.")
     
-    uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
+    uvicorn.run(app, host=API_HOST, port=API_PORT)
