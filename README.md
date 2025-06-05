@@ -6,18 +6,21 @@ Welcome to the KEA Cars Microservices project! This repository contains a set of
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Project Structure](#project-structure)
-- [Step 1: Clone the Repository](#step-1-clone-the-repository)
-- [Step 2: Create Environment Files](#step-2-create-environment-files)
-- [Step 3: Install Poetry (if needed)](#step-3-install-poetry-if-needed)
-- [Step 4: Install Dependencies (Optional)](#step-4-install-dependencies-optional)
-- [Step 5: Start the Project with Docker Compose](#step-5-start-the-project-with-docker-compose)
-- [Step 6: Seed Databases (Optional)](#step-6-seed-databases-optional)
-- [Step 7: Running with Kubernetes](#step-7-running-with-kubernetes)
-- [Useful Commands](#useful-commands)
-- [Documentation](#documentation)
-- [Troubleshooting](#troubleshooting)
+- [KEA Cars Microservices](#kea-cars-microservices)
+  - [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Project Structure](#project-structure)
+  - [Step 1: Clone the Repository](#step-1-clone-the-repository)
+  - [Step 2: Create Environment Files](#step-2-create-environment-files)
+  - [Step 3: Install Poetry (if needed)](#step-3-install-poetry-if-needed)
+  - [Step 4: Install Dependencies (Optional)](#step-4-install-dependencies-optional)
+  - [Step 5: Start the Project with Docker Compose](#step-5-start-the-project-with-docker-compose)
+  - [Step 6: Seed Databases (Optional)](#step-6-seed-databases-optional)
+  - [Step 7: Running with Kubernetes](#step-7-running-with-kubernetes)
+  - [Useful Commands](#useful-commands)
+  - [Documentation](#documentation)
+  - [Troubleshooting](#troubleshooting)
+  - [License](#license)
 
 ---
 
@@ -70,6 +73,7 @@ cp admin_microservice/.env.example admin_microservice/.env
 cp auth_microservice/.env.example auth_microservice/.env
 cp customer_microservice/.env.example customer_microservice/.env
 cp employee_microservice/.env.example employee_microservice/.env
+cp synch_microservice/.env.example synch_microservice/.env
 ```
 
 > **Note:** Edit each `.env` file and provide the necessary environment variables (database credentials, secrets, etc.).
@@ -155,10 +159,11 @@ kubectl delete -R -f kubernetes/
 
 - Access API docs for each service (when running):
 
-  - Admin: http://localhost:8001/docs
+  - Admin: http://localhost:8000/docs
+  - Auth: http://localhost:8001/docs
   - Customer: http://localhost:8002/docs
   - Employee: http://localhost:8003/docs
-  - Auth: http://localhost:8004/docs
+  
 
 - Check logs for a service (Docker Compose):
 
