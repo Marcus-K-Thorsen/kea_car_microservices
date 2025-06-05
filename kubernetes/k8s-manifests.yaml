@@ -109,6 +109,11 @@ spec:
       containers:
         - name: rabbitmq
           image: rabbitmq:3-management
+          resources:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 1Gi
           ports:
             - containerPort: 5672
             - containerPort: 15672
