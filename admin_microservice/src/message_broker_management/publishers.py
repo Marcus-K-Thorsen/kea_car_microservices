@@ -23,7 +23,4 @@ class EmployeeUndeletedPublisher(BasePublisher):
         
 
         
-employee_created_publisher = EmployeeCreatedPublisher()
-employee_updated_publisher = EmployeeUpdatedPublisher()
-employee_deleted_publisher = EmployeeDeletedPublisher()
-employee_undeleted_publisher = EmployeeUndeletedPublisher()
+

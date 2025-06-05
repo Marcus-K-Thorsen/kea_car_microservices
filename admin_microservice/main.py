@@ -7,8 +7,6 @@ import os
 
 # Internal library imports
 from src.routers import employees_router, login_router
-from src.message_broker_management import close_all_connections
-
 
 load_dotenv()
 
@@ -50,5 +48,3 @@ if __name__ == "__main__":
         raise ValueError("API_PORT must be an integer.")
 
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
-
-    close_all_connections()

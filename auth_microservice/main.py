@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import asyncio
 import os
+import sys
 from dotenv import load_dotenv
 
 # Internal Library imports
@@ -28,7 +29,9 @@ async def lifespan_of_consumer(app: FastAPI):
         logger.info("RabbitMQ consumer started successfully.")
     except Exception as e:
         logger.error(f"Failed to start RabbitMQ consumer: {e}")
-        raise
+        sys.exit(1)
+    logger.info("Auth Microservice is starting up...")
+    
 
     # Yield control to the application
     yield
