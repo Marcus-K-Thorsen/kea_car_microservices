@@ -150,7 +150,7 @@ class CarRepository(BaseRepository):
                 models_id=model.id,
                 colors_id=color.id,
                 customers_id=customer.id,
-                employess_id=employee.id,
+                employees_id=employee.id,
                 total_price=calculated_total_price_for_the_car,
                 purchase_deadline=car_create_data.purchase_deadline
             )

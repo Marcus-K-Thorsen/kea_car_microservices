@@ -113,7 +113,8 @@ async def get_cars(
     Retrieves a Car by ID from the MySQL Employee database by giving a UUID 
     in the path for the car and returns it as a 'CarReturnResource'.
     
-    The endpoint requires an authorization token in the header and is only accessible by employees with the role: 'ADMIN' or 'MANAGER'.
+    The endpoint requires an authorization token in the header and is accessible by all roles.
+    But if the token is from an employee with the role: 'SALES_PERSON' then only that employee's car can be retrieved.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )
