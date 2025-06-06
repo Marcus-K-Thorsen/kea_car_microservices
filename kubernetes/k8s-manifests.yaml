@@ -1142,19 +1142,3 @@ spec:
           resources:
             requests:
               cpu: "100m"
----
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
-metadata:
-  name: cpu-scaledobject
-  namespace: kea-car-microservices
-spec:
-  scaleTargetRef:
-    name: synch-microservice
-  minReplicaCount: 1
-  maxReplicaCount: 3
-  triggers:
-    - type: cpu
-      metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
-      metadata:
-        value: "1" # Target average CPU utilization (percentage) for the deployment
