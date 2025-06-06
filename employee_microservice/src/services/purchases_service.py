@@ -74,14 +74,10 @@ def get_by_id(
         raise TypeError(f"purchase_id must be of type str, "
                         f"not {type(purchase_id).__name__}.")
         
-    get_current_employee(
+    current_employee = get_current_employee(
         token,
         session,
-        current_user_action="get purchase by id",
-        valid_roles=[
-            RoleEnum.manager,
-            RoleEnum.admin
-        ]
+        current_user_action="get purchase by id"
     )
 
     purchase = repository.get_by_id(purchase_id)
@@ -89,6 +85,11 @@ def get_by_id(
         raise UnableToFindIdError(
             entity_name="Purchase",
             entity_id=purchase_id
+        )
+    
+    if current_employee.role == RoleEnum.sales_person and purchase.car.employees_id != current_employee.id:
+        raise EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError(
+            current_employee=current_employee
         )
 
     return purchase.as_resource()
@@ -120,7 +121,7 @@ def get_by_car_id(
             entity_id=car_id
         )
         
-    if current_employee.role == RoleEnum.sales_person and car.employees_id != current_employee.id:
+    if current_employee.role == RoleEnum.sales_person and current_employee.id != car.employees_id:
         raise EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError(
             current_employee=current_employee
         )
@@ -166,6 +167,10 @@ def create(
         raise EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError(
             current_employee=current_employee
         )
+        
+    aleady_created_purchase = purchase_repository.get_by_id(str(purchase_create_data.id))
+    if aleady_created_purchase is not None:
+        return aleady_created_purchase.as_resource()
 
     if purchase_repository.is_car_taken(car):
         raise AlreadyTakenFieldValueError(

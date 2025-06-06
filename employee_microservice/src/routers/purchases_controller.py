@@ -81,7 +81,8 @@ async def get_purchases(
     by giving a UUID in the path for the purchase and 
     returns it as a 'PurchaseReturnResource'.
     
-    The endpoint requires an authorization token in the header and is only accessible by employees with the role: 'ADMIN' or 'MANAGER'.
+    The endpoint requires an authorization token in the header and is accessible by all roles.
+    But if the token is from an employee with the role: 'SALES_PERSON' then only that employee's purchase can be retrieved.
     """,
     dependencies=[Depends(get_current_employee_token)]
 )

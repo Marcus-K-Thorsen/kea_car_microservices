@@ -22,7 +22,8 @@ from src.exceptions import (
     UnableToFindIdError,
     UnableToDeleteAnotherEmployeesCarError,
     TheColorIsNotAvailableInModelToGiveToCarError,
-    UnableToDeleteCarWithoutDeletingPurchaseTooError
+    UnableToDeleteCarWithoutDeletingPurchaseTooError,
+    EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError
 )
 from src.entities import (
     CustomerEntity,
@@ -103,7 +104,7 @@ def get_all(
         limit=car_limit
     )
     
-    car_resources = List[CarReturnResource] = []
+    car_resources: List[CarReturnResource] = []
     for car in cars:
         is_car_purchased: bool = purchase_repository.is_car_taken(car)
         car_resources.append(car.as_resource(is_car_purchased))
@@ -124,14 +125,10 @@ def get_by_id(
         raise TypeError(f"car_id must be of type str, "
                         f"not {type(car_id).__name__}.")
         
-    get_current_employee(
+    current_employee = get_current_employee(
         token,
         session,
-        current_user_action="get car by id",
-        valid_roles=[
-            RoleEnum.manager,
-            RoleEnum.admin
-        ]
+        current_user_action="get car by id"
     )
 
     car = car_repository.get_by_id(car_id)
@@ -143,6 +140,11 @@ def get_by_id(
         )
         
     is_car_purchased: bool = purchase_repository.is_car_taken(car)
+    
+    if current_employee.role == RoleEnum.sales_person and car.employees_id != current_employee.id:
+        raise EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError(
+            current_employee
+        )
     
     return car.as_resource(is_car_purchased)
 
@@ -164,7 +166,7 @@ def create(
     if not isinstance(car_create_data, CarCreateResource):
         raise TypeError(f"car_create_data must be of type CarCreateResource, "
                         f"not {type(car_create_data).__name__}.")
-        
+    
     current_employee = get_current_employee(
         token,
         session,
@@ -173,10 +175,26 @@ def create(
     
     car_customer_id = str(car_create_data.customers_id)
     car_employee_id = car_create_data.employees_id
-    if current_employee.role == RoleEnum.sales_person or car_employee_id is None:
-        car_employee_id = current_employee.id
+    current_employee_id = current_employee.id
+    current_employee_role = current_employee.role
+    
+    already_created_car = car_repository.get_by_id(str(car_create_data.id))
+    if already_created_car is not None:
+        if current_employee_role == RoleEnum.sales_person and already_created_car.employees_id != current_employee_id:
+            raise EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError(
+                current_employee
+            )
+        else:
+            purchase_repository = PurchaseRepository(session)
+            is_car_purchased = purchase_repository.is_car_taken(already_created_car)
+            return already_created_car.as_resource(is_car_purchased)
+    
+    if current_employee_role == RoleEnum.sales_person or car_employee_id is None:
+        car_employee_id = current_employee_id
     else:
         car_employee_id = str(car_employee_id)
+    
+    
     car_model_id = str(car_create_data.models_id)
     car_color_id = str(car_create_data.colors_id)
     car_accessory_ids = [str(accessory_id) for accessory_id in car_create_data.accessory_ids]
