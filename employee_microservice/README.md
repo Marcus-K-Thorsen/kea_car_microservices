@@ -98,7 +98,8 @@ Below is an overview of the available endpoints for managing business operations
 - **Summary:** Retrieve a Car by ID - Requires authorization token in header.
 - **Description:**  
   Retrieves a Car by ID from the MySQL Employee database by giving a UUID in the path for the car and returns it as a `CarReturnResource`.
-  - Only accessible by employees with the role: `ADMIN` or `MANAGER`.
+  - The endpoint requires an authorization token in the header and is accessible by all roles.
+  - If the token is from an employee with the role: `SALES_PERSON` and the car does not belong to that employee, an error with a specific error code (HTTP_403_FORBIDDEN) will be returned.
 - **Path Parameters:**
   - `car_id` (UUID): The UUID of the car to retrieve.
 - **Response:**  
@@ -398,7 +399,7 @@ Below is an overview of the available endpoints for managing business operations
 - **Summary:** Retrieve a Purchase by ID - Requires authorization token in header.
 - **Description:**  
   Retrieves a Purchase by ID from the MySQL Employee database by giving a UUID in the path for the purchase and returns it as a `PurchaseReturnResource`.
-  - Only accessible by employees with the role: `ADMIN` or `MANAGER`.
+  - If the token is from an employee with the role:  `SALES_PERSON` and the purchase is not of that employee, an error with status code HTTP_403_FORBIDDEN will be thrown.
 - **Path Parameters:**
   - `purchase_id` (UUID): The UUID of the purchase to retrieve.
 - **Response:**  
