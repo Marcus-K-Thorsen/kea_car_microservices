@@ -28,7 +28,8 @@ def handle_message(database: Database, message: dict, routing_key: str) -> None:
     
     if "employee" in routing_key:
         logger.info(f"Handling employee message with routing key: {routing_key}")
+        is_deleted = message.pop("is_deleted", None)
         employee_entity = EmployeeEntity(_id=_id, **message)
-        handle_employee_message(database, employee_entity, routing_key)
+        handle_employee_message(database, employee_entity, is_deleted, routing_key)
     else:
         raise ValueError(f"Invalid routing key: {routing_key}, expected 'employee' in routing key.")
