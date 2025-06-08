@@ -3,12 +3,10 @@
 
 # Internal library imports
 from src.logger_tool import logger
+from src.entities import InsuranceMessage
 from src.database_management import Database
 from src.repositories import InsuranceRepository
-from src.entities import InsuranceMessage
 from src.exceptions import AlreadyTakenFieldValueError
-
-
 
 
 def create(
@@ -21,7 +19,6 @@ def create(
     if not isinstance(insurance_create_data, InsuranceMessage):
         raise TypeError(f"insurance_create_data must be of type InsuranceMessage, "
                         f"not {type(insurance_create_data).__name__}.")
-
     
     existing_insurance_with_the_same_name = repository.get_by_name(insurance_create_data.name, insurance_create_data.id)
     if existing_insurance_with_the_same_name is not None:
@@ -69,14 +66,25 @@ def update(
             entity_name="Insurance"
         )
     
-    updated_insurance = repository.update(insurance_update_data)
+    already_existing_insurance = repository.get_by_id(insurance_update_data.id)
     
-    if updated_insurance is None:
+    if already_existing_insurance is None:
         logger.warning(f"Insurance with id {insurance_update_data.id} does not exist.")
         logger.info("Will assume that the insurance has not been created yet, so will be updating by creating the insurance.")
         repository.create(insurance_update_data)
         logger.info(f"Insurance with id {insurance_update_data.id} has been updated by being created.")
         return None
     
-    logger.info(f"Insurance with id {insurance_update_data.id} has been updated.")
+    if  insurance_update_data.updated_at > already_existing_insurance.updated_at:
+        logger.info(f"Insurance with id {insurance_update_data.id} exists already to be updated.")
+        logger.info(f"As the already existing insurance has not been updated since {already_existing_insurance.updated_at}, "
+                    f"the new insurance will be updated as its data is in the future {insurance_update_data.updated_at}.")
+        repository.update(insurance_update_data)
+        logger.info(f"Insurance with id {insurance_update_data.id} has been updated.")
+    else:
+        logger.warning(f"Insurance with id {insurance_update_data.id} has not been updated since {already_existing_insurance.updated_at}. "
+                       f"The update will not be applied as its data is in the past {insurance_update_data.updated_at}.")
+        return None
+    
+    
     return None
