@@ -40,6 +40,10 @@ def create(
             repository.update(insurance_create_data)
             logger.info(f"Insurance with id {insurance_create_data.id} has been created by being updated.")
             return None
+        else:
+            logger.warning(f"Insurance with id {insurance_create_data.id} has not been updated since {already_created_insurance.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}. "
+                           f"The creation will not be applied as its data is in the past {insurance_create_data.created_at.strftime("%d/%m/%Y, %H:%M:%S")}.")
+            return None
     
     repository.create(insurance_create_data)
     return None
