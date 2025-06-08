@@ -186,21 +186,50 @@ def delete(
     if not isinstance(employee_to_delete, EmployeeMesssage):
         raise TypeError(f"employee_to_delete must be of type EmployeeMesssage, "
                         f"not {type(employee_to_delete).__name__}.")
+        
+    the_employee_email_is_already_taken = repository.is_email_taken(employee_to_delete.email, employee_to_delete.id)
     
     already_existing_employee_to_delete = repository.get_by_id(employee_to_delete.id)
     if already_existing_employee_to_delete is None:
         logger.warning(f"Employee with ID: '{employee_to_delete.id}' does not exist to be deleted.")
-        logger.error("Will assume the employee has not been created yet, and should be tried again later, when it is.")
-        raise UnableToFindIdError(
-            entity_name="Employee",
-            entity_id=employee_to_delete.id
-        )
+        if the_employee_email_is_already_taken:
+            disputed_email = employee_to_delete.email
+            logger.warning(f"But an Employee with the email: '{disputed_email}' already exists.")
+        
+            already_created_employee_with_the_same_email = repository.get_by_email(disputed_email)
+            logger.error(f"Employee with ID: '{employee_to_delete.id}' cannot be created to be deleted before "
+                         f"Employee with ID: '{already_created_employee_with_the_same_email.id}', has its email: '{disputed_email}' updated to something else.")
+            raise AlreadyTakenFieldValueError(
+                entity_name="Employee",
+                field="email",
+                value=disputed_email
+            )
+        else:
+            logger.warning("Will instead create the employee to be deleted.")
+            repository.create(employee_to_delete)
+            logger.info(f"Employee with ID: '{employee_to_delete.id}' deleted by being created.")
+            return None
+
+        
     
     if already_existing_employee_to_delete.is_deleted:
         logger.warning(f"Employee with ID: '{employee_to_delete.id}' is already deleted.")
         if employee_to_delete.updated_at > already_existing_employee_to_delete.updated_at:
             logger.warning(f"And the new data is more recent: {employee_to_delete.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}, "
                            f"than the past data from: {already_existing_employee_to_delete.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}.")
+            if the_employee_email_is_already_taken:
+                disputed_email = employee_to_delete.email
+                logger.warning(f"But an Employee with the email: '{disputed_email}' already exists.")
+        
+                already_created_employee_with_the_same_email = repository.get_by_email(disputed_email)
+                logger.error(f"Employee with ID: '{employee_to_delete.id}' cannot be deleted by being updated before "
+                             f"Employee with ID: '{already_created_employee_with_the_same_email.id}', has its email: '{disputed_email}' updated to something else.")
+                raise AlreadyTakenFieldValueError(
+                    entity_name="Employee",
+                    field="email",
+                    value=disputed_email
+                )
+            
             repository.update(employee_to_delete)
             logger.info(f"Employee with ID: '{employee_to_delete.id}' is deleted by being updated.")
             return None
@@ -230,8 +259,21 @@ def undelete(
                         f"not {type(employee_to_undelete).__name__}.")
     
     already_existing_employee_to_undelete = repository.get_by_id(employee_to_undelete.id)
+    the_employee_email_is_already_taken = repository.is_email_taken(employee_to_undelete.email, employee_to_undelete.id)
     if already_existing_employee_to_undelete is None:
         logger.warning(f"Employee with ID: '{employee_to_undelete.id}' does not exist to be undeleted.")
+        if the_employee_email_is_already_taken:
+            disputed_email = employee_to_undelete.email
+            logger.warning(f"But an Employee with the email: '{disputed_email}' already exists.")
+        
+            already_created_employee_with_the_same_email = repository.get_by_email(disputed_email)
+            logger.error(f"Employee with ID: '{employee_to_undelete.id}' cannot be created to be undeleted by being created before "
+                         f"Employee with ID: '{already_created_employee_with_the_same_email.id}', has its email: '{disputed_email}' updated to something else.")
+            raise AlreadyTakenFieldValueError(
+                entity_name="Employee",
+                field="email",
+                value=disputed_email
+            )
         logger.info("Will instead create the employee.")
         repository.create(employee_to_undelete)
         logger.info(f"Employee with ID: '{employee_to_undelete.id}' undeleted by being created.")
@@ -242,6 +284,18 @@ def undelete(
         if employee_to_undelete.updated_at > already_existing_employee_to_undelete.updated_at:
             logger.warning(f"And the new data is more recent: {employee_to_undelete.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}, "
                            f"than the past data from: {already_existing_employee_to_undelete.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}.")
+            if the_employee_email_is_already_taken:
+                disputed_email = employee_to_undelete.email
+                logger.warning(f"But an Employee with the email: '{disputed_email}' already exists.")
+        
+                already_created_employee_with_the_same_email = repository.get_by_email(disputed_email)
+                logger.error(f"Employee with ID: '{employee_to_undelete.id}' cannot be undeleted by being updated before "
+                             f"Employee with ID: '{already_created_employee_with_the_same_email.id}', has its email: '{disputed_email}' updated to something else.")
+                raise AlreadyTakenFieldValueError(
+                    entity_name="Employee",
+                    field="email",
+                    value=disputed_email
+                )
             logger.info("Will instead update the employee.")
             repository.update(employee_to_undelete)
             logger.info(f"Employee with ID: '{employee_to_undelete.id}' is undeleted by being updated.")

@@ -35,8 +35,8 @@ def create(
         logger.warning(f"Insurance with id {insurance_create_data.id} already exists.")
         if insurance_create_data.created_at > already_created_insurance.updated_at:
             logger.info(f"Insurance with id {insurance_create_data.id} will be updated.")
-            logger.info(f"As the already existing insurance has not been updated since {already_created_insurance.updated_at}, "
-                        f"the new insurance will be created as it was created in the future {insurance_create_data.created_at}.")
+            logger.info(f"As the already existing insurance has not been updated since {already_created_insurance.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}, "
+                        f"the new insurance will be created as it was created in the future {insurance_create_data.created_at.strftime("%d/%m/%Y, %H:%M:%S")}.")
             repository.update(insurance_create_data)
             logger.info(f"Insurance with id {insurance_create_data.id} has been created by being updated.")
             return None
@@ -77,13 +77,13 @@ def update(
     
     if  insurance_update_data.updated_at > already_existing_insurance.updated_at:
         logger.info(f"Insurance with id {insurance_update_data.id} exists already to be updated.")
-        logger.info(f"As the already existing insurance has not been updated since {already_existing_insurance.updated_at}, "
-                    f"the new insurance will be updated as its data is in the future {insurance_update_data.updated_at}.")
+        logger.info(f"As the already existing insurance has not been updated since {already_existing_insurance.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}, "
+                    f"the new insurance will be updated as its data is in the future {insurance_update_data.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}.")
         repository.update(insurance_update_data)
         logger.info(f"Insurance with id {insurance_update_data.id} has been updated.")
     else:
-        logger.warning(f"Insurance with id {insurance_update_data.id} has not been updated since {already_existing_insurance.updated_at}. "
-                       f"The update will not be applied as its data is in the past {insurance_update_data.updated_at}.")
+        logger.warning(f"Insurance with id {insurance_update_data.id} has not been updated since {already_existing_insurance.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}. "
+                       f"The update will not be applied as its data is in the past {insurance_update_data.updated_at.strftime("%d/%m/%Y, %H:%M:%S")}.")
         return None
     
     
