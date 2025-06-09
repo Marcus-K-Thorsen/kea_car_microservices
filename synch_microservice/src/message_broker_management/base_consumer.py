@@ -70,7 +70,7 @@ class BaseConsumer(ABC):
             raise ConnectionError(f"Failed to connect to RabbitMQ after {retries} attempts (total time: {total_time} seconds).")
 
         # Declare exchange and queue
-        self.exhange = await self.channel.declare_exchange(self.exchange_name, self.exchange_type, durable=True)
+        self.exchange = await self.channel.declare_exchange(self.exchange_name, self.exchange_type, durable=True)
         self.queue = await self.channel.declare_queue(self.queue_name, durable=True)
         await self.queue.bind(self.exchange_name, self.routing_key)
         logger.info(

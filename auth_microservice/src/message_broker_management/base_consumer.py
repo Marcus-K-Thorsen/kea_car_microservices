@@ -47,7 +47,7 @@ class BaseConsumer(ABC):
     async def connect(self):
         """Establish a connection to RabbitMQ."""
         retries = 15
-        delay = 5
+        delay = 6
         total_time = 0
         for attempt in range(retries):
             try:
@@ -68,7 +68,7 @@ class BaseConsumer(ABC):
             raise ConnectionError(f"Failed to connect to RabbitMQ after {retries} attempts (total time: {total_time} seconds).")
 
         # Declare exchange and queue
-        self.exhange = await self.channel.declare_exchange(self.exchange_name, ExchangeType.FANOUT, durable=True)
+        self.exchange = await self.channel.declare_exchange(self.exchange_name, ExchangeType.FANOUT, durable=True)
         self.queue = await self.channel.declare_queue(self.queue_name, durable=True)
         await self.queue.bind(self.exchange_name)
         logger.info(
