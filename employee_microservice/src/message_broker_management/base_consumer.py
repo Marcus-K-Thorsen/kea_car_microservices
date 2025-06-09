@@ -108,19 +108,52 @@ class BaseConsumer(ABC):
     async def on_message(self, message: AbstractIncomingMessage):
         """Handle incoming messages."""
         pass
+    
+    
+    def is_rabbitmq_connected(self) -> bool:
+        """Check if the RabbitMQ connection is established."""
+        if not self.connection or not isinstance(self.connection, AbstractRobustConnection):
+            logger.warning("RabbitMQ connection is not established.")
+            return False
+        try:
+            # Check if the connection is open
+            if self.connection.is_closed:
+                logger.warning("RabbitMQ connection is closed.")
+                return False
+        except Exception as e:
+            logger.warning(f"RabbitMQ connection check failed and therefor is not connected: {e}")
+            return False
+        
+        if not self.channel or not isinstance(self.channel, AbstractRobustChannel):
+            logger.warning("RabbitMQ channel is not established.")
+            return False
+        if self.channel.is_closed:
+            logger.warning("RabbitMQ channel is closed.")
+            return False
+        if not self.queue or not isinstance(self.queue, AbstractRobustQueue):
+            logger.warning("RabbitMQ queue is not established.")
+            return False
+        if not self.exchange or not isinstance(self.exchange, AbstractRobustExchange):
+            logger.warning("RabbitMQ exchange is not established.")
+            return False
+        
+        return True
 
     async def start(self):
         """Start consuming messages."""
-        if not self.connection or not self.channel or not self.queue or not self.exchange:
-            logger.info("Connecting to RabbitMQ...")
+        if not self.is_rabbitmq_connected():
+            logger.warning("RabbitMQ connection is not established. Attempting to reconnect...")
+            await self.stop()
+            logger.info("Reconnecting to RabbitMQ...")
             await self.connect()
+            
+        if not self.is_session_connected():
+            self.create_session_connection()
         
         logger.info(f"Starting consumer on queue: {self.queue_name}...")
         await self.queue.consume(self.on_message)
         
-        if not self.is_session_connected():
-            self.create_session_connection()
-
+        
     async def stop(self):
         """Close the connection."""
         logger.info(f"Stopping consumer on queue: {self.queue_name}...")
