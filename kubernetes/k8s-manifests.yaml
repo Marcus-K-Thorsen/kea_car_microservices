@@ -109,11 +109,6 @@ spec:
       containers:
         - name: rabbitmq
           image: rabbitmq:3-management
-          resources:
-            requests:
-              memory: 512Mi
-            limits:
-              memory: 1Gi
           ports:
             - containerPort: 5672
             - containerPort: 15672
@@ -132,11 +127,6 @@ spec:
           volumeMounts:
             - name: rabbitmq-data
               mountPath: /var/lib/rabbitmq
-          readinessProbe:
-            exec:
-              command: ["rabbitmqctl", "status"]
-            initialDelaySeconds: 30
-            periodSeconds: 30
       volumes:
         - name: rabbitmq-data
           persistentVolumeClaim:
@@ -160,10 +150,6 @@ spec:
       port: 15672
       targetPort: 15672
       nodePort: 31567
-    - name: prometheus
-      port: 15692
-      targetPort: 15692
-      nodePort: 31592
 ---
 apiVersion: apps/v1
 kind: Deployment
