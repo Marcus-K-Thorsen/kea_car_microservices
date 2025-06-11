@@ -28,14 +28,14 @@ def create(
         logger.info("Will assume the model is already created, and this is a duplicate message and will drop it.")
         return None
     
-    brand_entity = brand_repository.get_by_id(model_create_data.brand_id)
+    brand_entity = brand_repository.get_by_id(model_create_data.brands_id)
     if brand_entity is None:
-        logger.warning(f"Brand with id {model_create_data.brand_id} not found.")
+        logger.warning(f"Brand with id {model_create_data.brands_id} not found.")
         logger.error("Unable to create model due to missing brand, will assume the brand has not been created yet and will therefore reque the model create message.")
-        raise UnableToFindIdError("Brand", model_create_data.brand_id)
+        raise UnableToFindIdError("Brand", model_create_data.brands_id)
     
     color_entities: List[ColorEntity] = []
-    for color_id in model_create_data.colors_ids:
+    for color_id in model_create_data.color_ids:
         color_entity = color_repository.get_by_id(color_id)
         if color_entity is None:
             logger.warning(f"Color with id {color_id} not found.")

@@ -62,7 +62,7 @@ async def get_employees(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get employees from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -102,7 +102,7 @@ async def get_employee(
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     logger.info(f"Token Id: {token_payload.employee_id}")
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get employee from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,

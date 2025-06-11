@@ -55,7 +55,7 @@ async def get_purchases(
         session: Session = Depends(get_db),
         token: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get purchases from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -94,7 +94,7 @@ async def get_purchase(
         session: Session = Depends(get_db),
         token: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get purchase from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,
@@ -133,7 +133,7 @@ async def get_purchase_by_car_id(
         session: Session = Depends(get_db),
         token: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get purchase by car id from the MySQL Employee database",
         callback=lambda: service.get_by_car_id(
             session,
@@ -169,7 +169,7 @@ async def create_purchase(
         session: Session = Depends(get_db),
         token: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to create purchase within the MySQL Employee database",
         callback=lambda: service.create(
             session,

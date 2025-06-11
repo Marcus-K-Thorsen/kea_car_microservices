@@ -23,6 +23,7 @@ from src.core.config import (
     oauth2
 )
 
+
 def is_invalid_mime_type(file: UploadFile, valid_mime_type: Union[List[str], str]) -> bool:
     """
     Checks if the MIME type of the file is invalid.
@@ -41,7 +42,7 @@ def is_invalid_mime_type(file: UploadFile, valid_mime_type: Union[List[str], str
         raise TypeError(f"valid_mime_type must be of type str or List[str], "
                         f"not {type(valid_mime_type).__name__}.")
     
-    return file.content_type in valid_mime_type
+    return file.content_type not in valid_mime_type
 
 
 async def read_file_if_within_size_limit(
@@ -72,8 +73,6 @@ async def read_file_if_within_size_limit(
     """
     if not isinstance(max_size_in_bytes, int):
         raise TypeError(f"max_size_in_bytes must be of type int, not {type(max_size_in_bytes).__name__}.")
-    if not isinstance(file, UploadFile):
-        raise TypeError(f"file must be of type UploadFile, not {type(file).__name__}.")
     if not isinstance(chunk_size, int):
         raise TypeError(f"chunk_size must be of type int, not {type(chunk_size).__name__}.")
 

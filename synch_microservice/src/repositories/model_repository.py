@@ -45,8 +45,9 @@ class ModelRepository(BaseRepository):
             _id=model_create_data.id,
             name=model_create_data.name,
             price=model_create_data.price,
-            brand=brand_entity.to_mongo_dict(exlude_id=False),
-            colors=[color.to_mongo_dict(exlude_id=False) for color in color_entities],
+            image_url=model_create_data.image_url,
+            brand=brand_entity,
+            colors=color_entities,
             created_at=model_create_data.created_at,
             updated_at=model_create_data.updated_at
         )

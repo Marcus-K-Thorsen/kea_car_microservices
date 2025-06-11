@@ -85,7 +85,7 @@ async def get_cars(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get cars from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -126,7 +126,7 @@ async def get_car(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get car from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,
@@ -162,7 +162,7 @@ async def create_car(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to create car within the MySQL Employee database",
         callback=lambda: service.create(
             session,
@@ -210,7 +210,7 @@ async def delete_car(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to delete car within the MySQL Employee database",
         callback=lambda: service.delete(
             session,

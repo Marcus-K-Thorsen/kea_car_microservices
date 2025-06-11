@@ -1,5 +1,6 @@
 # External Library imports
-from typing import Callable
+import asyncio
+from typing import Callable, Any
 from fastapi import HTTPException, status
 
 
@@ -26,9 +27,12 @@ from src.exceptions.database_errors import (
 
 
 
-def handle_http_exception(error_message: str, callback: Callable):
+async def handle_http_exception(error_message: str, callback: Callable[..., Any]) -> Any:
     try:
-        return callback()
+        result = callback()
+        if asyncio.iscoroutine(result):
+            return await result
+        return result
 
     except UnableToFindIdError as e:
         log_error(error_message, e)

@@ -48,7 +48,7 @@ async def get_insurances(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get insurances from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -84,7 +84,7 @@ async def get_insurance(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get insurance from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,
@@ -120,7 +120,7 @@ async def create_insurance(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to create insurance in the MySQL Employee database",
         callback=lambda: service.create(
             session,
@@ -164,7 +164,7 @@ async def update_insurance(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to update insurance in the MySQL Employee database",
         callback=lambda: service.update(
             session,

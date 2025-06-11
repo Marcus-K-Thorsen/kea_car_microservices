@@ -1,9 +1,7 @@
 # External Library imports
 from uuid import UUID
 from typing import List, Optional
-from fastapi import APIRouter, Depends, Path, Query, UploadFile, HTTPException, status
-from PIL import Image
-import io
+from fastapi import APIRouter, Depends, Path, Query, UploadFile
 
 
 # Internal library imports
@@ -53,7 +51,7 @@ async def get_models(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get models from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -62,6 +60,7 @@ async def get_models(
             model_limit=limit
         )
     )
+
 
 @router.get(
     path="/models/{model_id}",
@@ -90,7 +89,7 @@ async def get_model(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get model from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,
@@ -100,13 +99,9 @@ async def get_model(
     )
 
 
-ALLOWED_IMAGE_TYPES = {"image/png", "image/jpeg",}
-ALLOWED_EXTENSIONS = {".png", ".jpg", ".jpeg"}
-MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2MB
-
 @router.post(
     path="/models",
-    #response_model=ModelReturnResource,
+    response_model=ModelReturnResource,
     response_description=
     """
     Successfully created a model.
@@ -129,41 +124,13 @@ async def create_model(
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
     model_create_data, model_image = model_form_data
-    # Check content type
-    if model_image.content_type not in ALLOWED_IMAGE_TYPES:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid image type. Only PNG and JPG/JPEG are allowed."
-        )
     
-    # Check extension
-    ext = model_image.filename.lower().rsplit(".", 1)[-1]
-    if f".{ext}" not in ALLOWED_EXTENSIONS:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid file extension. Only .png, .jpg, .jpeg are allowed."
+    return await handle_http_exception(
+        error_message="Failed to create model in the MySQL Employee database",
+        callback=lambda: service.create(
+            session,
+            token_payload,
+            model_create_data,
+            model_image
         )
-        
-    # Check file size
-    contents = await model_image.read()
-    if len(contents) > MAX_IMAGE_SIZE:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Image size exceeds 2MB limit."
-        )
-        
-    # Check if file is a real image
-    try:
-        Image.open(io.BytesIO(contents)).verify()
-    except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Uploaded file is not a valid image."
-        )
-        
-    # Reset file pointer for further use
-    model_image.file.seek(0)
-    
-    
-
-    return {"filename": model_image.filename, "content_type": model_image.content_type}
+    )

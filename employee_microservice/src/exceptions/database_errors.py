@@ -27,7 +27,7 @@ class FileTooLargeError(DatabaseError):
 
 class FileIsNotCorrectFileTypeError(DatabaseError):
     def __init__(self, file_name: str, file_type: str, allowed_file_types: list[str]):
-        self.message = (f'The file: {file_name} is not a {file_type} file. '
+        self.message = (f'The file: {file_name} is a {file_type} file. '
                         f'Allowed file types are: {", ".join(allowed_file_types)}.')
         super().__init__(self.message)  # Initialize the base Exception with the message
 

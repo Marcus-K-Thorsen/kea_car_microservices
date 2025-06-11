@@ -23,11 +23,11 @@ from src.routers import (
 )
 from src.logger_tool import logger
 
+
 @asynccontextmanager
 async def lifespan_of_consumer(app: FastAPI):
     """Lifespan function to handle startup and shutdown events."""
     # Startup logic
-    
     try:
         consumer = get_admin_exchange_consumer()
         await consumer.connect()
@@ -49,7 +49,8 @@ async def lifespan_of_consumer(app: FastAPI):
     # Shutdown logic
     if consumer:
         await stop_consumer(consumer)
-    
+
+
 
 app = FastAPI(
     lifespan=lifespan_of_consumer,
@@ -68,6 +69,7 @@ CORS_SETTINGS = {
 load_dotenv()
 
 app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
+
 
 app.include_router(accessories_router, tags=["Accessories"])
 app.include_router(brands_router, tags=["Brands"])

@@ -87,9 +87,6 @@ def get_by_id(
     if model is None:
         raise UnableToFindIdError("Model", model_id)
     
-    logger.info(f"Model: {model.to_bytes()}.")
-    
-    
     return model.as_resource()
 
 
@@ -107,15 +104,12 @@ async def create(
     if not isinstance(model_create_data, ModelCreateResource):
         raise TypeError(f"model_create_data must be of type ModelCreateResource, "
                         f"not {type(model_create_data).__name__}.")
-    if not isinstance(model_image, UploadFile):
-        raise TypeError(f"model_image must be of type UploadFile, "
-                        f"not {type(model_image).__name__}.")
     
     get_current_employee(
         token,
         session,
         current_user_action="creating a model",
-        required_role=[RoleEnum.admin, RoleEnum.manager]
+        valid_roles=[RoleEnum.admin, RoleEnum.manager]
     )
 
     already_created_model = model_repository.get_by_id(model_create_data.id)
@@ -145,7 +139,7 @@ async def create(
         raise FileIsNotCorrectFileTypeError(
             file_name=model_image.filename,
             file_type=model_image.content_type,
-            allowed_types=VALID_MODEL_FILE_TYPES
+            allowed_file_types=VALID_MODEL_FILE_TYPES
         )
         
         
@@ -157,14 +151,14 @@ async def create(
             max_mega_bytes_size=MAX_MODEL_IMAGE_SIZE
         )
     
-    
     file_content = is_file_too_large
     
-    model_image_url = _upload_file_to_digital_ocean_spaces(
-        model_image,
-        file_content,
-        unique_filename
-    )
+    #model_image_url = _upload_file_to_digital_ocean_spaces(
+    #    model_image,
+    #    file_content,
+    #    unique_filename
+    #)
+    model_image_url = f"https://example.com/{unique_filename}"  # Placeholder for actual upload logic
     
     model = model_repository.create(
         model_create_data=model_create_data,
@@ -178,6 +172,7 @@ async def create(
     publish_model_created_message(message=model)
     
     return model_as_resource
+
 
 
 def _get_unique_filename(file: UploadFile) -> str:

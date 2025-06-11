@@ -43,7 +43,7 @@ async def get_accessories(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get accessories from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -80,7 +80,7 @@ async def get_accessory(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get accessory from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,

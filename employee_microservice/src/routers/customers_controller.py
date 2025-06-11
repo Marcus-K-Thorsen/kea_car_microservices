@@ -53,7 +53,7 @@ async def get_customers(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get customers from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -90,7 +90,7 @@ async def get_customer(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get customer from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,
@@ -124,7 +124,7 @@ async def create_customer(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to create customer within the MySQL Employee database",
         callback=lambda: service.create(
             session,
@@ -166,7 +166,7 @@ async def update_customer(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to update customer within the MySQL Employee database",
         callback=lambda: service.update(
             session,
@@ -204,7 +204,7 @@ async def delete_customer(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to delete customer within the MySQL Employee database",
         callback=lambda: service.delete(
             session,

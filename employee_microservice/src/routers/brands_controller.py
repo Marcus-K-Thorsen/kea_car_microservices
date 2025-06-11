@@ -44,7 +44,7 @@ async def get_brands(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get brands from the MySQL Employee database",
         callback=lambda: service.get_all(
             session,
@@ -80,7 +80,7 @@ async def get_brand(
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    return handle_http_exception(
+    return await handle_http_exception(
         error_message="Failed to get brand from the MySQL Employee database",
         callback=lambda: service.get_by_id(
             session,
