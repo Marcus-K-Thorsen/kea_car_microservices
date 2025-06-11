@@ -2,8 +2,9 @@
 from typing import Optional, List
 
 # Internal library imports
-from src.entities import ModelEntity, BrandEntity
+from src.resources import ModelCreateResource
 from src.repositories.base_repository import BaseRepository
+from src.entities import ModelEntity, BrandEntity, ColorEntity, models_has_colors
 
 class ModelRepository(BaseRepository):
     def get_all(
@@ -41,4 +42,47 @@ class ModelRepository(BaseRepository):
         :rtype: ModelEntity | None
         """
         return self.session.get(ModelEntity, model_id)
+    
+    
+    def create(
+            self,
+            model_create_data: ModelCreateResource,
+            model_image_url: str,
+            brand_entity: BrandEntity,
+            color_entities: List[ColorEntity]
+    ) -> ModelEntity:
+        """
+        Creates a new model in the Employee MySQL database.
+        
+        :param model_create_data: The data for the model to create.
+        :type model_create_data: ModelCreateResource
+        :param model_image_url: The URL of the model's image.
+        :type model_image_url: str
+        :param brand_entity: The brand entity associated with the model.
+        :type brand_entity: BrandEntity
+        :param color_entities: A list of color entities associated with the model.
+        :type color_entities: List[ColorEntity]
+        :return: The created ModelEntity object.
+        :rtype: ModelEntity
+        """
+        model_id = str(model_create_data.id)
+        new_model = ModelEntity(
+            id=model_id,
+            name=model_create_data.name,
+            price=model_create_data.price,
+            image_url=model_image_url,
+            brands_id=brand_entity.id
+        )
+        self.session.add(new_model)
+        self.session.flush()
+        
+        for color in color_entities:
+            insert = models_has_colors.insert(
+            ).values(models_id=model_id, colors_id=color.id)
+            self.session.execute(insert)
+        
+        self.session.flush()
+        self.session.refresh(new_model)
+        
+        return new_model
     

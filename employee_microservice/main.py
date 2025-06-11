@@ -57,6 +57,7 @@ app = FastAPI(
     description="API for managing brands, models, colors, accessories, insurances, customers, cars, and purchases in the KEA Cars system. Used by employees (admins, managers, sales people). Handles business logic, enforces role-based access, and synchronizes employee data with the admin microservice."
 )
 
+
 CORS_SETTINGS = {
     "allow_origins": ["*"],
     "allow_credentials": True,
@@ -79,9 +80,6 @@ app.include_router(models_router, tags=["Models"])
 app.include_router(purchases_router, tags=["Purchases"])
 app.include_router(login_router, tags=["Login"])
 
-@app.get("/")
-def read_root():
-    return {"Hello": "Employee Service!"}
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():

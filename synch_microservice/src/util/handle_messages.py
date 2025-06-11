@@ -2,8 +2,9 @@
 
 # Internal Library import
 from src.util.handle_insurance_message import handle_insurance_message
+from src.util.handle_model_message import handle_model_message
+from src.entities import InsuranceMessage, ModelMessage
 from src.database_management import Database
-from src.entities import InsuranceMessage
 from src.logger_tool import logger
 
 
@@ -30,5 +31,9 @@ def handle_message(database: Database, message: dict, routing_key: str) -> None:
         logger.info(f"Handling insurance message with routing key: {routing_key}")
         insurance_message = InsuranceMessage(_id=_id, **message)
         handle_insurance_message(database, insurance_message, routing_key)
+    elif "model" in routing_key:
+        logger.info(f"Handling model message with routing key: {routing_key}")
+        model_message = ModelMessage(_id=_id, **message)
+        handle_model_message(database, model_message, routing_key)
     else:
         raise ValueError(f"Invalid routing key: {routing_key}, expected 'insurance' in routing key.")

@@ -33,7 +33,8 @@ from .insurance_resource import (
 from .model_resource import (
     ModelReturnResource,
     ModelCreateResource,
-    ModelUpdateResource
+    ModelUpdateResource,
+    model_as_form_with_file
 )
 from .purchase_resource import (
     PurchaseReturnResource,

@@ -1,15 +1,13 @@
 # External Library imports
 from uuid import UUID
 from typing import List, Optional
-from fastapi import APIRouter, Depends, Path, Query, Form, File, UploadFile, HTTPException, status
+from fastapi import APIRouter, Depends, Path, Query, UploadFile, HTTPException, status
 from PIL import Image
 import io
-from pydantic import ValidationError, UUID4
-from fastapi.responses import JSONResponse
 
 
 # Internal library imports
-from src.resources import ModelReturnResource, ModelCreateResource
+from src.resources import ModelReturnResource, ModelCreateResource, model_as_form_with_file
 from src.core import get_current_employee_token, TokenPayload
 from src.database_management import Session, get_mysqldb
 from src.services import models_service as service
@@ -100,7 +98,8 @@ async def get_model(
             model_id=str(model_id)
         )
     )
-    
+
+
 ALLOWED_IMAGE_TYPES = {"image/png", "image/jpeg",}
 ALLOWED_EXTENSIONS = {".png", ".jpg", ".jpeg"}
 MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2MB
@@ -125,39 +124,11 @@ MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2MB
     dependencies=[Depends(get_current_employee_token)]
 )
 async def create_model(
-        model_id: UUID = Form(
-            default=...,
-            description="""The UUID of the model to create."""
-        ),
-        model_name: str = Form(
-            default=...,
-            description="""The name of the model to create."""
-        ),
-        model_brands_id: UUID = Form(
-            default=...,
-            description="""The UUID of the brand to create the model for."""
-        ),
-        model_price: float = Form(
-            default=...,
-            description="""The price of the model to create in dollars."""
-        ),
-        model_color_ids: List[str] = Form(
-            default=...,
-            description="""List of UUID of the colors for the model to create."""
-        ),
-        model_image: UploadFile = File(
-            default=...,
-            description="""The image of the model to create."""
-        ),
+        model_form_data: tuple[ModelCreateResource, UploadFile] = Depends(model_as_form_with_file),
         session: Session = Depends(get_db),
         token_payload: TokenPayload = Depends(get_current_employee_token)
 ):
-    print(f"type of model colors: {type(model_color_ids)}")
-    print(f"model color ids: {model_color_ids}")
-    for color_id in model_color_ids:
-        print(f"type of color_id: {type(color_id)}")
-        print(f"color_id: {color_id}")
-    
+    model_create_data, model_image = model_form_data
     # Check content type
     if model_image.content_type not in ALLOWED_IMAGE_TYPES:
         raise HTTPException(
@@ -193,21 +164,6 @@ async def create_model(
     # Reset file pointer for further use
     model_image.file.seek(0)
     
-    print("HELLO")
-    try:
-        model_create_data = ModelCreateResource(
-            id=model_id,
-            name=model_name,
-            brands_id=model_brands_id,
-            price=model_price,
-            color_ids=model_color_ids,
-            model_image=model_image
-        )
-    except Exception as e:
-        # Let FastAPI handle the error as a 422 response
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=e.errors()
-        )
+    
 
     return {"filename": model_image.filename, "content_type": model_image.content_type}

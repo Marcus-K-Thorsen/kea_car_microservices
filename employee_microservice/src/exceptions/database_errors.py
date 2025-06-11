@@ -16,6 +16,32 @@ class AlreadyTakenFieldValueError(DatabaseError):
     def __str__(self):
         return f"{self.message}"
 
+class FileTooLargeError(DatabaseError):
+    def __init__(self, file_name: str, max_mega_bytes_size: int):
+        self.message = f'The file: {file_name} is too large. Maximum allowed size is {max_mega_bytes_size}MB.'
+        super().__init__(self.message)  # Initialize the base Exception with the message
+
+    def __str__(self):
+        return f"{self.message}"
+
+
+class FileIsNotCorrectFileTypeError(DatabaseError):
+    def __init__(self, file_name: str, file_type: str, allowed_file_types: list[str]):
+        self.message = (f'The file: {file_name} is not a {file_type} file. '
+                        f'Allowed file types are: {", ".join(allowed_file_types)}.')
+        super().__init__(self.message)  # Initialize the base Exception with the message
+
+    def __str__(self):
+        return f"{self.message}"
+
+
+class FileCannotBeEmptyError(DatabaseError):
+    def __init__(self):
+        self.message = "Filename cannot be empty."
+        super().__init__(self.message)  # Initialize the base Exception with the message
+
+    def __str__(self):
+        return f"{self.message}"
 
 class UnableToFindIdError(DatabaseError):
     def __init__(self, entity_name: str, entity_id: Union[str, UUID]):

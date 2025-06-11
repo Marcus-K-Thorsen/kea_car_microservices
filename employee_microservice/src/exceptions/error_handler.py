@@ -13,8 +13,11 @@ from src.exceptions.invalid_credentials_errors import (
     EmployeeIsNotAllowedToRetrieveOrMakeCarPurchasesBasedOnOtherEmployeeError
     )
 from src.exceptions.database_errors import (
+    FileTooLargeError,
     UnableToFindIdError,
+    FileCannotBeEmptyError,
     UnableToFindEntityError,
+    FileIsNotCorrectFileTypeError,
     AlreadyTakenFieldValueError,
     PurchaseDeadlineHasPastError,
     TheColorIsNotAvailableInModelToGiveToCarError,
@@ -84,6 +87,27 @@ def handle_http_exception(error_message: str, callback: Callable):
         )
         
     except UnableToDeleteCarWithoutDeletingPurchaseTooError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except FileCannotBeEmptyError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except FileTooLargeError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail=str(f"{error_message}: {e}")
+        )
+        
+    except FileIsNotCorrectFileTypeError as e:
         log_error(error_message, e)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

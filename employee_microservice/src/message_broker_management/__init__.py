@@ -5,7 +5,8 @@ from .main_consumer import start_consumer, stop_consumer, get_admin_exchange_con
 
 from .publishers import (
     publish_insurance_created_message,
-    publish_insurance_updated_message
+    publish_insurance_updated_message,
+    publish_model_created_message
 )
 
 

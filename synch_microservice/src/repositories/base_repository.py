@@ -15,3 +15,12 @@ class BaseRepository:
 
     def get_insurances_collection(self) -> Collection:
         return self.database.get_collection("insurances")
+    
+    def get_models_collection(self) -> Collection:
+        return self.database.get_collection("models")
+    
+    def get_colors_collection(self) -> Collection:
+        return self.database.get_collection("colors")
+    
+    def get_brands_collection(self) -> Collection:
+        return self.database.get_collection("brands")

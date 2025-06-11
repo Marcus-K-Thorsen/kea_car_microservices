@@ -1,1 +1,4 @@
 from .insurance_repository import InsuranceRepository
+from .model_repository import ModelRepository
+from .brand_repository import BrandRepository
+from .color_repository import ColorRepository

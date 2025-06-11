@@ -1,7 +1,8 @@
 # External Library imports
-from uuid import uuid4
-from typing import List
-from pydantic import BaseModel, ConfigDict, Field, field_validator, UUID4
+from uuid import uuid4, UUID
+from typing import List, Union
+from fastapi import Form, File, UploadFile, HTTPException, status
+from pydantic import BaseModel, ConfigDict, Field, field_validator, UUID4, ValidationError
 
 # Internal library imports
 from src.resources.brand_resource import BrandReturnResource
@@ -91,7 +92,72 @@ class ModelCreateResource(ModelCreateOrUpdateResource):
         description="ID of the model to create.",
         examples=[uuid4()]
     )
-    
+
+
+def model_as_form_with_file(
+    id: UUID = Form(
+        default_factory=uuid4,
+        description="""ID of the model to create.""",
+        examples=[uuid4()]
+    ),
+    name: str = Form(
+        ...,
+        description="""Name of the model to create.""",
+        examples=["Series 3"]
+    ),
+    price: float = Form(
+        ...,
+        description="""Price of the model to create in dollars.""",
+        examples=[19990.95]
+    ),
+    brands_id: UUID = Form(
+        ...,
+        description="""The UUID of the brand to the model to create.""",
+        examples=["feb2efdb-93ee-4f45-88b1-5e4086c00334"]
+    ),
+    color_ids: Union[List[str], str] = Form(
+        ...,
+        description="List of UUIDs of the colors for the model to create, can be a single string with comma-separated values or a list of strings.",
+        examples=[
+            [
+                "14382aba-6fe6-405d-a5e2-0b8cfd1f9582", 
+                "5e755eb3-0099-4cdd-b064-d8bd95968109", 
+                "74251648-a7b1-492a-ab2a-f2248c58da00"
+            ]
+        ]
+    ),
+    model_image: UploadFile = File(
+        ...,
+        description="""Image file for the model to create."""
+    )
+) -> tuple[ModelCreateResource, UploadFile]:
+    prepared_color_ids: List[str] = []
+    if isinstance(color_ids, str):
+        # If a single string is provided, convert it to a list
+        color_ids = color_ids.split(",")
+        
+    for color_id in color_ids:
+        color_id = color_id.replace(" ", "")
+        if len(color_id) > 0:
+            for internal_color_id in color_id.split(","):
+                internal_color_id = internal_color_id.strip()
+                if len(internal_color_id) > 0:
+                    prepared_color_ids.append(internal_color_id)
+    try:
+        return ModelCreateResource(
+            id=id,
+            name=name,
+            price=price,
+            brands_id=brands_id,
+            color_ids=prepared_color_ids
+            ), model_image
+    except ValidationError as e:
+        # This will make FastAPI return a 422 with the correct error details
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e.errors())
+        )
+
 
 class ModelUpdateResource(ModelCreateOrUpdateResource):
     name: str = Field(

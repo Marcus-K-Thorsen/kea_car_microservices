@@ -1,5 +1,6 @@
 # External Library imports
-from typing import Union, List
+from fastapi import UploadFile
+from typing import Union, List, Optional
 from datetime import datetime, timezone
 from fastapi import Depends, HTTPException, status
 from jwt import ExpiredSignatureError, InvalidTokenError, decode
@@ -21,6 +22,73 @@ from src.core.config import (
     ALGORITHM,
     oauth2
 )
+
+def is_invalid_mime_type(file: UploadFile, valid_mime_type: Union[List[str], str]) -> bool:
+    """
+    Checks if the MIME type of the file is invalid.
+
+    Args:
+        file (UploadFile): The file to check.
+        valid_mime_type (Union[List[str], str]): The valid MIME type(s) to check against.
+
+    Returns:
+        bool: True if the file's MIME type is INVALID, False otherwise.
+    """
+    if isinstance(valid_mime_type, str):
+        valid_mime_type = [valid_mime_type]
+    
+    if not isinstance(valid_mime_type, list):
+        raise TypeError(f"valid_mime_type must be of type str or List[str], "
+                        f"not {type(valid_mime_type).__name__}.")
+    
+    return file.content_type in valid_mime_type
+
+
+async def read_file_if_within_size_limit(
+    file: UploadFile,
+    max_size_in_bytes: int,
+    chunk_size: int = 1024
+) -> Optional[bytes]:
+    """
+    Reads an UploadFile in chunks and checks if its total size exceeds a specified limit.
+
+    Args:
+        file (UploadFile): The file to read and check.
+        max_size_in_bytes (int): The maximum allowed file size in bytes.
+        chunk_size (int, optional): The number of bytes to read per chunk. Defaults to 1024.
+
+    Returns:
+        Optional[bytes]: The file content as bytes if the file size is within the limit, otherwise None.
+
+    Raises:
+        TypeError: If input arguments are of incorrect types.
+
+    Example:
+        content = await read_file_if_within_size_limit(file, 3 * 1024 * 1024)
+        if content is None:
+            # File is too large
+        else:
+            # Use content
+    """
+    if not isinstance(max_size_in_bytes, int):
+        raise TypeError(f"max_size_in_bytes must be of type int, not {type(max_size_in_bytes).__name__}.")
+    if not isinstance(file, UploadFile):
+        raise TypeError(f"file must be of type UploadFile, not {type(file).__name__}.")
+    if not isinstance(chunk_size, int):
+        raise TypeError(f"chunk_size must be of type int, not {type(chunk_size).__name__}.")
+
+    total_size = 0
+    content = bytearray()
+    while True:
+        chunk = await file.read(chunk_size)
+        if not chunk:
+            break
+        total_size += len(chunk)
+        if total_size > max_size_in_bytes:
+            return None
+        content.extend(chunk)
+    return bytes(content)
+
 
 def get_current_employee(
     token_payload: TokenPayload, 
