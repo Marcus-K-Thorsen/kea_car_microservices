@@ -1,4 +1,5 @@
 # External Library imports
+from uuid import uuid4
 from typing import List, Optional
 from datetime import date, timedelta
 from pydantic import BaseModel, ConfigDict, UUID4, Field, field_validator
@@ -29,9 +30,9 @@ class CarBaseResource(BaseModel):
 
 class CarCreateResource(CarBaseResource):
     id: UUID4 = Field(
-        default=...,
+        default_factory=uuid4,
         description="The UUID for the car to create.",
-        examples=["2a83a308-bc3d-4e6f-b3a5-ba68ece13d1e"]
+        examples=[uuid4()]
     )
     purchase_deadline: date = Field(
         default_factory=calculate_purchase_deadline,

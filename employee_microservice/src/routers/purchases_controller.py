@@ -144,7 +144,7 @@ async def get_purchase_by_car_id(
 
 
 @router.post(
-    path="/purchase",
+    path="/purchases",
     response_model=PurchaseReturnResource,
     response_description=
     """

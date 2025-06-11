@@ -173,7 +173,7 @@ async def create_car(
 
 
 @router.delete(
-    path="/car/{car_id}",
+    path="/cars/{car_id}",
     status_code=status.HTTP_204_NO_CONTENT,
     response_description=
     """

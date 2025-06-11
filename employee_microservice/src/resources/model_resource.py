@@ -1,4 +1,5 @@
 # External Library imports
+from uuid import uuid4
 from typing import List
 from pydantic import BaseModel, ConfigDict, Field, field_validator, UUID4
 
@@ -86,9 +87,9 @@ class ModelCreateOrUpdateResource(ModelBaseResource):
 
 class ModelCreateResource(ModelCreateOrUpdateResource):
     id: UUID4 = Field(
-        default=...,
+        default_factory=uuid4,
         description="ID of the model to create.",
-        examples=["633b76cf-cdb7-42f7-b7a8-bb01352717fd"]
+        examples=[uuid4()]
     )
     
 

@@ -1,3 +1,4 @@
+from uuid import uuid4
 from typing import Optional, Any
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, UUID4
 
@@ -142,9 +143,9 @@ class CustomerCreateOrUpdateResource(CustomerBaseResource):
 
 class CustomerCreateResource(CustomerCreateOrUpdateResource):
     id: UUID4 = Field(
-        default=...,
+        default_factory=uuid4,
         description="ID of the customer to create.",
-        examples=["a904021a-0777-485f-bb84-22146717602d"]
+        examples=[uuid4()]
     )
 
 

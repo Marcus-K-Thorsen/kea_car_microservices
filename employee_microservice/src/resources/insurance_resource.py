@@ -1,3 +1,4 @@
+from uuid import uuid4
 from typing import Any
 from pydantic import BaseModel, ConfigDict, Field, UUID4, field_validator
 
@@ -55,9 +56,9 @@ class InsuranceCreateOrUpdateResource(InsuranceBaseResource):
 
 class InsuranceCreateResource(InsuranceCreateOrUpdateResource):
     id: UUID4 = Field(
-        default=...,
+        default_factory=uuid4,
         description="The UUID for the insurance to create.",
-        examples=["8456043d-5fb0-49bf-ac2c-51567a32cc85"]
+        examples=[uuid4()]
     )
 
 class InsuranceUpdateResource(InsuranceCreateOrUpdateResource):

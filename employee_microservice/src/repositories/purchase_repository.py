@@ -80,7 +80,7 @@ class PurchaseRepository(BaseRepository):
         self.session.flush()
         self.session.refresh(new_purchase)
 
-        return new_purchase.as_resource()
+        return new_purchase
 
 
     def is_car_taken(self, car: CarEntity) -> bool:

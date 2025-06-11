@@ -1,6 +1,7 @@
 # External Library imports
 from enum import Enum
 from typing import Any
+from uuid import uuid4
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, UUID4
 
 # Internal library imports
@@ -134,9 +135,9 @@ class EmployeeCreateResource(EmployeeCreateOrUpdateResource):
     Resource for creating a new employee.
     """
     id: UUID4 = Field(
-        default=...,
+        default_factory=uuid4,
         description="ID of the employee to create.",
-        examples=["f9097a97-eca4-49b6-85a0-08423789c321"]
+        examples=[uuid4()]
     )
 
 

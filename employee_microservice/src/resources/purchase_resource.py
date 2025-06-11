@@ -1,5 +1,5 @@
 # External Library imports
-from typing import Optional
+from uuid import uuid4
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, UUID4, field_validator
 
@@ -18,9 +18,9 @@ class PurchaseBaseResource(BaseModel):
 
 class PurchaseCreateResource(PurchaseBaseResource):
     id: UUID4 = Field(
-        default=...,
+        default_factory=uuid4,
         description="The UUID for the purchase to create.",
-        examples=["b100b630-c417-4c9c-b14e-c4a3ce9ac772"]
+        examples=[uuid4()]
     )
     
     date_of_purchase: date = Field(
