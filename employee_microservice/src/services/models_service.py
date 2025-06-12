@@ -153,13 +153,11 @@ async def create(
     
     file_content = is_file_too_large
     
-    #model_image_url = _upload_file_to_digital_ocean_spaces(
-    #    model_image,
-    #    file_content,
-    #    unique_filename
-    #)
-    model_image_url = f"https://example.com/{unique_filename}"  # Placeholder for actual upload logic
-    
+    model_image_url = _upload_file_to_digital_ocean_spaces(
+        model_image,
+        file_content,
+        unique_filename
+    )
     model = model_repository.create(
         model_create_data=model_create_data,
         model_image_url=model_image_url,
