@@ -17,7 +17,8 @@ from src.exceptions import (
     UnableToFindIdError,
     WeakPasswordError,
     SelfDeleteError,
-    SelfDemotionError
+    SelfDemotionError,
+    IncorrectRoleError
 )
 from src.resources import (
     EmployeeCreateResource, 
@@ -134,14 +135,14 @@ def create(
 def update(
     session: Session,
     token: TokenPayload,
-    employee_id: str,
+    employee_id: Optional[str],
     employee_update_data: EmployeeUpdateResource
 ) -> EmployeeReturnResource:
 
     repository = EmployeeRepository(session)
     
-    if not isinstance(employee_id, str):
-        raise TypeError(f"employee_id must be of type str, "
+    if not (isinstance(employee_id, str) or employee_id is None):
+        raise TypeError(f"employee_id must be of type str or be None, "
                         f"not {type(employee_id).__name__}.")
         
     if not isinstance(employee_update_data, EmployeeUpdateResource):
@@ -150,8 +151,86 @@ def update(
         
     current_employee = get_current_employee(token, session, current_user_action="update employee", valid_roles=[RoleEnum.admin])
     
+    if employee_id is None:
+        employee_id = current_employee.id
+    
     if current_employee.id == employee_id and employee_update_data.role is not None and employee_update_data.role != RoleEnum.admin:
         raise SelfDemotionError(current_employee, employee_update_data.role)
+    
+    employee_email_to_update: Optional[EmailStr] = employee_update_data.email
+    
+    if employee_email_to_update is not None and repository.is_email_taken(str(employee_email_to_update), employee_id):
+        raise AlreadyTakenFieldValueError(
+            entity_name="Employee",
+            field="email",
+            value=str(employee_email_to_update)
+        )
+    
+    updated_password: Optional[str] = employee_update_data.password
+    if updated_password is not None:
+        if is_password_to_short(updated_password):
+            raise WeakPasswordError(
+                password=updated_password,
+                extra_info=": Password must be at least 8 characters long"
+            )
+        
+        if is_password_pwned(updated_password):
+            raise WeakPasswordError(
+                password=updated_password,
+                extra_info=": Password has been registered as having been pwned, please choose a stronger password"
+            )
+        
+        updated_password = get_password_hash(updated_password)
+        
+        
+    updated_employee = repository.update(employee_id, employee_update_data, updated_password)
+    if updated_employee is None:
+        raise UnableToFindIdError(
+            entity_name="Employee",
+            entity_id=employee_id
+        )
+    
+    employee_as_resource = updated_employee.as_resource()
+    
+    publish_employee_updated_message(updated_employee)
+    
+    return employee_as_resource
+
+
+def new_update(
+    session: Session,
+    token: TokenPayload,
+    employee_id: Optional[str],
+    employee_update_data: EmployeeUpdateResource
+) -> EmployeeReturnResource:
+
+    repository = EmployeeRepository(session)
+    
+    if not (isinstance(employee_id, str) or employee_id is None):
+        raise TypeError(f"employee_id must be of type str or be None, "
+                        f"not {type(employee_id).__name__}.")
+        
+    if not isinstance(employee_update_data, EmployeeUpdateResource):
+        raise TypeError(f"employee_update_data must be of type EmployeeUpdateResource, "
+                        f"not {type(employee_update_data).__name__}.")
+        
+    current_employee = get_current_employee(token, session, current_user_action="update employee")
+    
+    if employee_id is None:
+        employee_id = current_employee.id
+    
+    if current_employee.role == RoleEnum.admin:
+        if current_employee.id == employee_id and employee_update_data.role is not None and employee_update_data.role != RoleEnum.admin:
+            raise SelfDemotionError(current_employee, employee_update_data.role)
+    else:
+        if current_employee.id != employee_id:
+            raise IncorrectRoleError(
+                email_of_current_employee=current_employee.email,
+                incorrect_role=current_employee.role,
+                correct_roles=RoleEnum.admin,
+                action="update another employee"
+            )
+        employee_update_data.role = current_employee.role
     
     employee_email_to_update: Optional[EmailStr] = employee_update_data.email
     

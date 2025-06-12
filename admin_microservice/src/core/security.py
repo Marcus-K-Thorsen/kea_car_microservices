@@ -80,8 +80,6 @@ def get_current_employee(
         raise CurrentEmployeeDeletedError(current_employee)
     
     if valid_roles is not None:
-        if isinstance(valid_roles, RoleEnum):
-            valid_roles = [valid_roles]
         if current_employee.role not in valid_roles:
             raise IncorrectRoleError(
                 email_of_current_employee=current_employee.email,

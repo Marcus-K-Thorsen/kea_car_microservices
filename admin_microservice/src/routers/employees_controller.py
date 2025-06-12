@@ -148,8 +148,9 @@ async def create_employee(
         )
     )
 
+
 @router.put(
-    path="/employees/{employee_id}",
+    path="/employees",
     response_model=EmployeeReturnResource,
     response_description=
     """
@@ -160,7 +161,7 @@ async def create_employee(
     description=
     """
     Updates an Employee within the MySQL Admin database 
-    by giving a UUID in the path for the employee 
+    by giving a UUID as a query in the path for the employee 
     and a request body 'EmployeeUpdateResource' 
     and returns it as a 'EmployeeReturnResource'.
     
@@ -172,9 +173,9 @@ async def create_employee(
     dependencies=[Depends(get_current_employee_token)]
 )
 async def update_employee(
-        employee_id: UUID = Path(
-            default=...,
-            description="""The UUID of the employee to update."""
+        employee_id: Optional[UUID] = Query(
+            default=None,
+            description="""The UUID of the employee to update, if none is given the employee who the token is from will be updated."""
         ),
         employee_update_data: EmployeeUpdateResource = Body(
             default=...,
@@ -188,10 +189,11 @@ async def update_employee(
         callback=lambda: service.update(
             session,
             token_payload,
-            employee_id=str(employee_id),
+            employee_id=str(employee_id) if employee_id is not None else None,
             employee_update_data=employee_update_data
         )
     )
+
 
 @router.delete(
     path="/employees/{employee_id}",
@@ -231,7 +233,8 @@ async def delete_employee(
             employee_id=str(employee_id)
         )
     )
-    
+
+
 @router.patch(
     path="/employees/{employee_id}/undelete",
     response_model=EmployeeReturnResource,
