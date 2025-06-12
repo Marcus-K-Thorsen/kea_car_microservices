@@ -61,7 +61,7 @@ class ModelCreateOrUpdateResource(ModelBaseResource):
         maximum_length = 60
         if name_length < 1:
             raise ValueError("Model name must be at least 1 character long.")
-        if len(name) > maximum_length:
+        if name_length > maximum_length:
             raise ValueError(
                 f"The given Model name {name} is {name_length - maximum_length} characters too long, "
                 f"it can only be maximum {maximum_length} characters and not {name_length}.")
