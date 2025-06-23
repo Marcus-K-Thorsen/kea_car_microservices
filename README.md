@@ -2,6 +2,21 @@
 
 Welcome to the KEA Cars Microservices project! This repository contains a set of microservices for managing car sales, customers, employees, and authentication for KEA CARS™.
 
+
+<details>
+  <summary>Click to view the EER Diagram for the Employee database</summary>
+
+  ![EER Diagram](documents\EERD_kea_cars.png)
+
+</details>
+
+<details>
+  <summary>Click to view the System Architecture Diagram the KEA Cars Distributed System</summary>
+
+  ![System Architecture Diagram](documents\KEA_CARS_system_architecture.png)
+
+</details>
+
 ---
 
 ## Table of Contents

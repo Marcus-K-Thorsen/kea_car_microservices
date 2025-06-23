@@ -52,7 +52,6 @@ app = FastAPI(
 
 CORS_SETTINGS = {
     "allow_origins": ["*"],
-    "allow_credentials": True,
     "allow_methods": ["*"],
     "allow_headers": ["*"]
 }
@@ -64,9 +63,6 @@ app.include_router(
     login_router, tags=["Login"]
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "Auth Microservice is running!!"}
 
 
 @app.get("/favicon.ico", include_in_schema=False)

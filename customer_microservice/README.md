@@ -6,6 +6,8 @@ Through its API, the `customer_microservice` enables users to retrieve informati
 
 The `customer_microservice` is strictly limited to reading data; it cannot modify or add any information in the database, ensuring the integrity and security of the underlying data. This approach makes it easy for customers to browse offerings while maintaining a clear separation between public and internal system operations.
 
+Code documentation for Customer Microservice can be found here [Generated Code Documentation](https://marcus-k-thorsen.github.io/08b._Generate_Code_Documentation_For_DLS/)
+
 ---
 
 ## API Overview

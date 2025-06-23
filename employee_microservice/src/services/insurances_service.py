@@ -43,6 +43,7 @@ def get_all(
     
     return [insurance.as_resource() for insurance in insurances]
 
+
 def get_by_id(
         session: Session,
         token: TokenPayload,
@@ -94,9 +95,9 @@ def create(
     is_name_already_taken = repository.get_by_name(insurance_create_data.name, insurance_create_data.id)
     if is_name_already_taken is not None:
         raise AlreadyTakenFieldValueError(
-            field_name="name",
-            field_value=insurance_create_data.name,
-            entity_name="Insurance"
+            entity_name="Insurance",
+            field="name",
+            value=insurance_create_data.name
         )
     
     already_created_insurance = repository.get_by_id(insurance_create_data.id)
@@ -137,9 +138,9 @@ def update(
     is_name_already_taken = repository.get_by_name(insurance_update_data.name, insurance_id)
     if is_name_already_taken is not None:
         raise AlreadyTakenFieldValueError(
-            field_name="name",
-            field_value=insurance_update_data.name,
-            entity_name="Insurance"
+            entity_name="Insurance",
+            field="name",
+            value=insurance_update_data.name
         )
     
     updated_insurance = repository.update(insurance_id, insurance_update_data)

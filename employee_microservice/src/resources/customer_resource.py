@@ -127,7 +127,7 @@ class CustomerCreateOrUpdateResource(CustomerBaseResource):
         minimum_length_of_address = 5
         maximum_length_of_address = 255
         if address is not None:
-            address = address.strip()
+            address = address.strip().replace('<', '').replace('>', '')
             if len(address) == 0:
                 return None
             if len(address) < minimum_length_of_address:

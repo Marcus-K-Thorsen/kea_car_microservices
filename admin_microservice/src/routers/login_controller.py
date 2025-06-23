@@ -32,7 +32,8 @@ router: APIRouter = APIRouter()
     from an employee within the MongoDB database by 
     giving Forms for the email and password of that employee
     and returns a 'Token' from the Auth Microservice '/token' endpoint.
-    """
+    """,
+    include_in_schema=False
 )
 async def login_for_access_token(
         username: str = Form(

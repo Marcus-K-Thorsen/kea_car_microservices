@@ -409,9 +409,9 @@ CREATE TABLE `employees` (
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` VALUES 
-('d096d2e1-f06a-4555-9cd1-afa9f930f10c','james@gmail.com','$2b$10$sB6/ocJJK9HodVv7qEozKO826Ik5gmZH/1GU/xReM1ijIjlA7hvTa','James','Jamesen','sales_person',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),
+('d096d2e1-f06a-4555-9cd1-afa9f930f10c','james@gmail.com','$2b$12$xCsjK2Od4dCC9m7gfZZJH.ES6cveP9dtcgDg.vdWay3739w/iIsVy','James','Jamesen','sales_person',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),
 ('f9097a97-eca4-49b6-85a0-08423789c320','hans@gmail.com','$2b$12$BKrnHSqhmb8NsKnUhhSGWeOj0Pnyx0so0xeXlUrDrNLplk2VnjDyK','Hans','Hansen','manager',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58'),
-('24bd8a11-2310-46bc-aebf-0887325ebdbd','tom@gmail.com','$2b$12$O8wDPpEJYPorIgSR5F/QTO2l277gsYPOcvxc/nKUHyggBh374mcyW','Tom','Tomsen','admin',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58');
+('24bd8a11-2310-46bc-aebf-0887325ebdbd','tom@gmail.com','$2b$12$lRjg1.x16XTXeV0Nwl4K3uYAio1KBlTKyookKWwEElouXaD9ElOLq','Tom','Tomsen','admin',FALSE,'2025-03-26T03:53:58', '2025-03-26T03:53:58');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 

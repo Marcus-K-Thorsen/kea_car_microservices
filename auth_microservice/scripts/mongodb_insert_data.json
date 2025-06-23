@@ -3,7 +3,7 @@
       {
         "_id": "d096d2e1-f06a-4555-9cd1-afa9f930f10c",
         "email": "james@gmail.com",
-        "hashed_password": "$2b$10$sB6/ocJJK9HodVv7qEozKO826Ik5gmZH/1GU/xReM1ijIjlA7hvTa",
+        "hashed_password": "$2b$12$xCsjK2Od4dCC9m7gfZZJH.ES6cveP9dtcgDg.vdWay3739w/iIsVy",
         "first_name": "James",
         "last_name": "Jamesen",
         "role": "sales_person",
@@ -23,7 +23,7 @@
       {
         "_id": "24bd8a11-2310-46bc-aebf-0887325ebdbd",
         "email": "tom@gmail.com",
-        "hashed_password": "$2b$12$O8wDPpEJYPorIgSR5F/QTO2l277gsYPOcvxc/nKUHyggBh374mcyW",
+        "hashed_password": "$2b$12$lRjg1.x16XTXeV0Nwl4K3uYAio1KBlTKyookKWwEElouXaD9ElOLq",
         "first_name": "Tom",
         "last_name": "Tomsen",
         "role": "admin",

@@ -180,6 +180,7 @@ class CarRepository(BaseRepository):
     def delete(self, car: CarEntity, delete_purchase_too: bool):
         """
         Deletes a car from the Employee MySQL database.
+        
         :param car: The car to delete.
         :type car: CarEntity
         :param delete_purchase_too: Whether to delete the purchase associated with the car.

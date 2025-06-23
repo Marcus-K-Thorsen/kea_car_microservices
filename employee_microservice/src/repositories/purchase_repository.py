@@ -86,6 +86,7 @@ class PurchaseRepository(BaseRepository):
     def is_car_taken(self, car: CarEntity) -> bool:
         """
         Checks if a car is already purchased.
+        
         :param car: The car entity to check.
         :type car: CarEntity
         :return: True if the car is purchased, False otherwise.

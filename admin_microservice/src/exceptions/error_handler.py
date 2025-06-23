@@ -10,7 +10,8 @@ from src.exceptions.invalid_credentials_errors import (
     IncorrectRoleError,
     WeakPasswordError,
     SelfDeleteError,
-    SelfDemotionError
+    SelfDemotionError,
+    CurrentEmployeeDeletedError
 )
 from src.exceptions.database_errors import (
     AlreadyTakenFieldValueError, 
@@ -36,6 +37,13 @@ def handle_http_exception(error_message: str, callback: Callable):
         log_error(error_message, e)
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
+            detail=str(f"{error_message}: {e}")
+        )
+    
+    except CurrentEmployeeDeletedError as e:
+        log_error(error_message, e)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
             detail=str(f"{error_message}: {e}")
         )
 

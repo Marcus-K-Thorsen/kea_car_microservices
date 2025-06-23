@@ -8,6 +8,7 @@ import os
 # Internal library imports
 from src.routers import employees_router, login_router
 
+
 load_dotenv()
 
 app = FastAPI(
@@ -22,15 +23,11 @@ CORS_SETTINGS = {
     "allow_headers": ["*"],
 }
 
+
 app.add_middleware(CORSMiddleware, **CORS_SETTINGS)
 
 app.include_router(employees_router, tags=["Employees"])
 app.include_router(login_router, tags=["Login"])
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "Admin Service something EXTRA!!!"}
 
 
 @app.get("/favicon.ico", include_in_schema=False)

@@ -27,7 +27,11 @@ from src.exceptions.database_errors import (
 
 
 
-async def handle_http_exception(error_message: str, callback: Callable[..., Any]) -> Any:
+async def handle_http_exception(
+    error_message: str, 
+    callback: Callable[..., Any]
+) -> Any:
+    
     try:
         result = callback()
         if asyncio.iscoroutine(result):
